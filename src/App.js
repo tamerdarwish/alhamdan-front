@@ -1,25 +1,33 @@
-import logo from './logo.svg';
-import './App.css';
+import React from 'react';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import LoginPage from './pages/LoginPage';
+import AdminDashboard from './pages/AdminDashboard';
+import AdminLogin from './pages/AdminLogin';
+import EventForm from './pages/EventForm';
+import EventPage from './pages/EventPage';
+import OrdersManagementPage from './pages/OrdersManagementPage';
+import StorePage from './pages/StorePage';
+import ProductDetailsPage from './pages/ProductDetailsPage';
+import OrderConfirmationPage from './pages/OrderConfirmationPage';
+import AdminSettingsPage from './pages/AdminSettingsPage';
 
-function App() {
+const App = () => {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Router>
+      <Routes>
+        <Route path="/" element={<LoginPage />} />
+        <Route path="/admin/login" element={<AdminLogin />} />
+        <Route path="/admin" element={<AdminDashboard />} />
+        <Route path="/event/:eventId" element={<EventPage />} />
+        <Route path="/event/new" element={<EventForm />} />
+        <Route path="/orders" element={<OrdersManagementPage />} />
+        <Route path="/store" element={<StorePage />} />
+        <Route path="/product/:productId" element={<ProductDetailsPage />} />
+        <Route path="/order-confirmation" element={<OrderConfirmationPage />} />
+        <Route path="/admin-settings" element={<AdminSettingsPage />} />
+      </Routes>
+    </Router>
   );
-}
+};
 
 export default App;
