@@ -1,7 +1,7 @@
 /* Overall container styling */
 .event-page {
     padding: 20px;
-    max-width: 900px; /* زيادة العرض لتناسب المحتوى */
+    max-width: 1000px; /* زيادة العرض لتناسب المحتوى بشكل أفضل */
     margin: 0 auto;
     background-color: #f9f9f9;
     border-radius: 16px;
@@ -22,7 +22,7 @@
 }
 
 .event-page-header h1 {
-    font-size: 2em;
+    font-size: 2.2em; /* زيادة حجم الخط لعنوان الصفحة */
     color: #333;
     margin: 0;
     font-weight: 700;
@@ -51,8 +51,8 @@
 
 /* Main image styling */
 .main-image-container {
-    width: 150px; /* عرض دائرة الصورة */
-    height: 150px; /* ارتفاع دائرة الصورة */
+    width: 180px; /* عرض دائرة الصورة لزيادة الحجم */
+    height: 180px; /* ارتفاع دائرة الصورة لزيادة الحجم */
     border-radius: 50%; /* جعل الصورة دائرية */
     overflow: hidden;
     margin: 0 auto 20px auto; /* توسيط الصورة وتحديد المسافة من الأسفل */
@@ -109,29 +109,42 @@
     text-align: center;
 }
 
-.upload-button {
-    background-color: #28a745;
-    color: #fff;
+.upload-button,
+.delete-selected-button,
+.print-selected-button {
+    background-color: #007bff; /* لون الخلفية */
+    color: #fff; /* لون النص */
     border: none;
-    border-radius: 12px;
-    padding: 10px 20px;
-    font-size: 16px;
-    cursor: pointer;
-    display: inline-flex;
-    align-items: center;
+    border-radius: 5px; /* حواف مستديرة */
+    padding: 10px 20px; /* تباعد داخل الزر */
+    cursor: pointer; /* تغيير شكل المؤشر عند التمرير فوق الزر */
+    font-size: 16px; /* حجم الخط */
+    display: flex;
+    align-items: center; /* محاذاة الأيقونات والنص */
+    gap: 5px; /* المسافة بين الأيقونة والنص */
     transition: background-color 0.3s ease;
 }
 
-.upload-button:hover {
-    background-color: #218838;
+.upload-button {
+    background-color: #28a745; /* لون الخلفية للزر رفع الصور */
 }
 
-.upload-button svg {
-    margin-right: 8px;
+.delete-selected-button {
+    background-color: #dc3545; /* لون الخلفية للزر حذف الصور */
+}
+
+.print-selected-button {
+    background-color: #17a2b8; /* لون الخلفية للزر طباعة الصور */
+}
+
+.upload-button:hover,
+.delete-selected-button:hover,
+.print-selected-button:hover {
+    opacity: 0.8; /* تأثير التعتيم عند التمرير فوق الزر */
 }
 
 .file-input {
-    display: none;
+    display: none; /* إخفاء حقل تحميل الملفات */
 }
 
 /* No images message */
@@ -152,11 +165,13 @@
 /* Image container styling */
 .image-container {
     position: relative;
+    display: inline-block;
+    margin: 10px;
     border-radius: 12px;
     overflow: hidden;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     background-color: #fff;
-    max-width: 200px;
+    max-width: 220px; /* زيادة عرض الصورة لتناسب حجم أكبر */
     width: 100%;
     cursor: pointer;
     text-align: center; /* توسيط النصوص في صورة */
@@ -171,8 +186,8 @@
 /* Checkbox for selecting images */
 .select-checkbox {
     position: absolute;
-    top: 10px;
-    left: 10px;
+    top: 8px;
+    left: 8px;
     width: 20px;
     height: 20px;
 }
@@ -195,25 +210,7 @@
     background-color: #c82333;
 }
 
-/* Delete selected button styling */
-.delete-selected-button {
-    background-color: #dc3545;
-    color: #fff;
-    border: none;
-    border-radius: 12px;
-    padding: 12px 20px;
-    font-size: 16px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-    margin-top: 20px;
-    display: block;
-    text-align: center;
-}
-
-.delete-selected-button:hover {
-    background-color: #c82333;
-}
-
+/* Edit form styling */
 .edit-form {
     margin-top: 20px;
     padding: 20px;
@@ -266,31 +263,44 @@
     position: absolute;
     bottom: 8px;
     right: 8px;
-    box-shadow: #333;
     transition: color 0.3s ease;
-  }
-  
-  .status-icon.checked {
+}
+
+.status-icon.checked {
     color: rgb(0, 255, 0);
-  }
-  
-  .status-icon.unchecked {
+}
+
+.status-icon.unchecked {
     color: rgb(235, 235, 235);
+}
+
+/* Button container styling */
+.button-container {
+    display: flex;
+    justify-content: space-between; /* توزيع الأزرار بشكل متساوي */
+    gap: 10px; /* إضافة مسافة بين الأزرار */
+}
+.fixed-buttons {
+    position: fixed;
+    top: 20px; /* المسافة من الأعلى */
+    right: 20px; /* المسافة من اليمين */
+    z-index: 1000; /* تأكد من ظهورها فوق المحتويات الأخرى */
+    background-color: #fff; /* يمكنك تخصيص الخلفية حسب التصميم */
+    padding: 10px;
+    border-radius: 5px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
   }
-  
-  .image-container {
-    position: relative;
-    display: inline-block;
-    margin: 10px;
+  .fixed-button-container {
+    position: fixed;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 10px;
+    z-index: 1000;
+    background-color: white; /* خلفية بيضاء */
+    padding: 10px 20px; /* تباعد داخلي لإعطاء الشريط بعض المساحة */
+    border-radius: 8px; /* زوايا مستديرة للشريط */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* تظليل لإضافة عمق */
   }
-  
-  
-  
-  .select-checkbox {
-    position: absolute;
-    top: 8px;
-    left: 8px;
-  }
-  
- 
   
