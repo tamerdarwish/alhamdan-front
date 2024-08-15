@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-import { FaArrowLeft, FaPlus, FaTrash, FaSave } from 'react-icons/fa';
+import { FaArrowLeft, FaPlus, FaTrash, FaSave ,FaCheck} from 'react-icons/fa';
 import './EventPage.css'; // إضافة ملف CSS خارجي
 
 import imageCompression from 'browser-image-compression';
@@ -23,6 +23,10 @@ const EventPage = () => {
           throw new Error('Failed to fetch event');
         }
         const data = await response.json();
+        if (Array.isArray(data.album)) {
+          data.album = data.album.map(image => JSON.parse(image));
+        }
+
         setEvent(data);
         setUpdatedEvent(data); // إعداد تفاصيل الحدث للتعديل
         setLoading(false);
@@ -94,42 +98,43 @@ const EventPage = () => {
     }
   };
 
-  const handleDeleteImage = async (imageUrl) => {
+  const handleDeleteImage = async (imageId) => {
     if (!window.confirm('Are you sure you want to delete this image?')) return;
-
+  
     // تحديث الألبوم مباشرة قبل انتظار الاستجابة
-    const updatedAlbum = event.album.filter((img) => img !== imageUrl);
+    const updatedAlbum = event.album.filter((img) => img.id !== imageId);
+  
     setEvent(prevEvent => ({
       ...prevEvent,
       album: updatedAlbum,
     }));
-
+  
     try {
-      const response = await fetch(`http://localhost:5000/api/upload/${eventId}/delete-images`, {
+      const response = await fetch(`http://localhost:5000/api/upload/${eventId}/delete-image`, {
         method: 'DELETE',
         headers: {
           'Content-Type': 'application/json'
         },
-        body: JSON.stringify({ images: [imageUrl] })
+        body: JSON.stringify({ imageId }) // إرسال الرقم التعريفي في الجسم
       });
-
+  
       if (!response.ok) {
         throw new Error('Failed to delete image');
       }
-
+  
       // لا حاجة للحصول على updatedAlbum من الاستجابة حيث تم تحديثه مسبقًا
     } catch (error) {
       console.error('Error deleting image:', error);
       alert('Failed to delete image');
-
+  
       // إذا حدث خطأ، يمكن إعادة الصورة المحذوفة إلى الألبوم
       setEvent(prevEvent => ({
         ...prevEvent,
-        album: [...prevEvent.album, imageUrl],
+        album: [...prevEvent.album, event.album.find(img => img.id === imageId)],
       }));
     }
-};
-
+  };
+  
 
   const handleDeleteSelectedImages = async () => {
     if (!window.confirm('Are you sure you want to delete selected images?')) return;
@@ -313,54 +318,61 @@ const EventPage = () => {
         </>
       )}
 
-      <div className="album-section">
-        <h2>Album</h2>
-        <div className="upload-container">
-          <label htmlFor="file-upload" className="upload-button">
-            <FaPlus /> Upload Images
-          </label>
+<div className="album-section">
+  <h2>Album</h2>
+  <div className="upload-container">
+    <label htmlFor="file-upload" className="upload-button">
+      <FaPlus /> Upload Images
+    </label>
+    <input
+      id="file-upload"
+      type="file"
+      accept="image/*"
+      multiple
+      onChange={handleAddImages}
+      className="file-input"
+    />
+  </div>
+
+  {album.length === 0 ? (
+    <p className="no-images">No images in the album.</p>
+  ) : (
+    <div className="images-grid">
+      {album.map((image, index) => (
+        <div key={index} className="image-container">
+          <img src={image.url} alt={`Album image ${index + 1}`} className="album-image" />
+          
           <input
-            id="file-upload"
-            type="file"
-            accept="image/*"
-            multiple
-            onChange={handleAddImages}
-            className="file-input"
+            type="checkbox"
+            className="select-checkbox"
+            checked={selectedImages.includes(image)}
+            onChange={() => handleSelectImage(image)}
+          />
+          
+          <button
+            className="delete-button"
+            onClick={() => handleDeleteImage(image.id)}
+          >
+            <FaTrash />
+          </button>
+          
+          {/* أيقونة "صح" بناءً على printStatus */}
+          <FaCheck
+            className={`status-icon ${image.printStatus ? 'checked' : 'unchecked'}`}
           />
         </div>
+      ))}
+    </div>
+  )}
 
-        {album.length === 0 ? (
-          <p className="no-images">No images in the album.</p>
-        ) : (
-          <div className="images-grid">
-            {album.map((image, index) => (
+  <button
+    className="delete-selected-button"
+    onClick={handleDeleteSelectedImages}
+  >
+    Delete Selected Images
+  </button>
+</div>
 
-              <div key={index} className="image-container">
-                <img src={image} alt={`Album image ${index + 1}`} className="album-image" />
-                <input
-                  type="checkbox"
-                  className="select-checkbox"
-                  checked={selectedImages.includes(image)}
-                  onChange={() => handleSelectImage(image)}
-                />
-                <button
-                  className="delete-button"
-                  onClick={() => handleDeleteImage(image)}
-                >
-                  <FaTrash />
-                </button>
-              </div>
-            ))}
-          </div>
-        )}
-
-        <button
-          className="delete-selected-button"
-          onClick={handleDeleteSelectedImages}
-        >
-          Delete Selected Images
-        </button>
-      </div>
     </div>
   );
 };
