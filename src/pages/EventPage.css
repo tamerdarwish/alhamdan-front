@@ -1,14 +1,20 @@
+/* Reset some deault styling */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
 /* Overall container styling */
 .event-page {
     padding: 20px;
-    max-width: 1000px; /* زيادة العرض لتناسب المحتوى بشكل أفضل */
+    max-width: 90%; /* عرض مناسب وفق الشاشة */
     margin: 0 auto;
     background-color: #f9f9f9;
     border-radius: 16px;
     box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
     font-family: 'Helvetica Neue', Arial, sans-serif;
-    box-sizing: border-box;
-    text-align: center; /* توسيط النصوص والصور */
+    text-align: center;
 }
 
 /* Header styling */
@@ -19,13 +25,15 @@
     margin-bottom: 20px;
     border-bottom: 2px solid #e0e0e0;
     padding-bottom: 10px;
+    flex-wrap: wrap; /* لدعم الشاشات الصغيرة */
 }
 
 .event-page-header h1 {
-    font-size: 2.2em; /* زيادة حجم الخط لعنوان الصفحة */
+    font-size: 2.5em;
     color: #333;
     margin: 0;
     font-weight: 700;
+    flex: 1 1 auto; /* مرونة أفضل وفق حجم الشاشة */
 }
 
 .back-button {
@@ -51,11 +59,11 @@
 
 /* Main image styling */
 .main-image-container {
-    width: 180px; /* عرض دائرة الصورة لزيادة الحجم */
-    height: 180px; /* ارتفاع دائرة الصورة لزيادة الحجم */
-    border-radius: 50%; /* جعل الصورة دائرية */
+    width: 180px;
+    height: 180px;
+    border-radius: 50%;
     overflow: hidden;
-    margin: 0 auto 20px auto; /* توسيط الصورة وتحديد المسافة من الأسفل */
+    margin: 0 auto 20px auto;
     position: relative;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
@@ -63,18 +71,16 @@
 .main-image {
     width: 100%;
     height: 100%;
-    object-fit: cover; /* الحفاظ على نسبة العرض إلى الارتفاع */
+    object-fit: cover;
 }
 
 /* Event details styling */
 .event-details {
     margin-bottom: 30px;
-}
-
-.event-details p {
     font-size: 1.2em;
     color: #555;
-    margin: 10px 0;
+    text-align: center; /* تعديل محاذاة النص إلى المنتصف */
+    margin-top: 20px;
 }
 
 /* Drive link styling */
@@ -95,10 +101,11 @@
 .album-section {
     border-top: 2px solid #e0e0e0;
     padding-top: 20px;
+    text-align: left;
 }
 
 .album-section h2 {
-    font-size: 1.8em;
+    font-size: 2em;
     color: #333;
     margin-bottom: 20px;
 }
@@ -106,45 +113,46 @@
 /* Upload button styling */
 .upload-container {
     margin-bottom: 20px;
-    text-align: center;
 }
+
 
 .upload-button,
 .delete-selected-button,
 .print-selected-button {
-    background-color: #007bff; /* لون الخلفية */
-    color: #fff; /* لون النص */
+    background-color: #007bff;
+    color: #fff;
     border: none;
-    border-radius: 5px; /* حواف مستديرة */
-    padding: 10px 20px; /* تباعد داخل الزر */
-    cursor: pointer; /* تغيير شكل المؤشر عند التمرير فوق الزر */
-    font-size: 16px; /* حجم الخط */
+    border-radius: 5px;
+    padding: 10px 20px;
+    cursor: pointer;
+    font-size: 16px;
     display: flex;
-    align-items: center; /* محاذاة الأيقونات والنص */
-    gap: 5px; /* المسافة بين الأيقونة والنص */
+    align-items: center;
+    gap: 5px;
     transition: background-color 0.3s ease;
 }
 
 .upload-button {
-    background-color: #28a745; /* لون الخلفية للزر رفع الصور */
+    background-color: #28a745;
+ 
 }
 
 .delete-selected-button {
-    background-color: #dc3545; /* لون الخلفية للزر حذف الصور */
+    background-color: #dc3545;
 }
 
 .print-selected-button {
-    background-color: #17a2b8; /* لون الخلفية للزر طباعة الصور */
+    background-color: #17a2b8;
 }
 
 .upload-button:hover,
 .delete-selected-button:hover,
 .print-selected-button:hover {
-    opacity: 0.8; /* تأثير التعتيم عند التمرير فوق الزر */
+    opacity: 0.8;
 }
 
 .file-input {
-    display: none; /* إخفاء حقل تحميل الملفات */
+    display: none;
 }
 
 /* No images message */
@@ -156,25 +164,28 @@
 
 /* Image grid styling */
 .images-grid {
-    display: flex;
-    flex-wrap: wrap;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); /* Grid layout */
     gap: 20px;
-    justify-content: center;
+    justify-items: center; /* توسيط العناصر */
 }
 
 /* Image container styling */
 .image-container {
     position: relative;
-    display: inline-block;
-    margin: 10px;
     border-radius: 12px;
     overflow: hidden;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     background-color: #fff;
-    max-width: 220px; /* زيادة عرض الصورة لتناسب حجم أكبر */
+    max-width: 220px;
     width: 100%;
     cursor: pointer;
-    text-align: center; /* توسيط النصوص في صورة */
+    text-align: center;
+    transition: transform 0.3s ease;
+}
+
+.image-container:hover {
+    transform: scale(1.05); /* تكبير العنصر عند التمرير فوقه */
 }
 
 .album-image {
@@ -217,6 +228,7 @@
     border: 1px solid #ddd;
     border-radius: 8px;
     background-color: #f9f9f9;
+    text-align: left;
 }
 
 .edit-form label {
@@ -250,10 +262,7 @@
     background-color: #dc3545;
 }
 
-.save-button:hover {
-    opacity: 0.9;
-}
-
+.save-button:hover,
 .cancel-button:hover {
     opacity: 0.9;
 }
@@ -277,20 +286,23 @@
 /* Button container styling */
 .button-container {
     display: flex;
-    justify-content: space-between; /* توزيع الأزرار بشكل متساوي */
-    gap: 10px; /* إضافة مسافة بين الأزرار */
+    justify-content: space-between;
+    gap: 10px;
+    flex-wrap: wrap; /* لجعل الأزرار تتناسب مع الشاشة */
 }
+
 .fixed-buttons {
     position: fixed;
-    top: 20px; /* المسافة من الأعلى */
-    right: 20px; /* المسافة من اليمين */
-    z-index: 1000; /* تأكد من ظهورها فوق المحتويات الأخرى */
-    background-color: #fff; /* يمكنك تخصيص الخلفية حسب التصميم */
+    top: 20px;
+    right: 20px;
+    z-index: 1000;
+    background-color: #fff;
     padding: 10px;
     border-radius: 5px;
     box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
-  }
-  .fixed-button-container {
+}
+
+.fixed-button-container {
     position: fixed;
     bottom: 20px;
     left: 50%;
@@ -298,9 +310,80 @@
     display: flex;
     gap: 10px;
     z-index: 1000;
-    background-color: white; /* خلفية بيضاء */
-    padding: 10px 20px; /* تباعد داخلي لإعطاء الشريط بعض المساحة */
-    border-radius: 8px; /* زوايا مستديرة للشريط */
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* تظليل لإضافة عمق */
-  }
-  
+    background-color: white;
+    padding: 10px 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* Styling for event info section */
+.event-info {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 20px;
+}
+
+.event-info p {
+    font-size: 1.2em;
+    color: #555;
+    margin: 10px 0;
+}
+
+/* Modern edit button styling */
+.edit-button {
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 50px;
+    padding: 10px 30px;
+    cursor: pointer;
+    font-size: 16px;
+    display: inline-flex;
+    align-items: center;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+    margin-top: 20px;
+}
+
+.edit-button:hover {
+    background-color: #0056b3;
+    transform: scale(1.05); /* تكبير الزر عند التمرير فوقه */
+}
+
+.edit-button svg {
+    margin-right: 8px;
+}
+
+/* Media queries for responsive design */
+@media screen and (max-width: 768px) {
+    .event-page-header h1 {
+        font-size: 2em;
+    }
+
+    .back-button {
+        padding: 8px 16px;
+    }
+
+    .main-image-container {
+        width: 140px;
+        height: 140px;
+    }
+}
+.add-images-button {
+    background-color: #28a745; /* لون الخلفية */
+    color: #fff; /* لون النص */
+    border: none;
+    border-radius: 5px;
+    padding: 10px 20px;
+    cursor: pointer;
+    font-size: 16px;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    transition: background-color 0.3s ease;
+}
+
+.add-images-button:hover {
+    opacity: 0.8;
+}
+

@@ -1,9 +1,10 @@
 import React from 'react';
 import { FaPlus, FaTrash, FaPrint, FaCheck } from 'react-icons/fa';
 
+
 const ImageUploader = ({ handleAddImages }) => {
   return (
-    <div className="fixed-button-container">
+    <div >
       <label htmlFor="file-upload" className="upload-button">
         <FaPlus /> Upload Images
       </label>
@@ -12,7 +13,7 @@ const ImageUploader = ({ handleAddImages }) => {
         type="file"
         accept="image/*"
         multiple
-        onChange={(e) => handleAddImages(e.target.files)}
+        onChange={(e) => handleAddImages(e)}
         className="file-input"
       />
     </div>

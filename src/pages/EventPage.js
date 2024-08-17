@@ -1,12 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { FaArrowLeft, FaPlus, FaTrash, FaSave, FaCheck, FaPrint } from 'react-icons/fa';
-import { MdDelete } from "react-icons/md";
-
+import { fetchEventById, editEvent } from '../services/events-api';
+import { uploadImageToAlbum, deleteImageFromAlbum, deleteSelectedImagesFromAlbum } from '../services/images-api';
 import './EventPage.css'; // إضافة ملف CSS خارجي
-
 import imageCompression from 'browser-image-compression';
-
 import ImageUploader from '../components/ImageUploader';
 import ImageGrid from '../components/ImageGrid';
 import EditForm from '../components/EditForm';
@@ -20,20 +18,16 @@ const EventPage = () => {
   const [updatedEvent, setUpdatedEvent] = useState({});
   const navigate = useNavigate();
 
+  // Fetch the event details initially
   useEffect(() => {
     const fetchEvent = async () => {
       try {
-        const response = await fetch(`http://localhost:5000/api/events/${eventId}`);
-        if (!response.ok) {
-          throw new Error('Failed to fetch event');
+        const eventData = await fetchEventById(eventId);
+        if (Array.isArray(eventData.album)) {
+          eventData.album = eventData.album.map(image => JSON.parse(image));
         }
-        const data = await response.json();
-        if (Array.isArray(data.album)) {
-          data.album = data.album.map(image => JSON.parse(image));
-        }
-
-        setEvent(data);
-        setUpdatedEvent(data); // إعداد تفاصيل الحدث للتعديل
+        setEvent(eventData);
+        setUpdatedEvent(eventData);
         setLoading(false);
       } catch (error) {
         console.error('Failed to fetch event:', error);
@@ -45,6 +39,26 @@ const EventPage = () => {
     fetchEvent();
   }, [eventId]);
 
+  // Refetch event when updatedEvent changes
+  useEffect(() => {
+    const refetchEvent = async () => {
+      if (updatedEvent && updatedEvent.id) {
+        try {
+          const updatedEventData = await fetchEventById(updatedEvent.id);
+          if (Array.isArray(updatedEventData.album)) {
+            updatedEventData.album = updatedEventData.album.map(image => JSON.parse(image));
+          }
+          setEvent(updatedEventData);
+          setSelectedImages([]);
+        } catch (error) {
+          console.error('Failed to fetch updated event:', error);
+          alert('Failed to fetch updated event');
+        }
+      }
+    };
+
+    refetchEvent();
+  }, [updatedEvent]);
 
   const handleAddImages = async (e) => {
     const files = e.target.files;
@@ -59,41 +73,34 @@ const EventPage = () => {
       useWebWorker: true
     };
 
+    const newImages = [];
+
     for (const file of files) {
       try {
-        // ضغط الصورة
         const compressedFile = await imageCompression(file, compressOptions);
-
-        // إعداد البيانات لإرسالها
         const formData = new FormData();
         formData.append('images', compressedFile);
 
-        // رفع الصورة
-        const response = await fetch(`http://localhost:5000/api/upload/${eventId}/add-images`, {
-          method: 'POST',
-          body: formData,
-        });
-
-        if (!response.ok) {
-          throw new Error('Failed to upload image');
-        }
-
-        const { album: newAlbum } = await response.json();
-
-        // تحديث الألبوم بعد رفع الصورة بنجاح
-        const uniqueImages = Array.from(new Set([...event.album, ...newAlbum]));
-        setEvent(prevEvent => ({
-          ...prevEvent,
-          album: uniqueImages,
-        }));
-
+        const { album: newAlbum } = await uploadImageToAlbum(eventId, formData);
+        newImages.push(...newAlbum);
       } catch (error) {
         console.error('Error uploading image:', error);
         alert('Failed to upload image');
       }
     }
-  };
 
+    if (newImages.length > 0) {
+      const updatedAlbum = [...event.album, ...newImages];
+      setEvent(prevEvent => ({
+        ...prevEvent,
+        album: updatedAlbum,
+      }));
+      setUpdatedEvent(prevEvent => ({
+        ...prevEvent,
+        album: updatedAlbum,
+      }));
+    }
+  };
 
   const handleSelectImage = (imageUrl) => {
     if (selectedImages.includes(imageUrl)) {
@@ -106,78 +113,61 @@ const EventPage = () => {
   const handleDeleteImage = async (imageId) => {
     if (!window.confirm('Are you sure you want to delete this image?')) return;
 
-    // تحديث الألبوم مباشرة قبل انتظار الاستجابة
     const updatedAlbum = event.album.filter((img) => img.id !== imageId);
-
     setEvent(prevEvent => ({
+      ...prevEvent,
+      album: updatedAlbum,
+    }));
+    setUpdatedEvent(prevEvent => ({
       ...prevEvent,
       album: updatedAlbum,
     }));
 
     try {
-      const response = await fetch(`http://localhost:5000/api/upload/${eventId}/delete-image`, {
-        method: 'DELETE',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({ imageId }) // إرسال الرقم التعريفي في الجسم
-      });
-
-      if (!response.ok) {
-        throw new Error('Failed to delete image');
-      }
-
-      // لا حاجة للحصول على updatedAlbum من الاستجابة حيث تم تحديثه مسبقًا
+      await deleteImageFromAlbum(eventId, imageId);
     } catch (error) {
       console.error('Error deleting image:', error);
       alert('Failed to delete image');
-
-      // إذا حدث خطأ، يمكن إعادة الصورة المحذوفة إلى الألبوم
       setEvent(prevEvent => ({
+        ...prevEvent,
+        album: [...prevEvent.album, event.album.find(img => img.id === imageId)],
+      }));
+      setUpdatedEvent(prevEvent => ({
         ...prevEvent,
         album: [...prevEvent.album, event.album.find(img => img.id === imageId)],
       }));
     }
   };
 
-
   const handleDeleteSelectedImages = async () => {
     if (!window.confirm('Are you sure you want to delete selected images?')) return;
 
     try {
-      // تحديث الألبوم مباشرة قبل انتظار الاستجابة
       const updatedAlbum = event.album.filter((img) => !selectedImages.includes(img));
       setEvent(prevEvent => ({
         ...prevEvent,
         album: updatedAlbum,
       }));
+      setUpdatedEvent(prevEvent => ({
+        ...prevEvent,
+        album: updatedAlbum,
+      }));
 
-      // إرسال طلب الحذف
-      const response = await fetch(`http://localhost:5000/api/upload/${eventId}/delete-images`, {
-        method: 'DELETE',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({ images: selectedImages })
-      });
-
-      if (!response.ok) {
-        throw new Error('Failed to delete images');
-      }
-
-      // إعادة تعيين الصور المحددة بعد الحذف
+      await deleteSelectedImagesFromAlbum(eventId, selectedImages);
       setSelectedImages([]);
     } catch (error) {
       console.error('Error deleting images:', error);
       alert('Failed to delete images');
-      // إذا حدث خطأ، يمكن إرجاع الحالة الأصلية للألبوم إذا لزم الأمر
       setEvent(prevEvent => ({
+        ...prevEvent,
+        album: [...prevEvent.album, ...selectedImages],
+      }));
+      setUpdatedEvent(prevEvent => ({
         ...prevEvent,
         album: [...prevEvent.album, ...selectedImages],
       }));
     }
   };
-
 
   const handleEditClick = () => {
     setIsEditing(true);
@@ -185,7 +175,7 @@ const EventPage = () => {
 
   const handleCancelEdit = () => {
     setIsEditing(false);
-    setUpdatedEvent(event); // إعادة تعيين القيم الأصلية
+    setUpdatedEvent(event);
   };
 
   const handleChange = (e) => {
@@ -197,38 +187,15 @@ const EventPage = () => {
   };
 
   const handleSaveChanges = async () => {
-    // تحديث الواجهة مباشرةً بقيم التحديث
-    setEvent(prevEvent => ({
-      ...prevEvent,
-      ...updatedEvent,
-    }));
-
     try {
-      const response = await fetch(`http://localhost:5000/api/events/${eventId}`, {
-        method: 'PUT',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(updatedEvent),
-      });
-
-      if (!response.ok) {
-        throw new Error('Failed to update event');
-      }
-
-      const data = await response.json();
-      // تحديث الحالة النهائية بعد تأكيد العملية من الخادم
+      const data = await editEvent(eventId, updatedEvent);
       setEvent(data);
+      setUpdatedEvent(data);
       setIsEditing(false);
     } catch (error) {
       console.error('Error updating event:', error);
       alert('Failed to update event');
-
-      // في حالة الخطأ، إعادة الحالة إلى قيمتها الأصلية
-      setEvent(prevEvent => ({
-        ...prevEvent,
-        ...event, // إعادة القيم الأصلية
-      }));
+      setUpdatedEvent(event);
     } finally {
       setLoading(false);
     }
@@ -248,35 +215,29 @@ const EventPage = () => {
       return;
     }
 
-    // Create a new window for printing
     const printWindow = window.open('', '', 'height=600,width=800');
     printWindow.document.write('<html><head><title>Print Images</title>');
     printWindow.document.write('<style>img { max-width: 100%; height: auto; margin-bottom: 20px; }</style>');
     printWindow.document.write('</head><body>');
 
-    // Add each image to the print window
     selectedImages.forEach(imgSrc => {
       printWindow.document.write(`<img src="${imgSrc}" />`);
     });
 
     printWindow.document.write('</body></html>');
-    printWindow.document.close(); // Close the document for printing
-    printWindow.focus(); // Focus on the print window
-    printWindow.print(); // Trigger the print dialog
+    printWindow.document.close();
+    printWindow.focus();
+    printWindow.print();
   }
 
- 
   const { name, date, main_image, drive_link, access_code, album } = event;
   const handleSelectAllImages = () => {
-    // إذا كانت جميع الصور محددة، قم بإلغاء تحديدها
     if (selectedImages.length === event.album.length) {
       setSelectedImages([]);
     } else {
-      // خلاف ذلك، حدد كل الصور
       setSelectedImages(event.album);
     }
   };
-  
 
   return (
     <div className="event-page">
@@ -309,8 +270,8 @@ const EventPage = () => {
           </div>
         </>
       )}
-      <ImageUploader handleAddImages={handleAddImages} />
-      <ImageGrid
+
+<ImageGrid
         album={album}
         selectedImages={selectedImages}
         setSelectedImages={setSelectedImages}
@@ -319,7 +280,22 @@ const EventPage = () => {
         handleDeleteSelectedImages={handleDeleteSelectedImages}
         handlePrintSelected={handlePrintSelected}
         handleSelectAllImages={handleSelectAllImages}
+        handleAddImages={handleAddImages}
       />
+
+
+      <div className="footer">
+        {selectedImages.length > 0 && (
+          <button className="delete-selected-button" onClick={handleDeleteSelectedImages}>
+            <FaTrash /> Delete Selected
+          </button>
+        )}
+        {selectedImages.length > 0 && (
+          <button className="print-selected-button" onClick={handlePrintSelected}>
+            <FaPrint /> Print Selected
+          </button>
+        )}
+      </div>
     </div>
   );
 };

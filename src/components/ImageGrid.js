@@ -1,5 +1,7 @@
 import React from 'react';
 import { FaArrowLeft, FaPlus, FaTrash, FaSave, FaCheck, FaPrint } from 'react-icons/fa';
+import '../pages/EventPage.css'; // إضافة ملف CSS خارجي
+import ImageUploader from './ImageUploader';
 
 const ImageGrid = ({
   album,
@@ -9,12 +11,18 @@ const ImageGrid = ({
   handleDeleteImage,
   handleDeleteSelectedImages,
   handlePrintSelected,
-  handleSelectAllImages
+  handleSelectAllImages,
+  handleAddImages // استدعاء الدالة لإضافة الصور الجديدة
 }) => {
   return (
     <div className="album-section">
       <h2>Album</h2>
+
       <div className="fixed-button-container">
+       
+      <button className="upload-button" onClick={handleDeleteSelectedImages}>
+            <ImageUploader handleAddImages={handleAddImages} />
+      </button>
         <button className="delete-selected-button" onClick={handleDeleteSelectedImages}>
           <FaTrash /> Delete Selected
         </button>
@@ -27,6 +35,7 @@ const ImageGrid = ({
           <FaCheck /> Select All
         </button>
       </div>
+
       {album.length === 0 ? (
         <p className="no-images">No images in the album.</p>
       ) : (
