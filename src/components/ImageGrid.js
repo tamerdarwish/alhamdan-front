@@ -12,25 +12,22 @@ const ImageGrid = ({
   handleDeleteSelectedImages,
   handlePrintSelected,
   handleSelectAllImages,
-  handleAddImages // استدعاء الدالة لإضافة الصور الجديدة
+  handleAddImages
 }) => {
   return (
     <div className="album-section">
       <h2>Album</h2>
 
       <div className="fixed-button-container">
-       
-      <button className="upload-button">
-            <ImageUploader handleAddImages={handleAddImages} />
-      </button>
+        <button className="upload-button">
+          <ImageUploader handleAddImages={handleAddImages} />
+        </button>
         <button className="delete-selected-button" onClick={handleDeleteSelectedImages}>
           <FaTrash /> Delete Selected
         </button>
-
         <button className="print-selected-button" onClick={handlePrintSelected}>
           <FaPrint /> Print Selected
         </button>
-
         <button className="select-all-button" onClick={handleSelectAllImages}>
           <FaCheck /> Select All
         </button>

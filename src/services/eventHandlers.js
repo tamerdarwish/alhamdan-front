@@ -91,69 +91,80 @@ export const handleSelectImage = (imageUrl, selectedImages, setSelectedImages) =
 
 // Handle deleting an individual image from the album
 export const handleDeleteImage = async (imageId, eventId, eventData, setEvent, setUpdatedEvent) => {
-  if (!window.confirm('Are you sure you want to delete this image?')) return;
-
-  const updatedAlbum = eventData.album.filter((img) => img.id !== imageId);
+    if (!window.confirm('Are you sure you want to delete this image?')) return;
   
-  // تحديث الحالة محليًا قبل طلب الحذف
-  setEvent(prevEvent => ({
-    ...prevEvent,
-    album: updatedAlbum,
-  }));
-  setUpdatedEvent(prevEvent => ({
-    ...prevEvent,
-    album: updatedAlbum,
-  }));
-
-  try {
-    // تنفيذ عملية الحذف من الخادم
-    await deleteImageFromAlbum(eventId, imageId);
-  } catch (error) {
-    console.error('Error deleting image:', error);
-    alert('Failed to delete image');
-    
-    // استعادة الصورة في حالة حدوث خطأ
+    const updatedAlbum = eventData.album.filter((img) => img.id !== imageId);
+  
+    // تحديث الحالة محليًا قبل طلب الحذف
     setEvent(prevEvent => ({
       ...prevEvent,
-      album: [...prevEvent.album, eventData.album.find(img => img.id === imageId)],
+      album: updatedAlbum,
     }));
     setUpdatedEvent(prevEvent => ({
       ...prevEvent,
-      album: [...prevEvent.album, eventData.album.find(img => img.id === imageId)],
+      album: updatedAlbum,
     }));
-  }
-};
+  
+    try {
+      // تنفيذ عملية الحذف من الخادم
+      await deleteImageFromAlbum(eventId, imageId);
+    } catch (error) {
+      console.error('Error deleting image:', error);
+      alert('Failed to delete image');
+      
+      // استعادة الصورة في حالة حدوث خطأ
+      // يتم فقط استرجاع الصورة إذا كانت في الأصل ضمن البيانات
+      const imageToRestore = eventData.album.find(img => img.id === imageId);
+      if (imageToRestore) {
+        setEvent(prevEvent => ({
+          ...prevEvent,
+          album: [...prevEvent.album, imageToRestore],
+        }));
+        setUpdatedEvent(prevEvent => ({
+          ...prevEvent,
+          album: [...prevEvent.album, imageToRestore],
+        }));
+      }
+    }
+  };
+  
 
 // Handle deleting selected images from the album
 export const handleDeleteSelectedImages = async (eventId, selectedImages, eventData, setEvent, setUpdatedEvent, setSelectedImages) => {
-  if (!window.confirm('Are you sure you want to delete selected images?')) return;
-
-  try {
-    const updatedAlbum = eventData.album.filter((img) => !selectedImages.includes(img));
-    setEvent(prevEvent => ({
-      ...prevEvent,
-      album: updatedAlbum,
-    }));
-    setUpdatedEvent(prevEvent => ({
-      ...prevEvent,
-      album: updatedAlbum,
-    }));
-
-    await deleteSelectedImagesFromAlbum(eventId, selectedImages);
-    setSelectedImages([]);
-  } catch (error) {
-    console.error('Error deleting images:', error);
-    alert('Failed to delete images');
-    setEvent(prevEvent => ({
-      ...prevEvent,
-      album: [...prevEvent.album, ...selectedImages],
-    }));
-    setUpdatedEvent(prevEvent => ({
-      ...prevEvent,
-      album: [...prevEvent.album, ...selectedImages],
-    }));
-  }
-};
+    if (!window.confirm('Are you sure you want to delete selected images?')) return;
+  
+    const imagesToDelete = selectedImages.map(img => img.id);
+  
+    try {
+      const updatedAlbum = eventData.album.filter((img) => !imagesToDelete.includes(img.id));
+      setEvent(prevEvent => ({
+        ...prevEvent,
+        album: updatedAlbum,
+      }));
+      setUpdatedEvent(prevEvent => ({
+        ...prevEvent,
+        album: updatedAlbum,
+      }));
+  
+      await deleteSelectedImagesFromAlbum(eventId, selectedImages);
+      setSelectedImages([]);
+    } catch (error) {
+      console.error('Error deleting images:', error);
+      alert('Failed to delete images');
+  
+      // في حالة حدوث خطأ، قم بإعادة الصور المحذوفة
+      setEvent(prevEvent => ({
+        ...prevEvent,
+        album: [...prevEvent.album, ...selectedImages],
+      }));
+      setUpdatedEvent(prevEvent => ({
+        ...prevEvent,
+        album: [...prevEvent.album, ...selectedImages],
+      }));
+    }
+  };
+  
+  
 
 // Handle toggling edit mode
 export const handleEditClick = (setIsEditing) => {
