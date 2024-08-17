@@ -20,7 +20,7 @@ const ImageGrid = ({
 
       <div className="fixed-button-container">
        
-      <button className="upload-button" onClick={handleDeleteSelectedImages}>
+      <button className="upload-button">
             <ImageUploader handleAddImages={handleAddImages} />
       </button>
         <button className="delete-selected-button" onClick={handleDeleteSelectedImages}>

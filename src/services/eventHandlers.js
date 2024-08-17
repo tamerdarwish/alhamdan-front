@@ -1,9 +1,43 @@
 // eventHandlers.js
-
 import imageCompression from 'browser-image-compression';
+import { fetchEventById, editEvent } from '../services/events-api';
 import { uploadImageToAlbum, deleteImageFromAlbum, deleteSelectedImagesFromAlbum } from '../services/images-api';
-import { editEvent, fetchEventById } from '../services/events-api';
 
+// Fetch event data by ID
+export const fetchEvent = async (eventId, setEvent, setUpdatedEvent, setLoading) => {
+  try {
+    const eventData = await fetchEventById(eventId);
+    if (Array.isArray(eventData.album)) {
+      eventData.album = eventData.album.map(image => JSON.parse(image));
+    }
+    setEvent(eventData);
+    setUpdatedEvent(eventData);
+    setLoading(false);
+  } catch (error) {
+    console.error('Failed to fetch event:', error);
+    alert('Failed to fetch event');
+    setLoading(false);
+  }
+};
+
+// Refetch updated event data
+export const refetchEvent = async (updatedEvent, setEvent, setSelectedImages) => {
+  if (updatedEvent && updatedEvent.id) {
+    try {
+      const updatedEventData = await fetchEventById(updatedEvent.id);
+      if (Array.isArray(updatedEventData.album)) {
+        updatedEventData.album = updatedEventData.album.map(image => JSON.parse(image));
+      }
+      setEvent(updatedEventData);
+      setSelectedImages([]);
+    } catch (error) {
+      console.error('Failed to fetch updated event:', error);
+      alert('Failed to fetch updated event');
+    }
+  }
+};
+
+// Handle adding images to the event album
 export const handleAddImages = async (e, eventId, eventData, setEvent, setUpdatedEvent) => {
   const files = e.target.files;
   if (!files || files.length === 0) {
@@ -46,6 +80,7 @@ export const handleAddImages = async (e, eventId, eventData, setEvent, setUpdate
   }
 };
 
+// Handle selecting an image
 export const handleSelectImage = (imageUrl, selectedImages, setSelectedImages) => {
   if (selectedImages.includes(imageUrl)) {
     setSelectedImages(selectedImages.filter((img) => img !== imageUrl));
@@ -54,10 +89,13 @@ export const handleSelectImage = (imageUrl, selectedImages, setSelectedImages) =
   }
 };
 
+// Handle deleting an individual image from the album
 export const handleDeleteImage = async (imageId, eventId, eventData, setEvent, setUpdatedEvent) => {
   if (!window.confirm('Are you sure you want to delete this image?')) return;
 
   const updatedAlbum = eventData.album.filter((img) => img.id !== imageId);
+  
+  // تحديث الحالة محليًا قبل طلب الحذف
   setEvent(prevEvent => ({
     ...prevEvent,
     album: updatedAlbum,
@@ -68,10 +106,13 @@ export const handleDeleteImage = async (imageId, eventId, eventData, setEvent, s
   }));
 
   try {
+    // تنفيذ عملية الحذف من الخادم
     await deleteImageFromAlbum(eventId, imageId);
   } catch (error) {
     console.error('Error deleting image:', error);
     alert('Failed to delete image');
+    
+    // استعادة الصورة في حالة حدوث خطأ
     setEvent(prevEvent => ({
       ...prevEvent,
       album: [...prevEvent.album, eventData.album.find(img => img.id === imageId)],
@@ -83,7 +124,8 @@ export const handleDeleteImage = async (imageId, eventId, eventData, setEvent, s
   }
 };
 
-export const handleDeleteSelectedImages = async (selectedImages, eventId, eventData, setEvent, setUpdatedEvent, setSelectedImages) => {
+// Handle deleting selected images from the album
+export const handleDeleteSelectedImages = async (eventId, selectedImages, eventData, setEvent, setUpdatedEvent, setSelectedImages) => {
   if (!window.confirm('Are you sure you want to delete selected images?')) return;
 
   try {
@@ -113,15 +155,18 @@ export const handleDeleteSelectedImages = async (selectedImages, eventId, eventD
   }
 };
 
+// Handle toggling edit mode
 export const handleEditClick = (setIsEditing) => {
   setIsEditing(true);
 };
 
-export const handleCancelEdit = (setIsEditing, setUpdatedEvent, eventData) => {
+// Handle cancelling edit mode
+export const handleCancelEdit = (setIsEditing, eventData, setUpdatedEvent) => {
   setIsEditing(false);
   setUpdatedEvent(eventData);
 };
 
+// Handle form input changes
 export const handleChange = (e, setUpdatedEvent) => {
   const { name, value } = e.target;
   setUpdatedEvent(prevEvent => ({
@@ -130,24 +175,23 @@ export const handleChange = (e, setUpdatedEvent) => {
   }));
 };
 
+// Handle saving changes to the event
 export const handleSaveChanges = async (eventId, updatedEvent, setEvent, setUpdatedEvent, setIsEditing, setLoading) => {
-    try {
-      const response = await editEvent(eventId, updatedEvent); // استخدم 'response' بدلاً من 'data'
-      setEvent(response);
-      setUpdatedEvent(response);
-      setIsEditing(false);
-    } catch (error) {
-      console.error('Error updating event:', error);
-      alert('Failed to update event');
-      setUpdatedEvent(prevEvent => ({
-        ...prevEvent,
-        ...updatedEvent, // استخدم 'updatedEvent' بدلاً من 'data'
-      }));
-    } finally {
-      setLoading(false);
-    }
-  };
-  
+  try {
+    const data = await editEvent(eventId, updatedEvent);
+    setEvent(data);
+    setUpdatedEvent(data);
+    setIsEditing(false);
+  } catch (error) {
+    console.error('Error updating event:', error);
+    alert('Failed to update event');
+    setUpdatedEvent(prevEvent => prevEvent);
+  } finally {
+    setLoading(false);
+  }
+};
+
+// Handle printing selected images
 export const handlePrintSelected = (selectedImages) => {
   if (selectedImages.length === 0) {
     alert("No images selected for printing.");
@@ -169,21 +213,11 @@ export const handlePrintSelected = (selectedImages) => {
   printWindow.print();
 };
 
-export const handleSelectAllImages = (event, selectedImages, setSelectedImages) => {
-    if (!event || !event.album) {
-      console.error('Event or album is not defined');
-      return;
-    }
-  
-    if (!Array.isArray(event.album)) {
-      console.error('Event album is not an array');
-      return;
-    }
-  
-    if (selectedImages.length === event.album.length) {
-      setSelectedImages([]);
-    } else {
-      setSelectedImages(event.album);
-    }
-  };
-  
+// Handle selecting all images
+export const handleSelectAllImages = (selectedImages, eventData, setSelectedImages) => {
+  if (selectedImages.length === eventData.length) {
+    setSelectedImages([]);
+  } else {
+    setSelectedImages(eventData);
+  }
+};
