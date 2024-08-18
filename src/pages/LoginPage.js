@@ -1,7 +1,21 @@
-// src/pages/LoginPage.js
-
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+
+// دالة افتراضية للتحقق من صحة كود الوصول
+const verifyEventCode = async (eventCode) => {
+  try {
+    const response = await fetch(`http://localhost:5000/api/events/by-code/${eventCode}`);
+    if (!response.ok) {
+      throw new Error('Event not found or error fetching event');
+    }
+    const data = await response.json();
+    return data.id; // افترض أن الـ API يعيد معرّف المناسبة في الحقل `id`
+  } catch (error) {
+    console.error('Error verifying event code:', error);
+    return null;
+  }
+};
+
 
 const LoginPage = () => {
   const [eventCode, setEventCode] = useState('');
@@ -10,13 +24,19 @@ const LoginPage = () => {
   const handleLogin = async (e) => {
     e.preventDefault();
 
-    // تحقق من صحة الكود
-    if (eventCode) {
-      // هنا يتم تنفيذ عملية التحقق من الكود (مثلاً عبر API call)
-      // إذا كان الكود صحيح، يمكن توجيه المستخدم للصفحة المطلوبة
-      navigate(`/event/${eventCode}`);
-    } else {
-      alert('Invalid event code');
+    try {
+      // تحقق من صحة كود الوصول
+      const eventId = await verifyEventCode(eventCode);
+
+      if (eventId) {
+        // إذا كان الكود صحيحًا، توجه إلى صفحة المناسبة باستخدام معرف المناسبة
+        navigate(`/event/${eventId}`);
+      } else {
+        alert('Invalid event code');
+      }
+    } catch (error) {
+      console.error('Error verifying event code:', error);
+      alert('Error verifying event code. Please try again.');
     }
   };
 

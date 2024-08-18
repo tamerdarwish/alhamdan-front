@@ -28,7 +28,14 @@ const ViewEventPage = () => {
 
   const handlePrintStatusToggle = async (imageId, currentStatus) => {
     await handleTogglePrintStatus(eventId, imageId, currentStatus, setAlbum);
+    
+    // إعادة تحميل البيانات لتحديث الألبوم
+    const updatedEventData = await fetchEvent(eventId, setEvent, setUpdatedEvent, setLoading);
+    if (updatedEventData && Array.isArray(updatedEventData.album)) {
+      setAlbum(updatedEventData.album);
+    }
   };
+  
 
   const { name, date, main_image, drive_link, access_code } = event || {};
 

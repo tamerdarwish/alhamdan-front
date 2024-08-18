@@ -28,7 +28,7 @@ export const handleTogglePrintStatus = async (eventId, imageId, currentStatus, s
       // قم بتحديث حالة الصورة في الواجهة الأمامية بعد التحديث الناجح
       setAlbum(prevAlbum =>
         prevAlbum.map(image =>
-          image.id === imageId ? { ...image, selected_for_printing: !currentStatus } : image
+          image.id === imageId ? { ...image, printStatus: !currentStatus } : image
         )
       );
     }
