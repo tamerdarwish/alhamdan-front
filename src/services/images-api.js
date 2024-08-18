@@ -52,3 +52,24 @@ export const deleteSelectedImagesFromAlbum = async (eventId,selectedImages) => {
       console.error('Failed to fetch events:', error);
     }
 }
+// Change printStatus of a specific image in the album
+export const togglePrintStatus = async (eventId, imageId, currentStatus) => {
+  try {
+    const response = await fetch(`http://localhost:5000/api/photos/${eventId}/select`, {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ imageId, printStatus: !currentStatus }),
+    });
+
+    if (!response.ok) {
+      throw new Error('Failed to update print status');
+    }
+
+    const data = await response.json();
+    return data;
+  } catch (error) {
+    console.error('Failed to update print status:', error);
+  }
+};

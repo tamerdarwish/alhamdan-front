@@ -1,41 +1,36 @@
 import React, { useEffect, useState } from 'react';
-import { useParams, useNavigate } from 'react-router-dom';
-import { 
-  fetchEvent, 
-  refetchEvent, 
-  handleAddImages, 
-  handleSelectImage, 
-  handleDeleteImage, 
-  handleDeleteSelectedImages, 
-  handleEditClick, 
-  handleCancelEdit, 
-  handleChange, 
-  handleSaveChanges, 
-  handlePrintSelected, 
-  handleSelectAllImages 
-} from '../services/eventHandlers';
+import { useParams } from 'react-router-dom';
+import { fetchEvent } from '../services/eventHandlers';
+import { handleTogglePrintStatus } from '../services/eventHandlers';
 import './EventPage.css';
 import ImageGrid from '../components/ImageGrid';
-import EventInfo from '../components/EventInfo'; // استيراد مكون EventInfo
+import EventInfo from '../components/EventInfo';
 
-const EventPage = () => {
+const ViewEventPage = () => {
   const { eventId } = useParams();
   const [event, setEvent] = useState(null);
-  const [selectedImages, setSelectedImages] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const [isEditing, setIsEditing] = useState(false);
+  const [album, setAlbum] = useState([]);
   const [updatedEvent, setUpdatedEvent] = useState({});
-  const navigate = useNavigate();
+
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    fetchEvent(eventId, setEvent, setUpdatedEvent, setLoading);
+    const fetchData = async () => {
+      const eventData = await fetchEvent(eventId, setEvent, setUpdatedEvent, setLoading);
+
+      if (eventData && Array.isArray(eventData.album)) {
+        setAlbum(eventData.album);
+      }
+    };
+
+    fetchData();
   }, [eventId]);
 
-  useEffect(() => {
-    refetchEvent(updatedEvent, setEvent, setSelectedImages);
-  }, [updatedEvent]);
+  const handlePrintStatusToggle = async (imageId, currentStatus) => {
+    await handleTogglePrintStatus(eventId, imageId, currentStatus, setAlbum);
+  };
 
-  const { name, date, main_image, drive_link, access_code, album } = event || {};
+  const { name, date, main_image, drive_link, access_code } = event || {};
 
   if (loading) {
     return <div className="loading">Loading...</div>;
@@ -53,34 +48,16 @@ const EventPage = () => {
         main_image={main_image}
         drive_link={drive_link}
         access_code={access_code}
-        isEditing={isEditing}
-        updatedEvent={updatedEvent}
-        setUpdatedEvent={setUpdatedEvent}
-        handleEditClick={handleEditClick}
-        handleChange={handleChange}
-        handleSaveChanges={handleSaveChanges}
-        handleCancelEdit={handleCancelEdit}
-        navigate={navigate}
-        setIsEditing={setIsEditing}
-        eventId={eventId}
-        setEvent={setEvent}
-        setLoading={setLoading}
+        isEditing={false}
       />
       <div className="event-page-album">
         <ImageGrid
           album={album}
-          selectedImages={selectedImages}
-          setSelectedImages={setSelectedImages}
-          handleSelectImage={(image) => handleSelectImage(image, selectedImages, setSelectedImages)}
-          handleDeleteImage={(imageId) => handleDeleteImage(imageId, eventId, event, setEvent, setUpdatedEvent)}
-          handleDeleteSelectedImages={() => handleDeleteSelectedImages(eventId, selectedImages, event, setEvent, setUpdatedEvent, setSelectedImages)}
-          handlePrintSelected={() => handlePrintSelected(selectedImages)}
-          handleSelectAllImages={() => handleSelectAllImages(selectedImages, event.album, setSelectedImages)} 
-          handleAddImages={(e) => handleAddImages(e, eventId, event, setEvent, setUpdatedEvent)} 
+          handlePrintStatusToggle={handlePrintStatusToggle}
         />
       </div>
     </div>
   );
 };
 
-export default EventPage;
+export default ViewEventPage;

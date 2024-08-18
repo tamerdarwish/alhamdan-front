@@ -4,7 +4,9 @@ import LoginPage from './pages/LoginPage';
 import AdminDashboard from './pages/AdminDashboard';
 import AdminLogin from './pages/AdminLogin';
 import EventForm from './pages/EventForm';
+import AdminEventPage from './pages/AdminEventPage';
 import EventPage from './pages/EventPage';
+
 import OrdersManagementPage from './pages/OrdersManagementPage';
 import StorePage from './pages/StorePage';
 import ProductDetailsPage from './pages/ProductDetailsPage';
@@ -18,6 +20,7 @@ const App = () => {
         <Route path="/" element={<LoginPage />} />
         <Route path="/admin/login" element={<AdminLogin />} />
         <Route path="/admin" element={<AdminDashboard />} />
+        <Route path="/admin-event/:eventId" element={<AdminEventPage />} />
         <Route path="/event/:eventId" element={<EventPage />} />
         <Route path="/event/new" element={<EventForm />} />
         <Route path="/orders" element={<OrdersManagementPage />} />

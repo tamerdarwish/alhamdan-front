@@ -1,7 +1,7 @@
 // eventHandlers.js
 import imageCompression from 'browser-image-compression';
 import { fetchEventById, editEvent } from '../services/events-api';
-import { uploadImageToAlbum, deleteImageFromAlbum, deleteSelectedImagesFromAlbum } from '../services/images-api';
+import { uploadImageToAlbum, deleteImageFromAlbum, deleteSelectedImagesFromAlbum,togglePrintStatus } from '../services/images-api';
 
 // Fetch event data by ID
 export const fetchEvent = async (eventId, setEvent, setUpdatedEvent, setLoading) => {
@@ -13,12 +13,31 @@ export const fetchEvent = async (eventId, setEvent, setUpdatedEvent, setLoading)
     setEvent(eventData);
     setUpdatedEvent(eventData);
     setLoading(false);
+    return eventData
   } catch (error) {
     console.error('Failed to fetch event:', error);
     alert('Failed to fetch event');
     setLoading(false);
   }
 };
+//Change PrintStatus Of Image
+export const handleTogglePrintStatus = async (eventId, imageId, currentStatus, setAlbum) => {
+  try {
+    const updatedImage = await togglePrintStatus(eventId, imageId, currentStatus);
+    if (updatedImage) {
+      // قم بتحديث حالة الصورة في الواجهة الأمامية بعد التحديث الناجح
+      setAlbum(prevAlbum =>
+        prevAlbum.map(image =>
+          image.id === imageId ? { ...image, selected_for_printing: !currentStatus } : image
+        )
+      );
+    }
+  } catch (error) {
+    console.error('Failed to update print status:', error);
+  }
+};
+
+
 
 // Refetch updated event data
 export const refetchEvent = async (updatedEvent, setEvent, setSelectedImages) => {

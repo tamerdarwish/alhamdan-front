@@ -75,7 +75,7 @@ const EventCard = ({ event, onDelete }) => {
   };
 
   const handleCardClick = () => {
-    navigate(`/event/${id}`); // الانتقال إلى صفحة التفاصيل للمناسبة
+    navigate(`/admin-event/${id}`); // الانتقال إلى صفحة التفاصيل للمناسبة
   };
 
   return (
