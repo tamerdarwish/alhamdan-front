@@ -37,7 +37,7 @@ const ViewEventPage = () => {
   };
   
 
-  const { name, date, main_image, drive_link, access_code } = event || {};
+  const { name, date, main_image, drive_link, access_code,watermark_setting } = event || {};
 
   if (loading) {
     return <div className="loading">Loading...</div>;
@@ -61,6 +61,7 @@ const ViewEventPage = () => {
         <ImageGrid
           album={album}
           handlePrintStatusToggle={handlePrintStatusToggle}
+          watermark_setting={watermark_setting}
         />
       </div>
     </div>

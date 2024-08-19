@@ -1,0 +1,138 @@
+/* Reset default styling */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+/* Album section styling */
+.album-section {
+    border-top: 2px solid #e0e0e0;
+    padding-top: 20px;
+    text-align: left;
+}
+
+.album-section h2 {
+    font-size: 2em;
+    color: #333;
+    margin-bottom: 20px;
+}
+
+/* No images message */
+.no-images {
+    text-align: center;
+    color: #888;
+    font-size: 1.2em;
+}
+
+/* Image grid styling */
+.images-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); /* Grid layout */
+    gap: 20px;
+    justify-items: center; /* Center items */
+}
+
+/* Image container styling */
+.image-container {
+    position: relative;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    background-color: #fff;
+    max-width: 220px;
+    width: 100%;
+    cursor: pointer;
+    text-align: center;
+    transition: transform 0.3s ease;
+}
+
+.image-container:hover {
+    transform: scale(1.05); /* Scale up on hover */
+}
+
+.album-image {
+    width: 100%;
+    height: auto;
+    display: block;
+}
+
+/* Status icon styling */
+.status-icon {
+    font-size: 24px;
+    position: absolute;
+    bottom: 8px;
+    right: 8px;
+    transition: color 0.3s ease;
+}
+
+.status-icon.checked {
+    color: rgb(0, 255, 0);
+}
+
+.status-icon.unchecked {
+    color: rgb(235, 235, 235);
+}
+
+/* Modal styling */
+/* Modal styling */
+.modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.8);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+  }
+  
+  /* Modal content */
+  .modal-content {
+    position: relative;
+    max-width: 90%;
+    max-height: 90%;
+    border-radius: 8px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column; /* Stack items vertically */
+    align-items: center; /* Center items horizontally */
+    justify-content: center; /* Center items vertically */
+  }
+  
+  /* Close button */
+  .close-button {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    color: #fff;
+    font-size: 24px;
+    cursor: pointer;
+    z-index: 1001;
+  }
+  
+  /* Modal image */
+  .modal-image {
+    width: 100%;
+    height: auto;
+  }
+  
+  /* Button styling */
+  .download-button {
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    padding: 10px 20px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s ease;
+    display: inline-block; /* Ensure it behaves like a button */
+    margin-top: 10px; /* Add margin if necessary */
+  }
+  .download-button:hover {
+    background-color: #0056b3;
+  }
+  
