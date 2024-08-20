@@ -1,0 +1,177 @@
+/* Reset default styling */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+/* Album section styling */
+.album-section {
+    border-top: 2px solid #e0e0e0;
+    padding-top: 20px;
+    text-align: left;
+}
+
+.album-section h2 {
+    font-size: 2em;
+    color: #333;
+    margin-bottom: 20px;
+}
+
+/* No images message */
+.no-images {
+    text-align: center;
+    color: #888;
+    font-size: 1.2em;
+}
+
+/* Image grid styling */
+.images-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 15px;
+}
+
+.image-container {
+    position: relative;
+    display: inline-block;
+    margin: 5px;
+  }
+
+/* Hover effect for image container */
+.image-container:hover {
+    transform: scale(1.05); /* Scale up on hover */
+}
+
+/* Highlight border color when selected */
+.image-container.selected {
+    border: 2px solid blue; /* تأكد من أن هناك تنسيق واضح لتحديد الصور */
+  }
+.album-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* ملائمة الصورة لملء الحاوية بشكل مناسب */
+}
+
+/* Delete button styling */
+.delete-button {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: rgba(0, 0, 0, 0.5);
+    border: none;
+    color: white;
+    border-radius: 50%;
+    padding: 5px;
+    cursor: pointer;
+}
+
+/* Status icon styling */
+.status-icon {
+    position: absolute;
+    bottom: 10px; /* Move to bottom of the container */
+    left: 50%;
+    transform: translateX(-50%); /* Center horizontally */
+    background-color: rgba(0, 0, 0, 0.5);
+    color: white;
+    border-radius: 50%;
+    padding: 5px;
+    font-size: 1.2rem;
+    width: 30px; /* Fixed width */
+    height: 30px; /* Fixed height */
+    text-align: center; /* Center text horizontally */
+}
+
+/* Button styling */
+.upload-button, .delete-selected-button, .print-selected-button, .select-all-button {
+    margin: 10px;
+    padding: 10px 20px;
+    font-size: 1rem;
+    cursor: pointer;
+    border: none;
+    border-radius: 25px;
+    background-color: #007bff;
+    color: white;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    transition: background-color 0.3s, box-shadow 0.3s;
+}
+
+.upload-button {
+    background-color: #007bff;
+}
+
+.upload-button:hover {
+    background-color: #0056b3;
+}
+
+.delete-selected-button {
+    background-color: #dc3545;
+}
+
+.delete-selected-button:hover {
+    background-color: #c82333;
+}
+
+.print-selected-button {
+    background-color: #28a745;
+}
+
+.print-selected-button:hover {
+    background-color: #218838;
+}
+
+.select-all-button {
+    background-color: #17a2b8;
+}
+
+.select-all-button:hover {
+    background-color: #138496;
+}
+
+/* Modal.css */
+.modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.7);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+}
+
+.modal-content {
+    background: white;
+    border-radius: 8px;
+    position: relative;
+    max-width: 90%;
+    max-height: 90%;
+    padding: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    overflow: hidden;
+}
+
+.modal-image {
+    width: 100%;
+    height: auto;
+    object-fit: contain; /* احتواء الصورة بشكل مناسب داخل المودال */
+}
+
+.close-button {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: rgba(0, 0, 0, 0.8);
+    color: white;
+    border: none;
+    border-radius: 50%;
+    width: 30px;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+    cursor: pointer;
+}

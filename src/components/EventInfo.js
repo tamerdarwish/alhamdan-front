@@ -1,6 +1,9 @@
 import React from 'react';
 import { FaArrowLeft } from 'react-icons/fa';
 import './EventInfo.css';
+import { useNavigate } from 'react-router-dom';
+
+
 
 const EventInfo = ({
   name,
@@ -8,11 +11,12 @@ const EventInfo = ({
   main_image,
   drive_link,
   access_code,
-  navigate,
 }) => {
+  const navigate = useNavigate();
+
   return (
     <div className="event-info">
-      <button className="back-button" onClick={() => navigate(-1)}>
+      <button className="back-button" onClick={() => navigate(-1) || navigate('/')}>
         <FaArrowLeft />
       </button>
       {main_image && <img src={main_image} alt={name} className="event-image" />}

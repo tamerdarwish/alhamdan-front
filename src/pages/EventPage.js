@@ -6,6 +6,7 @@ import './EventPage.css';
 import ImageGrid from '../components/ImageGrid';
 import EventInfo from '../components/EventInfo';
 
+
 const ViewEventPage = () => {
   const { eventId } = useParams();
   const [event, setEvent] = useState(null);
