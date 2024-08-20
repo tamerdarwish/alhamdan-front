@@ -1,4 +1,7 @@
+import axios from 'axios';
+
 //POST Image To Album Of Spicific Event
+
 export const uploadImageToAlbum = async (eventId, formData) => {
     try {
         const response = await fetch(`http://localhost:5000/api/upload/${eventId}/add-images`, {
@@ -15,6 +18,7 @@ return data
       console.error('Failed to fetch events:', error);
     }
 }
+
 
 
 export const deleteImageFromAlbum = async (eventId,imageId) => {
@@ -76,3 +80,33 @@ export const togglePrintStatus = async (eventId, imageId, currentStatus) => {
     console.error('Failed to update print status:', error.message);
   }
 };
+
+
+// services/images-api.js
+export const uploadMainImage = async (eventId, file) => {
+  const formData = new FormData();
+  formData.append('file', file);
+
+  try {
+    const response = await fetch(`http://localhost:5000/api/upload/update-main-image/${eventId}`, {
+      method: 'POST',
+      body: formData, // إرسال FormData التي تحتوي على الصورة
+    });
+
+    if (!response.ok) {
+      throw new Error('Failed to upload image');
+    }
+    
+    const data = await response.json();
+    if (data.success) {
+      return data.url; // استرجاع الرابط الجديد للصورة
+    } else {
+      throw new Error(data.message || 'Failed to upload image');
+    }
+  } catch (error) {
+    console.error('Failed to upload image:', error);
+  }
+}
+
+
+export default uploadMainImage;

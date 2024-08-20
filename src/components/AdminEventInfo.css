@@ -74,3 +74,64 @@
     background-color: #218838;
   }
   
+  /* زر تغيير الصورة */
+.upload-button {
+  display: inline-block;
+  padding: 10px 20px;
+  margin: 5px;
+  border: none;
+  border-radius: 5px;
+  background-color: #007bff;
+  color: #fff;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.3s, transform 0.3s;
+}
+
+.upload-button:hover {
+  background-color: #0056b3;
+  transform: scale(1.05);
+}
+
+.upload-button:active {
+  background-color: #00408d;
+}
+
+/* زر تحميل الصورة */
+.upload-image-button {
+  display: inline-block;
+  padding: 10px 20px;
+  margin: 5px;
+  border: none;
+  border-radius: 5px;
+  background-color: #28a745;
+  color: #fff;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.3s, transform 0.3s;
+}
+
+.upload-image-button:hover {
+  background-color: #218838;
+  transform: scale(1.05);
+}
+
+.upload-image-button:active {
+  background-color: #1e7e34;
+}
+
+/* زر العودة */
+.back-button {
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  font-size: 24px;
+  color: #007bff;
+  transition: color 0.3s;
+}
+
+.back-button:hover {
+  color: #0056b3;
+}

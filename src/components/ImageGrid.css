@@ -56,7 +56,7 @@
 }
 
 .status-icon.checked {
-    background-color: #28a745; /* جعل الخلفية خضراء عند التحديد */
+    background-color: #00ff3c; /* جعل الخلفية خضراء عند التحديد */
     color: white; /* يمكن ترك الأيقونة باللون الأبيض */
 }
 
