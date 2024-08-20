@@ -1,12 +1,20 @@
 import React, { useState } from 'react';
-import { FaCheck } from 'react-icons/fa';
+import { FaPrint, FaTrashAlt } from 'react-icons/fa';
 import './ImageGrid.css';  // تأكد من استيراد ملف CSS بشكل صحيح
-import WatermarkImage from './WatermarkImage';
 
 const ImageGrid = ({ album, handlePrintStatusToggle, watermark_setting }) => {
+  const [selectedImages, setSelectedImages] = useState([]);
   const [selectedImage, setSelectedImage] = useState(null);
 
   const handleImageClick = (image) => {
+    if (selectedImages.includes(image)) {
+      setSelectedImages(selectedImages.filter(img => img !== image));
+    } else {
+      setSelectedImages([...selectedImages, image]);
+    }
+  };
+
+  const handleImageDoubleClick = (image) => {
     setSelectedImage(image);
   };
 
@@ -14,34 +22,39 @@ const ImageGrid = ({ album, handlePrintStatusToggle, watermark_setting }) => {
     setSelectedImage(null);
   };
 
-  const downloadImageWithWatermark = async (image) => {
-    const fileName = image.url.split('/').pop();
-  
+  const downloadImagesWithWatermark = async () => {
     try {
-      const response = await fetch(`http://localhost:5000/api/upload/watermark/${fileName}`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ watermark: watermark_setting }),
-      });
-  
-      if (!response.ok) {
-        throw new Error('Failed to download image');
+      for (let image of selectedImages) {
+        const fileName = image.url.split('/').pop();
+        const response = await fetch(`http://localhost:5000/api/upload/watermark/${fileName}`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({ watermark: watermark_setting }),
+        });
+
+        if (!response.ok) {
+          throw new Error('Failed to download image');
+        }
+
+        const blob = await response.blob();
+        const url = window.URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = fileName;
+        a.click();
+        window.URL.revokeObjectURL(url);
       }
-  
-      const blob = await response.blob();
-      const url = window.URL.createObjectURL(blob);
-      const a = document.createElement('a');
-      a.href = url;
-      a.download = fileName;
-      a.click();
-      window.URL.revokeObjectURL(url);
     } catch (error) {
       console.error('Error:', error);
     }
   };
-  
+
+  const clearSelection = () => {
+    setSelectedImages([]);
+  };
+
   const handleContextMenu = (e) => {
     e.preventDefault();
   };
@@ -55,15 +68,19 @@ const ImageGrid = ({ album, handlePrintStatusToggle, watermark_setting }) => {
       ) : (
         <div className="images-grid">
           {album.map((image) => (
-            <div key={image.id} className="image-container">
+            <div
+              key={image.id}
+              className={`image-container ${selectedImages.includes(image) ? 'selected' : ''}`}
+            >
               <img
                 src={image.url}
                 alt={`Album image ${image.id}`}
                 className="album-image"
                 onClick={() => handleImageClick(image)}
+                onDoubleClick={() => handleImageDoubleClick(image)}
                 onContextMenu={handleContextMenu}
               />
-              <FaCheck
+              <FaPrint
                 className={`status-icon ${image.printStatus ? 'checked' : 'unchecked'}`}
                 onClick={() => handlePrintStatusToggle(image.id, image.printStatus)}
               />
@@ -72,20 +89,27 @@ const ImageGrid = ({ album, handlePrintStatusToggle, watermark_setting }) => {
         </div>
       )}
 
+      {selectedImages.length > 0 && (
+        <div className="download-section">
+          <button onClick={downloadImagesWithWatermark} className="btn download-button">
+            Download Selected with Watermark
+          </button>
+          <button onClick={clearSelection} className="btn clear-selection-button">
+            <FaTrashAlt /> Clear Selection
+          </button>
+        </div>
+      )}
+
       {selectedImage && (
         <div className="modal" onClick={closeModal}>
           <div className="modal-content" onClick={(e) => e.stopPropagation()}>
             <span className="close-button" onClick={closeModal}>&times;</span>
-            <button onClick={() => downloadImageWithWatermark(selectedImage)} className='download-button'>
-              Download  Watermark
-            </button>
             <img
               src={selectedImage.url}
               alt={`Selected image ${selectedImage.id}`}
               className="modal-image"
               onContextMenu={handleContextMenu}
             />
-          
           </div>
         </div>
       )}
