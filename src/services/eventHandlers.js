@@ -157,41 +157,42 @@ export const handleDeleteImage = async (imageId, eventId, eventData, setEvent, s
 };
 
 // Handle deleting selected images from the album
-export const handleDeleteSelectedImages = async (eventId, selectedImages, eventData, setEvent, setUpdatedEvent, setSelectedImages) => {
-    if (!window.confirm('Are you sure you want to delete selected images?')) return;
-  
-    const imagesToDelete = selectedImages.map(img => img.id);
-  
-    try {
-      const updatedAlbum = eventData.album.filter((img) => !imagesToDelete.includes(img.id));
-      setEvent(prevEvent => ({
-        ...prevEvent,
-        album: updatedAlbum,
-      }));
-      setUpdatedEvent(prevEvent => ({
-        ...prevEvent,
-        album: updatedAlbum,
-      }));
-  
-      await deleteSelectedImagesFromAlbum(eventId, selectedImages);
-      setSelectedImages([]);
-    } catch (error) {
-      console.error('Error deleting images:', error);
-      alert('Failed to delete images');
-  
-      // في حالة حدوث خطأ، قم بإعادة الصور المحذوفة
-      setEvent(prevEvent => ({
-        ...prevEvent,
-        album: [...prevEvent.album, ...selectedImages],
-      }));
-      setUpdatedEvent(prevEvent => ({
-        ...prevEvent,
-        album: [...prevEvent.album, ...selectedImages],
-      }));
-    }
-  };
-  
-  
+// دالة الحذف المعدلة
+export const handleDeleteSelectedImages = async (eventId, selectedImages, eventData, setEvent, setUpdatedEvent, setSelectedImages, setLoading) => {
+  if (!window.confirm('Are you sure you want to delete selected images?')) return;
+
+  setLoading(true); // عرض التحميل أثناء الحذف
+  const imagesToDelete = selectedImages.map(img => img.id);
+
+  try {
+    // حذف الصور من الألبوم في السيرفر
+    await deleteSelectedImagesFromAlbum(eventId, selectedImages);
+
+    // جلب البيانات المحدثة للألبوم باستخدام fetchEvent
+    const updatedEvent = await fetchEvent(eventId, setEvent, setUpdatedEvent, setLoading);
+
+    // إعادة تعيين الصور المحددة بعد الحذف
+    setSelectedImages([]);
+    
+  } catch (error) {
+    console.error('Error deleting images:', error);
+    alert('Failed to delete images');
+
+    // لا تحتاج لإعادة تحديث الألبوم من الخادم، بل يمكنك إعادته من الصور المحذوفة التي كنت قد خزنتها في المتغيرات الخاصة بك
+    setEvent(prevEvent => ({
+      ...prevEvent,
+      album: [...prevEvent.album, ...selectedImages],
+    }));
+
+    setUpdatedEvent(prevEvent => ({
+      ...prevEvent,
+      album: [...prevEvent.album, ...selectedImages],
+    }));
+  } finally {
+    setLoading(false); // إيقاف التحميل بعد الحذف
+  }
+};
+
 
 // Handle toggling edit mode
 export const handleEditClick = (setIsEditing) => {

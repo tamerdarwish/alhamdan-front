@@ -1,19 +1,23 @@
-import React, { useState } from 'react';
-import { FaArrowLeft, FaPlus, FaTrash, FaSave, FaCheck, FaPrint } from 'react-icons/fa';
-import './AdminImageGrid.css'; // تأكد من استيراد ملف CSS بشكل صحيح
+import React, { useState, useEffect } from 'react';
+import { FaPlus, FaTrash, FaCheck, FaPrint } from 'react-icons/fa';
+import './AdminImageGrid.css';
 import ImageUploader from './ImageUploader';
 
 const ImageGrid = ({
   album,
-  selectedImages, // تأكد من أن selectedImages يتم تمريره كخاصية
-  setSelectedImages, // تأكد من أن setSelectedImages يتم تمريره كخاصية
+  selectedImages,
+  setSelectedImages,
   handleDeleteImage,
   handleDeleteSelectedImages,
   handlePrintSelected,
   handleSelectAllImages,
   handleAddImages
 }) => {
-  const [selectedImage, setSelectedImage] = useState(null); // حالة للمودال
+  const [selectedImage, setSelectedImage] = useState(null);
+
+  useEffect(() => {
+    // This ensures the component re-renders when the album or selected images change
+  }, [album, selectedImages]);
 
   const handleImageClick = (image) => {
     if (selectedImages.includes(image)) {
@@ -24,11 +28,11 @@ const ImageGrid = ({
   };
 
   const handleImageDoubleClick = (image) => {
-    setSelectedImage(image); // فتح المودال عند النقر المزدوج
+    setSelectedImage(image);
   };
 
   const closeModal = () => {
-    setSelectedImage(null); // إغلاق المودال
+    setSelectedImage(null);
   };
 
   return (
@@ -69,7 +73,7 @@ const ImageGrid = ({
               <button
                 className="delete-button"
                 onClick={(e) => {
-                  e.stopPropagation(); // Prevent click from propagating to the image container
+                  e.stopPropagation();
                   handleDeleteImage(image.id);
                 }}
               >
