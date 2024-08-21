@@ -14,7 +14,7 @@ const ImageGrid = ({
   handleAddImages
 }) => {
   const [selectedImage, setSelectedImage] = useState(null);
-  const [uploading, setUploading] = useState(false); // حالة التحميل
+  const [uploading, setUploading] = useState(false);
 
   const handleImageClick = (image) => {
     if (selectedImages.includes(image)) {
@@ -30,6 +30,12 @@ const ImageGrid = ({
 
   const closeModal = () => {
     setSelectedImage(null);
+  };
+
+  // وظيفة جديدة لتحديد الصور التي تحتوي على printStatus بقيمة true
+  const handleSelectPrintedImages = () => {
+    const printedImages = album.filter(image => image.printStatus === true);
+    setSelectedImages(printedImages);
   };
 
   return (
@@ -49,9 +55,12 @@ const ImageGrid = ({
         <button className="select-all-button" onClick={handleSelectAllImages}>
           <FaCheck /> Select All
         </button>
+        <button className="select-printed-button" onClick={handleSelectPrintedImages}>
+          <FaCheck /> Select Printed
+        </button>
       </div>
 
-      {uploading && ( // عرض واجهة الانتظار الاحترافية إذا كانت حالة uploading صحيحة
+      {uploading && (
         <div className="loading-overlay">
           <div className="spinner-icon"></div>
           <div className="loading-text">Uploading...</div>

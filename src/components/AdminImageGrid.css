@@ -223,3 +223,24 @@
     100% { transform: rotate(360deg); }
   }
   
+  /* زر جديد لتحديد الصور المطبوعة */
+.select-printed-button {
+    background-color: #6c757d;
+}
+
+.select-printed-button:hover {
+    background-color: #5a6268;
+}
+
+/* نفس تنسيق الأزرار الأخرى */
+.upload-button, .delete-selected-button, .print-selected-button, .select-all-button, .select-printed-button {
+    margin: 10px;
+    padding: 10px 20px;
+    font-size: 1rem;
+    cursor: pointer;
+    border: none;
+    border-radius: 25px;
+    color: white;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    transition: background-color 0.3s, box-shadow 0.3s;
+}
