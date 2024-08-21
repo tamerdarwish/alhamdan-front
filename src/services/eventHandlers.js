@@ -12,14 +12,19 @@ export const fetchEvent = async (eventId, setEvent, setUpdatedEvent, setLoading)
     }
     setEvent(eventData);
     setUpdatedEvent(eventData);
-    setLoading(false);
-    return eventData
+    if (typeof setLoading === 'function') {
+      setLoading(false);
+    }
+    return eventData;
   } catch (error) {
     console.error('Failed to fetch event:', error);
+    if (typeof setLoading === 'function') {
+      setLoading(false);
+    }
     alert('Failed to fetch event');
-    setLoading(false);
   }
 };
+
 //Change PrintStatus Of Image
 export const handleTogglePrintStatus = async (eventId, imageId, currentStatus, setAlbum) => {
   try {
@@ -109,44 +114,47 @@ export const handleSelectImage = (imageUrl, selectedImages, setSelectedImages) =
 };
 
 // Handle deleting an individual image from the album
-export const handleDeleteImage = async (imageId, eventId, eventData, setEvent, setUpdatedEvent) => {
-    if (!window.confirm('Are you sure you want to delete this image?')) return;
-  
-    const updatedAlbum = eventData.album.filter((img) => img.id !== imageId);
-  
-    // تحديث الحالة محليًا قبل طلب الحذف
-    setEvent(prevEvent => ({
-      ...prevEvent,
-      album: updatedAlbum,
-    }));
-    setUpdatedEvent(prevEvent => ({
-      ...prevEvent,
-      album: updatedAlbum,
-    }));
-  
-    try {
-      // تنفيذ عملية الحذف من الخادم
-      await deleteImageFromAlbum(eventId, imageId);
-    } catch (error) {
-      console.error('Error deleting image:', error);
-      alert('Failed to delete image');
-      
-      // استعادة الصورة في حالة حدوث خطأ
-      // يتم فقط استرجاع الصورة إذا كانت في الأصل ضمن البيانات
-      const imageToRestore = eventData.album.find(img => img.id === imageId);
-      if (imageToRestore) {
-        setEvent(prevEvent => ({
-          ...prevEvent,
-          album: [...prevEvent.album, imageToRestore],
-        }));
-        setUpdatedEvent(prevEvent => ({
-          ...prevEvent,
-          album: [...prevEvent.album, imageToRestore],
-        }));
-      }
+export const handleDeleteImage = async (imageId, eventId, eventData, setEvent, setUpdatedEvent, setLoading) => {
+  if (!window.confirm('Are you sure you want to delete this image?')) return;
+
+  const updatedAlbum = eventData.album.filter((img) => img.id !== imageId);
+
+  // تحديث الحالة محليًا قبل طلب الحذف
+  setEvent(prevEvent => ({
+    ...prevEvent,
+    album: updatedAlbum,
+  }));
+  setUpdatedEvent(prevEvent => ({
+    ...prevEvent,
+    album: updatedAlbum,
+  }));
+
+  try {
+    // تنفيذ عملية الحذف من الخادم
+    await deleteImageFromAlbum(eventId, imageId);
+
+    // إعادة جلب البيانات المحدثة من الخادم باستخدام دالة fetchEvent
+    const updatedEvent = await fetchEvent(eventId, setEvent, setUpdatedEvent, setLoading);
+    
+    // لا حاجة لتحديث الحالة مرة أخرى، حيث أن fetchEvent يقوم بذلك بالفعل
+  } catch (error) {
+    console.error('Error deleting image:', error);
+    alert('Failed to delete image');
+    
+    // استعادة الصورة في حالة حدوث خطأ
+    const imageToRestore = eventData.album.find(img => img.id === imageId);
+    if (imageToRestore) {
+      setEvent(prevEvent => ({
+        ...prevEvent,
+        album: [...prevEvent.album, imageToRestore],
+      }));
+      setUpdatedEvent(prevEvent => ({
+        ...prevEvent,
+        album: [...prevEvent.album, imageToRestore],
+      }));
     }
-  };
-  
+  }
+};
 
 // Handle deleting selected images from the album
 export const handleDeleteSelectedImages = async (eventId, selectedImages, eventData, setEvent, setUpdatedEvent, setSelectedImages) => {

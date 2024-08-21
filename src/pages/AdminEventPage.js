@@ -67,17 +67,18 @@ const EventPage = () => {
         setLoading={setLoading}
       />
       <div className="event-page-album">
-        <ImageGrid
-          album={album}
-          selectedImages={selectedImages}
-          setSelectedImages={setSelectedImages}
-          handleSelectImage={(image) => handleSelectImage(image, selectedImages, setSelectedImages)}
-          handleDeleteImage={(imageId) => handleDeleteImage(imageId, eventId, event, setEvent, setUpdatedEvent)}
-          handleDeleteSelectedImages={() => handleDeleteSelectedImages(eventId, selectedImages, event, setEvent, setUpdatedEvent, setSelectedImages)}
-          handlePrintSelected={() => handlePrintSelected(selectedImages)}
-          handleSelectAllImages={() => handleSelectAllImages(selectedImages, event.album, setSelectedImages)} 
-          handleAddImages={(e) => handleAddImages(e, eventId, event, setEvent, setUpdatedEvent)} 
-        />
+      <ImageGrid
+  album={album}
+  selectedImages={selectedImages}
+  setSelectedImages={setSelectedImages}
+  handleSelectImage={(image) => handleSelectImage(image, selectedImages, setSelectedImages)}
+  handleDeleteImage={(imageId) => handleDeleteImage(imageId, eventId, event, setEvent, setUpdatedEvent, setLoading)} // هنا
+  handleDeleteSelectedImages={() => handleDeleteSelectedImages(eventId, selectedImages, event, setEvent, setUpdatedEvent, setSelectedImages)}
+  handlePrintSelected={() => handlePrintSelected(selectedImages)}
+  handleSelectAllImages={() => handleSelectAllImages(selectedImages, event.album, setSelectedImages)}
+  handleAddImages={(e) => handleAddImages(e, eventId, event, setEvent, setUpdatedEvent)} 
+/>
+
       </div>
     </div>
   );

@@ -22,15 +22,7 @@ const EditForm = ({ updatedEvent, handleChange, handleSaveChanges, handleCancelE
           onChange={handleChange}
         />
       </label>
-      <label>
-        Main Image URL:
-        <input
-          type="text"
-          name="main_image"
-          value={updatedEvent.main_image || ''}
-          onChange={handleChange}
-        />
-      </label>
+     
       <label>
         Drive Link:
         <input
