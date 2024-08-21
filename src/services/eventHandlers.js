@@ -3,6 +3,7 @@ import imageCompression from 'browser-image-compression';
 import { fetchEventById, editEvent } from '../services/events-api';
 import { uploadImageToAlbum, deleteImageFromAlbum, deleteSelectedImagesFromAlbum,togglePrintStatus } from '../services/images-api';
 
+
 // Fetch event data by ID
 export const fetchEvent = async (eventId, setEvent, setUpdatedEvent, setLoading) => {
   try {
@@ -62,7 +63,7 @@ export const refetchEvent = async (updatedEvent, setEvent, setSelectedImages) =>
 };
 
 // Handle adding images to the event album
-export const handleAddImages = async (e, eventId, eventData, setEvent, setUpdatedEvent) => {
+export const handleAddImages = async (e, eventId, eventData, setEvent, setUpdatedEvent, updateProgress) => {
   const files = e.target.files;
   if (!files || files.length === 0) {
     alert('Please select image files');
@@ -76,20 +77,37 @@ export const handleAddImages = async (e, eventId, eventData, setEvent, setUpdate
   };
 
   const newImages = [];
+  const uploadPromises = [];
+  let totalFiles = files.length;
+  let processedFiles = 0;
 
   for (const file of files) {
-    try {
-      const compressedFile = await imageCompression(file, compressOptions);
-      const formData = new FormData();
-      formData.append('images', compressedFile);
+    uploadPromises.push(async () => {
+      try {
+        const compressedFile = await imageCompression(file, compressOptions);
+        const formData = new FormData();
+        formData.append('images', compressedFile);
 
-      const { album: newAlbum } = await uploadImageToAlbum(eventId, formData);
-      newImages.push(...newAlbum);
-    } catch (error) {
-      console.error('Error uploading image:', error);
-      alert('Failed to upload image');
-    }
+        const { album: newAlbum } = await uploadImageToAlbum(eventId, formData);
+
+        const validImages = newAlbum.filter(img => img && img.url);
+
+        if (validImages.length > 0) {
+          newImages.push(...validImages);
+        }
+      } catch (error) {
+        console.error('Error uploading image:', error);
+        alert('Failed to upload image');
+      } finally {
+        processedFiles++;
+        if (updateProgress) {
+          updateProgress((processedFiles / totalFiles) * 100);
+        }
+      }
+    });
   }
+
+  await Promise.all(uploadPromises.map(fn => fn()));
 
   if (newImages.length > 0) {
     const updatedAlbum = [...eventData.album, ...newImages];
@@ -103,6 +121,7 @@ export const handleAddImages = async (e, eventId, eventData, setEvent, setUpdate
     }));
   }
 };
+
 
 // Handle selecting an image
 export const handleSelectImage = (imageUrl, selectedImages, setSelectedImages) => {
@@ -165,12 +184,23 @@ export const handleDeleteSelectedImages = async (eventId, selectedImages, eventD
   const imagesToDelete = selectedImages.map(img => img.id);
 
   try {
+    // تحديث الألبوم محلياً قبل إرسال الطلب
+    const updatedAlbum = eventData.album.filter((img) => !imagesToDelete.includes(img.id));
+    
+    // تحديث الحالة لتفعيل إعادة العرض
+    setEvent(prevEvent => ({
+      ...prevEvent,
+      album: updatedAlbum,
+    }));
+    
+    setUpdatedEvent(prevEvent => ({
+      ...prevEvent,
+      album: updatedAlbum,
+    }));
+    
     // حذف الصور من الألبوم في السيرفر
     await deleteSelectedImagesFromAlbum(eventId, selectedImages);
-
-    // جلب البيانات المحدثة للألبوم باستخدام fetchEvent
-    const updatedEvent = await fetchEvent(eventId, setEvent, setUpdatedEvent, setLoading);
-
+    
     // إعادة تعيين الصور المحددة بعد الحذف
     setSelectedImages([]);
     
@@ -178,12 +208,12 @@ export const handleDeleteSelectedImages = async (eventId, selectedImages, eventD
     console.error('Error deleting images:', error);
     alert('Failed to delete images');
 
-    // لا تحتاج لإعادة تحديث الألبوم من الخادم، بل يمكنك إعادته من الصور المحذوفة التي كنت قد خزنتها في المتغيرات الخاصة بك
+    // في حالة حدوث خطأ، إعادة الصور المحذوفة
     setEvent(prevEvent => ({
       ...prevEvent,
       album: [...prevEvent.album, ...selectedImages],
     }));
-
+    
     setUpdatedEvent(prevEvent => ({
       ...prevEvent,
       album: [...prevEvent.album, ...selectedImages],

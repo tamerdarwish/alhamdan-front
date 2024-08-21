@@ -2,7 +2,12 @@ import React from 'react';
 import { FaPlus, FaTrash, FaPrint, FaCheck } from 'react-icons/fa';
 
 
-const ImageUploader = ({ handleAddImages }) => {
+const ImageUploader = ({ handleAddImages ,setUploading }) => {
+  const handleChange = async (e) => {
+    setUploading(true); // تعيين حالة uploading إلى true عند بدء التحميل
+    await handleAddImages(e);
+    setUploading(false); // تعيين حالة uploading إلى false عند الانتهاء
+  };
   return (
     <div >
       <label htmlFor="file-upload" className="upload-button">
@@ -13,7 +18,7 @@ const ImageUploader = ({ handleAddImages }) => {
         type="file"
         accept="image/*"
         multiple
-        onChange={(e) => handleAddImages(e)}
+        onChange={(e) => handleChange(e)}
         className="file-input"
       />
     </div>

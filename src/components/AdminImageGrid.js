@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from 'react';
-import { FaPlus, FaTrash, FaCheck, FaPrint } from 'react-icons/fa';
+import React, { useState } from 'react';
+import { FaTrash, FaCheck, FaPrint } from 'react-icons/fa';
 import './AdminImageGrid.css';
 import ImageUploader from './ImageUploader';
 
@@ -14,10 +14,7 @@ const ImageGrid = ({
   handleAddImages
 }) => {
   const [selectedImage, setSelectedImage] = useState(null);
-
-  useEffect(() => {
-    // This ensures the component re-renders when the album or selected images change
-  }, [album, selectedImages]);
+  const [uploading, setUploading] = useState(false); // حالة التحميل
 
   const handleImageClick = (image) => {
     if (selectedImages.includes(image)) {
@@ -41,7 +38,7 @@ const ImageGrid = ({
 
       <div className="fixed-button-container">
         <button className="upload-button">
-          <ImageUploader handleAddImages={handleAddImages} />
+          <ImageUploader handleAddImages={handleAddImages} setUploading={setUploading} />
         </button>
         <button className="delete-selected-button" onClick={handleDeleteSelectedImages}>
           <FaTrash /> Delete Selected
@@ -54,7 +51,14 @@ const ImageGrid = ({
         </button>
       </div>
 
-      {album.length === 0 ? (
+      {uploading && ( // عرض واجهة الانتظار الاحترافية إذا كانت حالة uploading صحيحة
+        <div className="loading-overlay">
+          <div className="spinner-icon"></div>
+          <div className="loading-text">Uploading...</div>
+        </div>
+      )}
+
+      {album.length === 0 && !uploading ? (
         <p className="no-images">No images in the album.</p>
       ) : (
         <div className="images-grid">

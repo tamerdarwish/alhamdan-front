@@ -175,3 +175,51 @@
     font-size: 1.5rem;
     cursor: pointer;
 }
+
+/* AdminImageGrid.css */
+/* AdminImageGrid.css */
+/* AdminImageGrid.css */
+
+/* الخلفية نصف الشفافة التي تغطي كامل الشاشة */
+.loading-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.75); /* درجة شفافية أعلى لإبراز الأيقونة */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000; /* تأكد من ظهورها فوق العناصر الأخرى */
+    transition: opacity 0.3s ease-in-out; /* تأثير الانتقال */
+  }
+  
+  /* الأيقونة الدائرية المتحركة */
+  .spinner-icon {
+    border: 6px solid rgba(255, 255, 255, 0.3); /* دائرة خارجية */
+    border-top: 6px solid #fff; /* لون الجزء العلوي */
+    border-radius: 50%;
+    width: 60px;
+    height: 60px;
+    animation: spin 1s linear infinite;
+    margin-bottom: 20px; /* مسافة بين الأيقونة والنص */
+  }
+  
+  /* النص داخل الشاشة */
+  .loading-text {
+    color: #fff;
+    font-size: 20px;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 1.5px; /* تباعد الحروف */
+    text-align: center;
+  }
+  
+  /* حركة الدوران */
+  @keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+  }
+  

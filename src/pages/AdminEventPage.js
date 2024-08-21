@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
+import { ProgressBar } from 'react-bootstrap'; // استيراد شريط التقدم
 import {
   fetchEvent,
   handleAddImages,
@@ -22,6 +23,8 @@ const EventPage = () => {
   const [event, setEvent] = useState(null);
   const [selectedImages, setSelectedImages] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [uploading, setUploading] = useState(false);
+  const [uploadProgress, setUploadProgress] = useState(0); // حالة لتخزين نسبة التقدم
   const [isEditing, setIsEditing] = useState(false);
   const [updatedEvent, setUpdatedEvent] = useState({});
   const navigate = useNavigate();
@@ -30,10 +33,29 @@ const EventPage = () => {
     fetchEvent(eventId, setEvent, setUpdatedEvent, setLoading);
   }, [eventId]);
 
+  const handleAddImagesWithProgress = async (e) => {
+    const progressUpdateInterval = 100; // تحديث التقدم كل 100 مللي ثانية
+    const startTime = Date.now();
+    
+    await handleAddImages(e, eventId, event, setEvent, setUpdatedEvent, (progress) => {
+      // تحديث التقدم بناءً على الوقت المنقضي
+      const elapsed = Date.now() - startTime;
+      const progressPercent = Math.min(100, Math.floor((elapsed / progressUpdateInterval) * 100));
+      setUploadProgress(progressPercent);
+    });
+    
+    setUploading(false);
+  };
+
   const { name, date, main_image, drive_link, access_code, album } = event || {};
 
-  if (loading) {
-    return <div className="loading">Loading...</div>;
+  if (loading || uploading) {
+    return (
+      <div className="loading">
+        {loading && <div>Loading...</div>}
+        {uploading && <ProgressBar now={uploadProgress} label={`${uploadProgress}%`} />}
+      </div>
+    );
   }
 
   if (!event) {
@@ -71,7 +93,7 @@ const EventPage = () => {
           handleDeleteSelectedImages={() => handleDeleteSelectedImages(eventId, selectedImages, event, setEvent, setUpdatedEvent, setSelectedImages, setLoading)}
           handlePrintSelected={() => handlePrintSelected(selectedImages)}
           handleSelectAllImages={() => handleSelectAllImages(selectedImages, album, setSelectedImages)}
-          handleAddImages={(e) => handleAddImages(e, eventId, event, setEvent, setUpdatedEvent)}
+          handleAddImages={handleAddImagesWithProgress} // تعديل هنا
         />
       </div>
     </div>
