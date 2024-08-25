@@ -6,7 +6,8 @@ import AdminLogin from './pages/AdminLogin';
 import EventForm from './pages/EventForm';
 import AdminEventPage from './pages/AdminEventPage';
 import EventPage from './pages/EventPage';
-
+import ShoppingPage from './pages/ShoppingPage';
+import ProductDetail from './components/ProductDetail';
 import OrdersManagementPage from './pages/OrdersManagementPage';
 import StorePage from './pages/StorePage';
 import ProductDetailsPage from './pages/ProductDetailsPage';
@@ -17,7 +18,7 @@ const App = () => {
   return (
     <Router>
       <Routes>
-        <Route path="/" element={<LoginPage />} />
+        <Route path="/login" element={<LoginPage />} />
         <Route path="/admin/login" element={<AdminLogin />} />
         <Route path="/admin" element={<AdminDashboard />} />
         <Route path="/admin-event/:eventId" element={<AdminEventPage />} />
@@ -28,6 +29,9 @@ const App = () => {
         <Route path="/product/:productId" element={<ProductDetailsPage />} />
         <Route path="/order-confirmation" element={<OrderConfirmationPage />} />
         <Route path="/admin-settings" element={<AdminSettingsPage />} />
+        <Route path="/" element={<ShoppingPage />} />
+        <Route path="/products/:id" element={<ProductDetail/>} />
+
       </Routes>
     </Router>
   );
