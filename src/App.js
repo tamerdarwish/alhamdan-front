@@ -13,6 +13,11 @@ import StorePage from './pages/StorePage';
 import ProductDetailsPage from './pages/ProductDetailsPage';
 import OrderConfirmationPage from './pages/OrderConfirmationPage';
 import AdminSettingsPage from './pages/AdminSettingsPage';
+import '@fortawesome/fontawesome-free/css/all.min.css';
+import 'bootstrap/dist/css/bootstrap.min.css';
+
+
+
 
 const App = () => {
   return (

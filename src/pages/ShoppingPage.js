@@ -1,13 +1,12 @@
-// ShoppingPage.js
 import React, { useState } from 'react';
 import ProductList from '../components/ProductList';
 import CartModal from '../components/CartModal';
 import CartIcon from '../components/CartIcon';
+import './ShoppingPage.css';
 
-const ShoppingPage = () => {const [isCartOpen, setIsCartOpen] = useState(false);
+const ShoppingPage = () => {
+  const [isCartOpen, setIsCartOpen] = useState(false);
   const [cartItems, setCartItems] = useState([]);
-
-  const toggleCart = () => setIsCartOpen(!isCartOpen);
 
   const addToCart = (product) => {
     setCartItems([...cartItems, product]);
@@ -17,19 +16,24 @@ const ShoppingPage = () => {const [isCartOpen, setIsCartOpen] = useState(false);
     setCartItems(cartItems.filter(item => item.id !== productId));
   };
 
+  const toggleCart = () => setIsCartOpen(!isCartOpen);
+
+  const totalPrice = cartItems.reduce((total, item) => total + item.price, 0);
+
   return (
-    <div className="app">
-      <header>
-        <button onClick={toggleCart} className="cart-icon">🛒 Cart ({cartItems.length})</button>
-      </header>
-      <main>
-        <ProductList onAddToCart={addToCart} />
-      </main>
-      <CartModal
-        isOpen={isCartOpen}
-        onClose={toggleCart}
-        cartItems={cartItems}
-        onRemoveFromCart={removeFromCart}
+    <div className="shopping-page">
+      <CartIcon 
+        toggleCart={toggleCart} 
+        cartItems={cartItems} 
+        totalPrice={totalPrice} 
+      />
+      <ProductList addToCart={addToCart} />
+      <CartModal 
+        isOpen={isCartOpen} 
+        onClose={() => setIsCartOpen(false)} 
+        cartItems={cartItems} 
+        removeFromCart={removeFromCart}
+        totalPrice={totalPrice} 
       />
     </div>
   );

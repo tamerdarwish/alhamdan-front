@@ -1,33 +1,59 @@
 /* src/components/ProductList.css */
 .product-list {
   padding: 20px;
+  background: #f5f5f5;
+  min-height: 100vh;
 }
-.search-bar {
+/* ProductList.css */
+
+/* تصميم شريط البحث */
+.modern-search-bar {
   width: 100%;
-  padding: 10px;
-  border: 1px solid #ddd;
-  border-radius: 5px;
+  padding: 12px 20px;
   margin-bottom: 20px;
+  font-size: 1rem;
+  border-radius: 25px;
+  border: 1px solid #ccc;
+  background-color: #f9f9f9;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+  outline: none;
 }
-.product-grid {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 20px;
+
+.modern-search-bar:focus {
+  border-color: #28a745;
+  background-color: #fff;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
 }
+
+/* أيقونة البحث */
+.modern-search-bar::placeholder {
+  color: #999;
+}
+
+.modern-search-bar:focus::placeholder {
+  color: #ccc;
+}
+
+/* تصميم أزرار التصفح */
 .pagination {
   display: flex;
   justify-content: center;
   margin-top: 20px;
 }
-.pagination button {
-  background-color: #007bff;
-  color: #fff;
-  border: none;
-  padding: 10px;
+
+.pagination a {
+  padding: 10px 20px;
+  border: 1px solid #ddd;
   margin: 0 5px;
-  border-radius: 5px;
   cursor: pointer;
 }
-.pagination button.active {
-  background-color: #0056b3;
+
+.pagination a.active {
+  background-color: #007bff;
+  color: #fff;
+}
+
+.pagination a:hover {
+  background-color: #ddd;
 }
