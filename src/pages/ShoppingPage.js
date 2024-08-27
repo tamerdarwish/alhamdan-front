@@ -25,11 +25,7 @@ const ShoppingPage = () => {
 
   return (
     <div className="shopping-page">
-      <CartIcon 
-        toggleCart={toggleCart} 
-        cartItems={cartItems} 
-        totalPrice={totalPrice} 
-      />
+    
       <ProductList addToCart={addToCart} />
       <CartModal 
         isOpen={isCartOpen} 

@@ -60,6 +60,8 @@ const ProductList = () => {
 
   return (
     <div className="product-list">
+            <Cart cartItems={cartItems} removeFromCart={(index) => setCartItems(cartItems.filter((item, i) => i !== index))} placeOrder={() => console.log('Place order')} />
+
       <h2>Our Products</h2>
       
       <input
@@ -106,7 +108,6 @@ const ProductList = () => {
         />
       )}
 
-      <Cart cartItems={cartItems} removeFromCart={(index) => setCartItems(cartItems.filter((item, i) => i !== index))} placeOrder={() => console.log('Place order')} />
     </div>
   );
 };
