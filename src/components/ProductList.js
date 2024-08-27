@@ -1,15 +1,31 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import './ProductList.css';
 import ProductModal from './ProductModal';
 import { Pagination } from 'react-bootstrap';
+import Cart from './Cart';
 
-const ProductList = ({ addToCart }) => {
+const ProductList = () => {
   const [products, setProducts] = useState([]);
   const [selectedProduct, setSelectedProduct] = useState(null);
   const [searchTerm, setSearchTerm] = useState('');
   const [currentPage, setCurrentPage] = useState(1);
   const [totalProducts, setTotalProducts] = useState(0);
-  const itemsPerPage = 16; // تأكد من مطابقة هذه القيمة للقيمة المستخدمة في نقطة النهاية
+  const itemsPerPage = 16;
+
+  const [cartItems, setCartItems] = useState(() => {
+    const storedCartItems = localStorage.getItem('cartdata');
+    return storedCartItems ? JSON.parse(storedCartItems) : [];
+  });
+
+  const handleAddToCart = (product) => {
+    const newCartItems = [...cartItems, product];
+    setCartItems(newCartItems);
+    localStorage.setItem('cartdata', JSON.stringify(newCartItems));
+  };
+
+  useEffect(() => {
+    localStorage.setItem('cartdata', JSON.stringify(cartItems));
+  }, [cartItems]);
 
   // Fetch products from API
   useEffect(() => {
@@ -24,7 +40,7 @@ const ProductList = ({ addToCart }) => {
         console.error('Error fetching products:', error);
       }
     };
-  
+
     fetchProducts();
   }, [currentPage, searchTerm]);
 
@@ -41,7 +57,6 @@ const ProductList = ({ addToCart }) => {
   };
 
   const pageCount = Math.ceil(totalProducts / itemsPerPage);
-  console.log('Page count:', pageCount);  // تحقق من عدد الصفحات
 
   return (
     <div className="product-list">
@@ -87,9 +102,11 @@ const ProductList = ({ addToCart }) => {
         <ProductModal
           product={selectedProduct}
           onClose={closeProductModal}
-          addToCart={addToCart}
+          addToCart={handleAddToCart}
         />
       )}
+
+      <Cart cartItems={cartItems} removeFromCart={(index) => setCartItems(cartItems.filter((item, i) => i !== index))} placeOrder={() => console.log('Place order')} />
     </div>
   );
 };

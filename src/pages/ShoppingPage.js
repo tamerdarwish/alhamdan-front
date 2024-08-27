@@ -9,7 +9,10 @@ const ShoppingPage = () => {
   const [cartItems, setCartItems] = useState([]);
 
   const addToCart = (product) => {
-    setCartItems([...cartItems, product]);
+    setCartItems((current) => {
+      localStorage.setItem('cartdata', JSON.stringify([...current,product]))
+      return [...current, product]
+   } );
   };
 
   const removeFromCart = (productId) => {
