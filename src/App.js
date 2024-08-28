@@ -11,13 +11,10 @@ import ProductDetail from './components/ProductDetail';
 import OrdersManagementPage from './pages/OrdersManagementPage';
 import StorePage from './pages/StorePage';
 import ProductDetailsPage from './pages/ProductDetailsPage';
-import OrderConfirmationPage from './pages/OrderConfirmationPage';
+import OrderConfirmation from './pages/OrderConfirmation'; // استخدام OrderConfirmationPage هنا
 import AdminSettingsPage from './pages/AdminSettingsPage';
 import '@fortawesome/fontawesome-free/css/all.min.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
-
-
-
 
 const App = () => {
   return (
@@ -32,11 +29,10 @@ const App = () => {
         <Route path="/orders" element={<OrdersManagementPage />} />
         <Route path="/store" element={<StorePage />} />
         <Route path="/product/:productId" element={<ProductDetailsPage />} />
-        <Route path="/order-confirmation" element={<OrderConfirmationPage />} />
+        <Route path="/order-confirmation" element={<OrderConfirmation />} /> {/* استخدام OrderConfirmationPage هنا */}
         <Route path="/admin-settings" element={<AdminSettingsPage />} />
         <Route path="/" element={<ShoppingPage />} />
-        <Route path="/products/:id" element={<ProductDetail/>} />
-
+        <Route path="/products/:id" element={<ProductDetail />} />
       </Routes>
     </Router>
   );

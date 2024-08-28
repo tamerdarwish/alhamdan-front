@@ -1,8 +1,10 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import './Cart.css';
 
-const Cart = ({ cartItems, removeFromCart, placeOrder }) => {
+const Cart = ({ cartItems, removeFromCart }) => {
   const [showCart, setShowCart] = useState(false);
+  const navigate = useNavigate();
 
   const handleCartClick = () => {
     setShowCart(!showCart);
@@ -10,6 +12,12 @@ const Cart = ({ cartItems, removeFromCart, placeOrder }) => {
 
   const calculateTotal = () => {
     return cartItems.reduce((acc, item) => acc + item.price, 0).toFixed(2);
+  };
+
+  const handlePlaceOrder = () => {
+    const totalPrice = calculateTotal();
+    // تمرير cartItems و totalPrice عبر state عند التنقل
+    navigate('/order-confirmation', { state: { cartItems, totalPrice } });
   };
 
   return (
@@ -44,7 +52,7 @@ const Cart = ({ cartItems, removeFromCart, placeOrder }) => {
           </div>
           <div className="cart-summary">
             <p>Subtotal: ${calculateTotal()}</p>
-            <button onClick={placeOrder}>Place Order</button>
+            <button onClick={handlePlaceOrder}>Place Order</button>
           </div>
         </div>
       )}

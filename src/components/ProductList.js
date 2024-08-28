@@ -3,6 +3,7 @@ import './ProductList.css';
 import ProductModal from './ProductModal';
 import { Pagination } from 'react-bootstrap';
 import Cart from './Cart';
+import { useOrderManager } from './orderManager';
 
 const ProductList = () => {
   const [products, setProducts] = useState([]);
@@ -16,6 +17,8 @@ const ProductList = () => {
     const storedCartItems = localStorage.getItem('cartdata');
     return storedCartItems ? JSON.parse(storedCartItems) : [];
   });
+
+  const { handlePlaceOrder, removeFromCart } = useOrderManager(cartItems, setCartItems);
 
   const handleAddToCart = (product) => {
     const newCartItems = [...cartItems, product];
@@ -60,7 +63,7 @@ const ProductList = () => {
 
   return (
     <div className="product-list">
-            <Cart cartItems={cartItems} removeFromCart={(index) => setCartItems(cartItems.filter((item, i) => i !== index))} placeOrder={() => console.log('Place order')} />
+      <Cart cartItems={cartItems} removeFromCart={removeFromCart} placeOrder={handlePlaceOrder} />
 
       <h2>Our Products</h2>
       
@@ -107,7 +110,6 @@ const ProductList = () => {
           addToCart={handleAddToCart}
         />
       )}
-
     </div>
   );
 };
