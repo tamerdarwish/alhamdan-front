@@ -1,7 +1,7 @@
 // components/AboutUs.js
 import React from 'react';
 import './About.css';
-import aboutImage from '../../assests/about.jpg';
+import aboutImage from '../../assets/about.jpg';
 
 const About = () => (
   <section id="about-us" className="about-us">
