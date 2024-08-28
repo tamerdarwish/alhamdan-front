@@ -13,6 +13,8 @@ import StorePage from './pages/StorePage';
 import ProductDetailsPage from './pages/ProductDetailsPage';
 import OrderConfirmation from './pages/OrderConfirmation'; // استخدام OrderConfirmationPage هنا
 import AdminSettingsPage from './pages/AdminSettingsPage';
+import LandingPage  from './LandingPage/LandingPage';
+
 import '@fortawesome/fontawesome-free/css/all.min.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
@@ -20,6 +22,8 @@ const App = () => {
   return (
     <Router>
       <Routes>
+      <Route path="/" element={<LandingPage />} />
+
         <Route path="/login" element={<LoginPage />} />
         <Route path="/admin/login" element={<AdminLogin />} />
         <Route path="/admin" element={<AdminDashboard />} />
@@ -31,7 +35,7 @@ const App = () => {
         <Route path="/product/:productId" element={<ProductDetailsPage />} />
         <Route path="/order-confirmation" element={<OrderConfirmation />} /> {/* استخدام OrderConfirmationPage هنا */}
         <Route path="/admin-settings" element={<AdminSettingsPage />} />
-        <Route path="/" element={<ShoppingPage />} />
+        <Route path="/shop" element={<ShoppingPage />} />
         <Route path="/products/:id" element={<ProductDetail />} />
       </Routes>
     </Router>

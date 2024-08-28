@@ -1,0 +1,72 @@
+/* components/Features.css */
+.features {
+    background-color: #f4f4f4;
+    padding: 60px 0;
+    text-align: center;
+  }
+  
+  .features-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+  }
+  
+  .features-title {
+    font-size: 2.5rem;
+    margin-bottom: 40px;
+    color: #333;
+    position: relative;
+    display: inline-block;
+  }
+  
+  .features-title::after {
+    content: '';
+    display: block;
+    width: 60px;
+    height: 4px;
+    background-color: #4a90e2;
+    margin: 20px auto 0;
+    border-radius: 2px;
+  }
+  
+  .features-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 20px;
+  }
+  
+  .feature-card {
+    background-color: transparent; /* إزالة الخلفية البيضاء */
+    padding: 20px;
+    text-align: center;
+  }
+  
+  .feature-icon-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: linear-gradient(135deg, #4a90e2 0%, #00c6ff 100%); /* تدرج لوني */
+    border-radius: 50%;
+    width: 60px;
+    height: 60px;
+    margin: 0 auto 15px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* إضافة ظل خفيف للإبراز */
+  }
+  
+  .feature-icon {
+    font-size: 2rem;
+    color: #fff;
+  }
+  
+  .feature-title {
+    font-size: 1.25rem;
+    margin-bottom: 10px;
+    font-weight: bold;
+    color: #333;
+  }
+  
+  .feature-description {
+    font-size: 0.875rem;
+    color: #666;
+  }
+  

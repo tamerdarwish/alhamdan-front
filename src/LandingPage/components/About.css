@@ -1,0 +1,55 @@
+/* components/About.css */
+.about-us {
+    background-color: #ffffff;
+    padding: 60px 0;
+  }
+  
+  .about-us-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 20px;
+    flex-wrap: wrap; /* للتأكد من أن التصميم يتناسب مع الشاشات الصغيرة */
+  }
+  
+  .about-us-image img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    width: 350px; /* تحديد عرض الصورة */
+    margin-right: 20px; /* إضافة مساحة بين الصورة والنص */
+  }
+  
+  .about-us-content {
+    max-width: 600px;
+    text-align: left;
+  }
+  
+  .about-us-title {
+    font-size: 2rem;
+    color: #333;
+    margin-bottom: 20px;
+    position: relative;
+    display: inline-block;
+  }
+  
+  .about-us-title::after {
+    content: '';
+    display: block;
+    width: 80px; /* عرض الخط أسفل العنوان */
+    height: 4px; /* سماكة الخط */
+    background-color: #007bff; /* لون الخط */
+    margin-top: 10px;
+    border-radius: 2px; /* جعل حواف الخط دائرية */
+  }
+  
+  .about-us-text {
+    font-size: 1rem;
+    color: #666;
+    line-height: 1.6;
+    margin-bottom: 15px;
+  }
+  
