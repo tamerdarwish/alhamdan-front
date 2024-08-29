@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
+import PropTypes from 'prop-types'; // استيراد PropTypes
 import { FaArrowLeft } from 'react-icons/fa';
 import EditForm from './EditForm';
 import './AdminEventInfo.css';
-import { uploadMainImage } from '../services/images-api'; // تأكد من أن هذه الخدمة محدثة لدعم API الجديد
+import { uploadMainImage } from '../services/images-api';
 
 const EventInfo = ({
   name,
@@ -29,14 +30,14 @@ const EventInfo = ({
   const handleImageChange = (e) => {
     const file = e.target.files[0];
     setNewImage(file);
-    setImagePreview(URL.createObjectURL(file)); // إنشاء معاينة للصورة الجديدة
+    setImagePreview(URL.createObjectURL(file));
   };
 
   const handleImageUpload = async () => {
     if (newImage) {
       try {
         setLoading(true);
-        const { url } = await uploadMainImage(eventId, newImage); // قم بتحميل الصورة إلى الخادم
+        const { url } = await uploadMainImage(eventId, newImage);
         setUpdatedEvent((prevEvent) => ({ ...prevEvent, main_image: url }));
         setNewImage(null);
         setImagePreview(null);
@@ -63,7 +64,7 @@ const EventInfo = ({
           type="file"
           accept="image/*"
           onChange={handleImageChange}
-          style={{ display: 'none' }} // لإخفاء عنصر اختيار الملف
+          style={{ display: 'none' }}
           id="image-upload"
         />
         <label htmlFor="image-upload" className="upload-button">Change Image</label>
@@ -95,6 +96,27 @@ const EventInfo = ({
       )}
     </div>
   );
+};
+
+// تعريف PropTypes
+EventInfo.propTypes = {
+  name: PropTypes.string.isRequired,
+  date: PropTypes.string.isRequired,
+  main_image: PropTypes.string,
+  drive_link: PropTypes.string.isRequired,
+  access_code: PropTypes.string.isRequired,
+  isEditing: PropTypes.bool.isRequired,
+  updatedEvent: PropTypes.object.isRequired,
+  setUpdatedEvent: PropTypes.func.isRequired,
+  handleEditClick: PropTypes.func.isRequired,
+  handleChange: PropTypes.func.isRequired,
+  handleSaveChanges: PropTypes.func.isRequired,
+  handleCancelEdit: PropTypes.func.isRequired,
+  navigate: PropTypes.func.isRequired,
+  setIsEditing: PropTypes.func.isRequired,
+  eventId: PropTypes.string.isRequired,
+  setEvent: PropTypes.func.isRequired,
+  setLoading: PropTypes.func.isRequired,
 };
 
 export default EventInfo;

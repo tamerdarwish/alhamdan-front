@@ -11,13 +11,12 @@ const ViewEventPage = () => {
   const { eventId } = useParams();
   const [event, setEvent] = useState(null);
   const [album, setAlbum] = useState([]);
-  const [updatedEvent, setUpdatedEvent] = useState({});
 
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const fetchData = async () => {
-      const eventData = await fetchEvent(eventId, setEvent, setUpdatedEvent, setLoading);
+      const eventData = await fetchEvent(eventId, setEvent, setLoading);
 
       if (eventData && Array.isArray(eventData.album)) {
         setAlbum(eventData.album);
@@ -31,7 +30,7 @@ const ViewEventPage = () => {
     await handleTogglePrintStatus(eventId, imageId, currentStatus, setAlbum);
     
     // إعادة تحميل البيانات لتحديث الألبوم
-    const updatedEventData = await fetchEvent(eventId, setEvent, setUpdatedEvent, setLoading);
+    const updatedEventData = await fetchEvent(eventId, setEvent, setLoading);
     if (updatedEventData && Array.isArray(updatedEventData.album)) {
       setAlbum(updatedEventData.album);
     }

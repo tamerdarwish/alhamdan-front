@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types'; // استيراد مكتبة PropTypes
 import { FaSave } from 'react-icons/fa';
 
 const EditForm = ({ updatedEvent, handleChange, handleSaveChanges, handleCancelEdit }) => {
@@ -22,7 +23,6 @@ const EditForm = ({ updatedEvent, handleChange, handleSaveChanges, handleCancelE
           onChange={handleChange}
         />
       </label>
-     
       <label>
         Drive Link:
         <input
@@ -49,6 +49,19 @@ const EditForm = ({ updatedEvent, handleChange, handleSaveChanges, handleCancelE
       </button>
     </div>
   );
+};
+
+// تحديد الأنواع باستخدام PropTypes
+EditForm.propTypes = {
+  updatedEvent: PropTypes.shape({
+    name: PropTypes.string,
+    date: PropTypes.string,
+    drive_link: PropTypes.string,
+    access_code: PropTypes.string,
+  }).isRequired,
+  handleChange: PropTypes.func.isRequired,
+  handleSaveChanges: PropTypes.func.isRequired,
+  handleCancelEdit: PropTypes.func.isRequired,
 };
 
 export default EditForm;

@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import PropTypes from 'prop-types'; // استيراد PropTypes
 import { FaPrint, FaTrashAlt } from 'react-icons/fa';
 import './ImageGrid.css';  // تأكد من استيراد ملف CSS بشكل صحيح
 
@@ -60,13 +61,13 @@ const ImageGrid = ({ album, handlePrintStatusToggle, watermark_setting }) => {
   };
 
   return (
-    <div className="album-section">
+    <div className='album-section'>
       <h2>Album</h2>
 
       {album.length === 0 ? (
-        <p className="no-images">No images in the album.</p>
+        <p className='no-images'>No images in the album.</p>
       ) : (
-        <div className="images-grid">
+        <div className='images-grid'>
           {album.map((image) => (
             <div
               key={image.id}
@@ -75,7 +76,7 @@ const ImageGrid = ({ album, handlePrintStatusToggle, watermark_setting }) => {
               <img
                 src={image.url}
                 alt={`Album image ${image.id}`}
-                className="album-image"
+                className='album-image'
                 onClick={() => handleImageClick(image)}
                 onDoubleClick={() => handleImageDoubleClick(image)}
                 onContextMenu={handleContextMenu}
@@ -90,24 +91,24 @@ const ImageGrid = ({ album, handlePrintStatusToggle, watermark_setting }) => {
       )}
 
       {selectedImages.length > 0 && (
-        <div className="download-section">
-          <button onClick={downloadImagesWithWatermark} className="btn download-button">
+        <div className='download-section'>
+          <button onClick={downloadImagesWithWatermark} className='btn download-button'>
             Download Selected with Watermark
           </button>
-          <button onClick={clearSelection} className="btn clear-selection-button">
+          <button onClick={clearSelection} className='btn clear-selection-button'>
             <FaTrashAlt /> Clear Selection
           </button>
         </div>
       )}
 
       {selectedImage && (
-        <div className="modal" onClick={closeModal}>
-          <div className="modal-content" onClick={(e) => e.stopPropagation()}>
-            <span className="close-button" onClick={closeModal}>&times;</span>
+        <div className='modal' onClick={closeModal}>
+          <div className='modal-content' onClick={(e) => e.stopPropagation()}>
+            <span className='close-button' onClick={closeModal}>&times;</span>
             <img
               src={selectedImage.url}
               alt={`Selected image ${selectedImage.id}`}
-              className="modal-image"
+              className='modal-image'
               onContextMenu={handleContextMenu}
             />
           </div>
@@ -115,6 +116,19 @@ const ImageGrid = ({ album, handlePrintStatusToggle, watermark_setting }) => {
       )}
     </div>
   );
+};
+
+// تحديد الأنواع باستخدام PropTypes
+ImageGrid.propTypes = {
+  album: PropTypes.arrayOf(
+    PropTypes.shape({
+      id: PropTypes.string.isRequired,
+      url: PropTypes.string.isRequired,
+      printStatus: PropTypes.bool,
+    })
+  ).isRequired,
+  handlePrintStatusToggle: PropTypes.func.isRequired,
+  watermark_setting: PropTypes.string.isRequired,
 };
 
 export default ImageGrid;

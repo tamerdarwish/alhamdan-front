@@ -1,4 +1,3 @@
-import axios from 'axios';
 
 //POST Image To Album Of Spicific Event
 

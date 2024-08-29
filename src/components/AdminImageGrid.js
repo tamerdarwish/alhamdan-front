@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import { FaTrash, FaCheck, FaPrint } from 'react-icons/fa';
 import './AdminImageGrid.css';
 import ImageUploader from './ImageUploader';
+import PropTypes from 'prop-types'; // تأكد من إضافة PropTypes هنا
+
 
 const ImageGrid = ({
   album,
@@ -114,6 +116,29 @@ const ImageGrid = ({
       )}
     </div>
   );
+};
+
+ImageGrid.propTypes = {
+  album: PropTypes.arrayOf(
+    PropTypes.shape({
+      url: PropTypes.string.isRequired,
+      id: PropTypes.string.isRequired,
+      printStatus: PropTypes.bool
+    })
+  ).isRequired,
+  selectedImages: PropTypes.arrayOf(
+    PropTypes.shape({
+      url: PropTypes.string.isRequired,
+      id: PropTypes.string.isRequired,
+      printStatus: PropTypes.bool
+    })
+  ).isRequired,
+  setSelectedImages: PropTypes.func.isRequired,
+  handleDeleteImage: PropTypes.func.isRequired,
+  handleDeleteSelectedImages: PropTypes.func.isRequired,
+  handlePrintSelected: PropTypes.func.isRequired,
+  handleSelectAllImages: PropTypes.func.isRequired,
+  handleAddImages: PropTypes.func.isRequired
 };
 
 export default ImageGrid;

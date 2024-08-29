@@ -1,4 +1,5 @@
 import React, { useRef, useEffect } from 'react';
+import PropTypes from 'prop-types'; // استيراد PropTypes
 
 const WatermarkImage = ({ image, watermarkSetting }) => {
   const canvasRef = useRef(null);
@@ -31,6 +32,14 @@ const WatermarkImage = ({ image, watermarkSetting }) => {
   }, [image, watermarkSetting]);
 
   return <canvas ref={canvasRef}></canvas>;
+};
+
+// تحديد الأنواع باستخدام PropTypes
+WatermarkImage.propTypes = {
+  image: PropTypes.shape({
+    url: PropTypes.string.isRequired
+  }).isRequired,
+  watermarkSetting: PropTypes.number.isRequired
 };
 
 export default WatermarkImage; // تصدير المكون كـ default export

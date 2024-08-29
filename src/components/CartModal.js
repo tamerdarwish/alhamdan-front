@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types'; // استيراد مكتبة PropTypes
 import './CartModal.css';
 
 const CartModal = ({ isOpen, onClose, cartItems, removeFromCart, totalPrice }) => {
@@ -35,6 +36,22 @@ const CartModal = ({ isOpen, onClose, cartItems, removeFromCart, totalPrice }) =
       )}
     </div>
   );
+};
+
+// تحديد الأنواع باستخدام PropTypes
+CartModal.propTypes = {
+  isOpen: PropTypes.bool.isRequired,
+  onClose: PropTypes.func.isRequired,
+  cartItems: PropTypes.arrayOf(
+    PropTypes.shape({
+      id: PropTypes.string.isRequired,
+      name: PropTypes.string.isRequired,
+      price: PropTypes.number.isRequired,
+      image_url: PropTypes.string
+    })
+  ).isRequired,
+  removeFromCart: PropTypes.func.isRequired,
+  totalPrice: PropTypes.number.isRequired
 };
 
 export default CartModal;

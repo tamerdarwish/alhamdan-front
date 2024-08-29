@@ -37,7 +37,7 @@ const EventPage = () => {
     const progressUpdateInterval = 100; // تحديث التقدم كل 100 مللي ثانية
     const startTime = Date.now();
     
-    await handleAddImages(e, eventId, event, setEvent, setUpdatedEvent, (progress) => {
+    await handleAddImages(e, eventId, event, setEvent, setUpdatedEvent, () => {
       // تحديث التقدم بناءً على الوقت المنقضي
       const elapsed = Date.now() - startTime;
       const progressPercent = Math.min(100, Math.floor((elapsed / progressUpdateInterval) * 100));

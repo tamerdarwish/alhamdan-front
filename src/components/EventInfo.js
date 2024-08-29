@@ -1,9 +1,8 @@
 import React from 'react';
+import PropTypes from 'prop-types'; // استيراد مكتبة PropTypes
 import { FaArrowLeft } from 'react-icons/fa';
 import './EventInfo.css';
 import { useNavigate } from 'react-router-dom';
-
-
 
 const EventInfo = ({
   name,
@@ -16,7 +15,7 @@ const EventInfo = ({
 
   return (
     <div className="event-info">
-      <button className="back-button" onClick={() => navigate(-1) || navigate('/')}>
+      <button className="back-button" onClick={() => navigate(-1)}>
         <FaArrowLeft />
       </button>
       {main_image && <img src={main_image} alt={name} className="event-image" />}
@@ -32,6 +31,15 @@ const EventInfo = ({
       </div>
     </div>
   );
+};
+
+// تحديد الأنواع باستخدام PropTypes
+EventInfo.propTypes = {
+  name: PropTypes.string.isRequired,
+  date: PropTypes.string.isRequired,
+  main_image: PropTypes.string,
+  drive_link: PropTypes.string,
+  access_code: PropTypes.string,
 };
 
 export default EventInfo;

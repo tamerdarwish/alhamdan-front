@@ -1,19 +1,16 @@
-// src/pages/AdminDashboard.js
-
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import EventCard from '../components/EventCard';
-import {fetchEvents} from '../services/events-api'
+import { fetchEvents } from '../services/events-api'; // إضافة فاصلة منقوطة هنا
 
 const AdminDashboard = () => {
   const [events, setEvents] = useState([]);
 
   useEffect(() => {
-  
-    const getEvents = async() => {
-     let events =  await fetchEvents();
-     setEvents(events)
-    }
+    const getEvents = async () => {
+      let events = await fetchEvents();
+      setEvents(events);
+    };
 
     getEvents();
   }, []);

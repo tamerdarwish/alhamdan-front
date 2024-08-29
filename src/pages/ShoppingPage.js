@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import ProductList from '../components/ProductList';
 import CartModal from '../components/CartModal';
-import CartIcon from '../components/CartIcon';
 import './ShoppingPage.css';
 
 const ShoppingPage = () => {
@@ -19,7 +18,6 @@ const ShoppingPage = () => {
     setCartItems(cartItems.filter(item => item.id !== productId));
   };
 
-  const toggleCart = () => setIsCartOpen(!isCartOpen);
 
   const totalPrice = cartItems.reduce((total, item) => total + item.price, 0);
 

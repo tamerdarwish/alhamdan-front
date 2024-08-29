@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import PropTypes from 'prop-types'; // استيراد PropTypes هنا
 import './Cart.css';
 
 const Cart = ({ cartItems, removeFromCart }) => {
@@ -58,6 +59,18 @@ const Cart = ({ cartItems, removeFromCart }) => {
       )}
     </div>
   );
+};
+
+// إضافة PropTypes هنا
+Cart.propTypes = {
+  cartItems: PropTypes.arrayOf(
+    PropTypes.shape({
+      image_url: PropTypes.string.isRequired,
+      name: PropTypes.string.isRequired,
+      price: PropTypes.number.isRequired
+    })
+  ).isRequired,
+  removeFromCart: PropTypes.func.isRequired
 };
 
 export default Cart;

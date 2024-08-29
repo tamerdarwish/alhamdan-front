@@ -5,14 +5,13 @@ import { uploadImageToAlbum, deleteImageFromAlbum, deleteSelectedImagesFromAlbum
 
 
 // Fetch event data by ID
-export const fetchEvent = async (eventId, setEvent, setUpdatedEvent, setLoading) => {
+export const fetchEvent = async (eventId, setEvent, setLoading) => {
   try {
     const eventData = await fetchEventById(eventId);
     if (Array.isArray(eventData.album)) {
       eventData.album = eventData.album.map(image => JSON.parse(image));
     }
     setEvent(eventData);
-    setUpdatedEvent(eventData);
     if (typeof setLoading === 'function') {
       setLoading(false);
     }
@@ -153,7 +152,7 @@ export const handleDeleteImage = async (imageId, eventId, eventData, setEvent, s
     await deleteImageFromAlbum(eventId, imageId);
 
     // إعادة جلب البيانات المحدثة من الخادم باستخدام دالة fetchEvent
-    const updatedEvent = await fetchEvent(eventId, setEvent, setUpdatedEvent, setLoading);
+    await fetchEvent(eventId, setEvent, setUpdatedEvent, setLoading);
     
     // لا حاجة لتحديث الحالة مرة أخرى، حيث أن fetchEvent يقوم بذلك بالفعل
   } catch (error) {

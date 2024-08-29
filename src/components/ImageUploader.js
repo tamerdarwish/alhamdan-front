@@ -1,15 +1,16 @@
 import React from 'react';
-import { FaPlus, FaTrash, FaPrint, FaCheck } from 'react-icons/fa';
+import PropTypes from 'prop-types'; // Import PropTypes for type validation
+import { FaPlus } from 'react-icons/fa';
 
-
-const ImageUploader = ({ handleAddImages ,setUploading }) => {
+const ImageUploader = ({ handleAddImages, setUploading }) => {
   const handleChange = async (e) => {
-    setUploading(true); // تعيين حالة uploading إلى true عند بدء التحميل
+    setUploading(true); // Set uploading state to true when upload starts
     await handleAddImages(e);
-    setUploading(false); // تعيين حالة uploading إلى false عند الانتهاء
+    setUploading(false); // Set uploading state to false when upload ends
   };
+
   return (
-    <div >
+    <div>
       <label htmlFor="file-upload" className="upload-button">
         <FaPlus /> Upload Images
       </label>
@@ -23,6 +24,12 @@ const ImageUploader = ({ handleAddImages ,setUploading }) => {
       />
     </div>
   );
+};
+
+// Define PropTypes for the component
+ImageUploader.propTypes = {
+  handleAddImages: PropTypes.func.isRequired,
+  setUploading: PropTypes.func.isRequired,
 };
 
 export default ImageUploader;

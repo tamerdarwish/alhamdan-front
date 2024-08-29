@@ -1,9 +1,10 @@
 import React from 'react';
+import PropTypes from 'prop-types'; // استيراد مكتبة PropTypes
 import './CartIcon.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faShoppingCart } from '@fortawesome/free-solid-svg-icons';
 
-const CartIcon = ({ toggleCart, cartItems = [], totalPrice = 0 }) => {
+const CartIcon = ({ toggleCart, cartItems, totalPrice }) => {
   return (
     <div className="cart-icon-container" onClick={toggleCart}>
       <FontAwesomeIcon icon={faShoppingCart} className="cart-icon" />
@@ -15,6 +16,26 @@ const CartIcon = ({ toggleCart, cartItems = [], totalPrice = 0 }) => {
       )}
     </div>
   );
+};
+
+// تحديد الأنواع باستخدام PropTypes
+CartIcon.propTypes = {
+  toggleCart: PropTypes.func.isRequired,
+  cartItems: PropTypes.arrayOf(
+    PropTypes.shape({
+      id: PropTypes.string.isRequired,
+      name: PropTypes.string.isRequired,
+      price: PropTypes.number.isRequired,
+      image_url: PropTypes.string
+    })
+  ),
+  totalPrice: PropTypes.number
+};
+
+// تحديد القيم الافتراضية باستخدام defaultProps
+CartIcon.defaultProps = {
+  cartItems: [],
+  totalPrice: 0
 };
 
 export default CartIcon;

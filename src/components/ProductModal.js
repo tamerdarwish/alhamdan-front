@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types'; // استيراد PropTypes للتحقق من الأنواع
 import './ProductModal.css';
 
 const ProductModal = ({ product, onClose, addToCart }) => {
@@ -20,6 +21,18 @@ const ProductModal = ({ product, onClose, addToCart }) => {
       </div>
     </div>
   );
+};
+
+// تحديد الأنواع باستخدام PropTypes
+ProductModal.propTypes = {
+  product: PropTypes.shape({
+    image_url: PropTypes.string.isRequired,
+    name: PropTypes.string.isRequired,
+    description: PropTypes.string.isRequired,
+    price: PropTypes.number.isRequired,
+  }).isRequired, // `product` يجب أن يكون كائنًا بمواصفات معينة
+  onClose: PropTypes.func.isRequired, // `onClose` يجب أن يكون دالة
+  addToCart: PropTypes.func.isRequired, // `addToCart` يجب أن يكون دالة
 };
 
 export default ProductModal;

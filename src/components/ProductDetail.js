@@ -1,6 +1,6 @@
-// ProductDetail.js
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
+import PropTypes from 'prop-types'; // استيراد PropTypes
 import CartIcon from '../components/CartIcon';
 import CartModal from '../components/CartModal';
 import './ProductDetail.css';
@@ -40,6 +40,11 @@ const ProductDetail = ({ addToCart }) => {
       <CartModal isOpen={isCartOpen} onClose={() => setIsCartOpen(false)} cartItems={[]} />
     </div>
   );
+};
+
+// تحديد الأنواع باستخدام PropTypes
+ProductDetail.propTypes = {
+  addToCart: PropTypes.func.isRequired
 };
 
 export default ProductDetail;

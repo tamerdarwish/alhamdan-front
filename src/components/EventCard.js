@@ -1,6 +1,5 @@
-// src/components/EventCard.js
-
 import React from 'react';
+import PropTypes from 'prop-types'; // استيراد مكتبة PropTypes
 import { FaTrash } from 'react-icons/fa'; // استيراد أيقونة سلة قمامة
 import { useNavigate } from 'react-router-dom'; // استيراد useNavigate
 
@@ -114,6 +113,19 @@ const EventCard = ({ event, onDelete }) => {
       <div style={dateStyle}>{access_code}</div>
     </div>
   );
+};
+
+// تحديد الأنواع باستخدام PropTypes
+EventCard.propTypes = {
+  event: PropTypes.shape({
+    id: PropTypes.string.isRequired,
+    name: PropTypes.string.isRequired,
+    date: PropTypes.string.isRequired,
+    main_image: PropTypes.string,
+    drive_link: PropTypes.string,
+    access_code: PropTypes.string,
+  }).isRequired,
+  onDelete: PropTypes.func.isRequired,
 };
 
 export default EventCard;

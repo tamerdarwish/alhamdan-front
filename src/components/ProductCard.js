@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types'; // Import PropTypes for type validation
 import { motion } from 'framer-motion';
 import './ProductCard.css';
 
@@ -22,6 +23,17 @@ const ProductCard = ({ product, onAddToCart }) => {
       </div>
     </motion.div>
   );
+};
+
+// Define PropTypes for the component
+ProductCard.propTypes = {
+  product: PropTypes.shape({
+    image_url: PropTypes.string.isRequired,
+    name: PropTypes.string.isRequired,
+    description: PropTypes.string.isRequired,
+    price: PropTypes.number.isRequired,
+  }).isRequired,
+  onAddToCart: PropTypes.func.isRequired,
 };
 
 export default ProductCard;
