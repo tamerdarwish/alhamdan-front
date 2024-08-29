@@ -3,6 +3,8 @@
   top: 10px; /* تعديل الموضع العمودي للسلة */
   right: 10px; /* ضبط السلة على الجهة اليمنى من الشاشة */
   z-index: 100; /* لجعل السلة فوق أي محتويات أخرى */
+  margin-top: 80px; /* تأكد من أن القيمة مطابقة لارتفاع الهيدر */
+
 }
 
 .cart-icon {
@@ -16,6 +18,7 @@
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
   transition: background-color 0.3s ease;
   position: relative;
+
 }
 
 .cart-count {

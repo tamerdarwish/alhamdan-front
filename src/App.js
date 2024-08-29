@@ -14,13 +14,19 @@ import ProductDetailsPage from './pages/ProductDetailsPage';
 import OrderConfirmation from './pages/OrderConfirmation'; // استخدام OrderConfirmationPage هنا
 import AdminSettingsPage from './pages/AdminSettingsPage';
 import LandingPage  from './LandingPage/LandingPage';
+import Header from './LandingPage/components/Header';
+import Footer from './LandingPage/components/Footer';
 
 import '@fortawesome/fontawesome-free/css/all.min.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 const App = () => {
+  const scrollToSection = (section) => {
+    document.getElementById(section).scrollIntoView({ behavior: 'smooth' });
+  };
   return (
     <Router>
+      <Header scrollToSection={scrollToSection} />
       <Routes>
       <Route path="/" element={<LandingPage />} />
 
@@ -38,6 +44,7 @@ const App = () => {
         <Route path="/shop" element={<ShoppingPage />} />
         <Route path="/products/:id" element={<ProductDetail />} />
       </Routes>
+      <Footer />
     </Router>
   );
 };

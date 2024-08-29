@@ -19,7 +19,7 @@ const LandingPage = () => {
 
   return (
     <div className="LandingPage">
-      <Header scrollToSection={scrollToSection} />
+      
       <HeroSection /> 
       <Features />
       <About />
@@ -28,7 +28,6 @@ const LandingPage = () => {
       {/*<Testimonials />*/}
       <Team />
       <Contact />
-      <Footer />
 
     </div>
   );

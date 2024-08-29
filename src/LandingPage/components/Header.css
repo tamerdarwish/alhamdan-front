@@ -1,6 +1,6 @@
 /* components/Header.css */
 .header {
-  background-color: #333;
+  background-color: #222;
   color: #fff;
   padding: 15px 0;
   position: fixed;
@@ -8,6 +8,9 @@
   top: 0;
   left: 0;
   z-index: 1000;
+  height: 80px;
+  box-sizing: border-box;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* إضافة ظل خفيف */
 }
 
 .header-container {
@@ -19,8 +22,15 @@
   padding: 0 20px;
 }
 
-.header-logo img {
-  height: 50px; /* Adjust the height of the logo */
+.header-logo a {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #fff;
+  text-decoration: none;
+}
+
+.header-nav {
+  display: flex; /* عرض القائمة بشكل أفقي على الشاشات الكبيرة */
 }
 
 .header-nav ul {
@@ -37,13 +47,16 @@
 .header-nav ul li a {
   color: #fff;
   text-decoration: none;
+  padding: 10px;
   font-size: 1rem;
-  font-weight: 500;
-  transition: color 0.3s ease;
+  transition: color 0.3s ease, background-color 0.3s ease;
+  border-radius: 5px; /* إضافة حواف مدورة للرابط */
+  cursor: pointer; /* تغيير شكل الفأرة إلى اليد عند المرور فوق الرابط */
 }
 
 .header-nav ul li a:hover {
-  color: #007bff;
+  background-color: #444; /* خلفية داكنة عند التمرير */
+  color: #00aaff; /* لون النص عند التمرير */
 }
 
 .header-button {
@@ -55,8 +68,85 @@
   font-size: 1rem;
   font-weight: bold;
   transition: background-color 0.3s ease;
+  cursor: pointer; /* تغيير شكل الفأرة إلى اليد عند المرور فوق الزر */
 }
 
 .header-button:hover {
   background-color: #0056b3;
+}
+
+/* استعلامات الوسائط لتصميم متجاوب */
+@media (min-width: 769px) {
+  .header-nav {
+    display: flex; /* عرض القائمة بشكل أفقي على الشاشات الكبيرة */
+  }
+
+  .menu-toggle {
+    display: none; /* إخفاء زر القائمة على الشاشات الكبيرة */
+  }
+
+  .header-nav.active {
+    display: none; /* التأكد من عدم عرض القائمة المنبثقة على الشاشات الكبيرة */
+  }
+}
+
+@media (max-width: 768px) {
+  .header-nav {
+    display: none; /* إخفاء القائمة على الشاشات الصغيرة */
+  }
+
+  .menu-toggle {
+    display: block;
+    cursor: pointer;
+    font-size: 1.8rem;
+    color: #fff;
+  }
+
+  .header-nav.active {
+    display: block; /* عرض القائمة المنبثقة عند تفعيلها */
+    width: 100%;
+    background-color: #333;
+    position: absolute;
+    top: 80px; /* التأكد من عدم تداخل القائمة مع الهيدر */
+    left: 0;
+    padding: 20px 0;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* إضافة ظل للقائمة المنبثقة */
+  }
+
+  .header-nav ul {
+    display: block;
+    width: 100%;
+    text-align: left;
+    padding: 0;
+  }
+
+  .header-nav ul li {
+    margin: 10px 0;
+  }
+
+  .header-nav ul li a {
+    padding: 10px;
+    display: block;
+  }
+
+  .header-button {
+    font-size: 0.9rem;
+    padding: 8px 16px;
+  }
+}
+
+@media (max-width: 480px) {
+  .header-logo a {
+    font-size: 1rem; /* حجم شعار أصغر على الشاشات الصغيرة جداً */
+  }
+
+  .header-nav ul li a {
+    padding: 8px;
+    font-size: 0.9rem;
+  }
+
+  .header-button {
+    font-size: 0.8rem;
+    padding: 6px 12px;
+  }
 }

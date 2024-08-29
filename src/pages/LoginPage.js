@@ -16,7 +16,6 @@ const verifyEventCode = async (eventCode) => {
   }
 };
 
-
 const LoginPage = () => {
   const [eventCode, setEventCode] = useState('');
   const navigate = useNavigate();
@@ -42,7 +41,7 @@ const LoginPage = () => {
 
   return (
     <div style={styles.container}>
-      <h2>Login with Event Code</h2>
+      <h2 style={styles.heading}>Login with Event Code</h2>
       <form onSubmit={handleLogin} style={styles.form}>
         <input
           type="text"
@@ -64,6 +63,14 @@ const styles = {
     alignItems: 'center',
     justifyContent: 'center',
     height: '100vh',
+    backgroundImage: 'url(/hero-bg.jpg)', // أضف هنا مسار الصورة
+    backgroundSize: 'cover', // لتغطية الخلفية بالكامل
+    backgroundPosition: 'center', // لضبط الصورة في المنتصف
+    backgroundRepeat: 'no-repeat', // عدم تكرار الصورة
+  },
+  heading: {
+    color: '#fff', // تأكد من أن النص يمكن رؤيته على خلفية الصورة
+    marginBottom: '20px',
   },
   form: {
     display: 'flex',
