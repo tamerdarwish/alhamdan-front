@@ -16,6 +16,8 @@ import AdminSettingsPage from './pages/AdminSettingsPage';
 import LandingPage  from './LandingPage/LandingPage';
 import Header from './LandingPage/components/Header';
 import Footer from './LandingPage/components/Footer';
+import AddProduct from './pages/AddProduct';
+
 
 import '@fortawesome/fontawesome-free/css/all.min.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -33,6 +35,7 @@ const App = () => {
         <Route path="/login" element={<LoginPage />} />
         <Route path="/admin/login" element={<AdminLogin />} />
         <Route path="/admin" element={<AdminDashboard />} />
+        <Route path="/admin/newProduct" element={<AddProduct />} />
         <Route path="/admin-event/:eventId" element={<AdminEventPage />} />
         <Route path="/event/:eventId" element={<EventPage />} />
         <Route path="/event/new" element={<EventForm />} />

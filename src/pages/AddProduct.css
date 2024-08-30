@@ -1,0 +1,87 @@
+/* AddProduct.css */
+
+.add-product-container {
+    max-width: 500px;
+    margin: 50px auto;
+    padding: 20px;
+    background-color: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    font-family: 'Heebo', sans-serif;
+}
+
+.add-product-container h2 {
+    text-align: center;
+    color: #333333;
+    font-size: 24px;
+    margin-bottom: 20px;
+}
+
+.add-product-container form {
+    display: flex;
+    flex-direction: column;
+}
+
+.add-product-container form div {
+    margin-bottom: 15px;
+}
+
+.add-product-container form label {
+    display: block;
+    color: #666666;
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+
+.add-product-container form input,
+.add-product-container form textarea {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #cccccc;
+    border-radius: 4px;
+    font-size: 16px;
+    transition: border-color 0.3s;
+}
+
+.add-product-container form input:focus,
+.add-product-container form textarea:focus {
+    border-color: #007bff;
+    outline: none;
+}
+
+.add-product-container form textarea {
+    resize: vertical;
+    height: 100px;
+}
+
+.add-product-container form button {
+    padding: 12px 20px;
+    background-color: #007bff;
+    color: #ffffff;
+    border: none;
+    border-radius: 4px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.add-product-container form button:hover {
+    background-color: #0056b3;
+}
+
+.add-product-container p {
+    text-align: center;
+    color: green;
+    font-weight: bold;
+}
+
+  
+.success-message {
+    opacity: 1;
+    transition: opacity 1s ease-out;
+    /* Ensure message visibility before fade-out */
+  }
+  
+  .success-message.fade-out {
+    opacity: 0;
+  }
