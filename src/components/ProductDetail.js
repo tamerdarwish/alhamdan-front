@@ -24,17 +24,15 @@ const ProductDetail = ({ addToCart }) => {
   return (
     <div className="product-detail-page">
       <CartIcon toggleCart={toggleCart} />
-      <div className="product-detail">
-        <div className="product-detail-wrapper">
-          <img src={product.image_url} alt={product.name} className="product-detail-image" />
-          <div className="product-detail-info">
-            <h2 className="product-detail-name">{product.name}</h2>
-            <p className="product-detail-description">{product.description}</p>
-            <p className="product-detail-price">${product.price.toFixed(2)}</p>
-            <button onClick={() => addToCart(product)} className="add-to-cart-button">
-              Add to Cart
-            </button>
-          </div>
+      <div className="product-detail-wrapper">
+        <img src={product.image_url} alt={product.name} className="product-detail-image" />
+        <div className="product-detail-info">
+          <h2 className="product-detail-name">{product.name}</h2>
+          <p className="product-detail-description">{product.description}</p>
+          <p className="product-detail-price">${product.price.toFixed(2)}</p>
+          <button onClick={() => addToCart(product)} className="add-to-cart-button">
+            Add to Cart
+          </button>
         </div>
       </div>
       <CartModal isOpen={isCartOpen} onClose={() => setIsCartOpen(false)} cartItems={[]} />

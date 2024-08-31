@@ -1,0 +1,92 @@
+/* الأساسيات */
+body {
+    font-family: 'Heebo', sans-serif; /* استخدام خط حديث وأنيق */
+    background-color: #f4f7f6; /* لون خلفية خفيف وأنيق */
+    color: #333; /* لون النص الأساسي */
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  
+  /* الحاوية الرئيسية */
+  .edit-product-container {
+    max-width: 600px;
+    margin: 50px auto;
+    background-color: #fff; /* خلفية بيضاء للحاوية */
+    padding: 20px 30px;
+    border-radius: 10px;
+    box-shadow: 0px 10px 30px rgba(0, 0, 0, 0.1); /* ظل خفيف للحاوية */
+  }
+  
+  /* عنوان الصفحة */
+  .edit-product-container h2 {
+    font-size: 24px;
+    color: #4CAF50; /* لون أخضر حديث */
+    margin-bottom: 20px;
+    text-align: center;
+    font-weight: bold;
+  }
+  
+  /* الحقول */
+  .edit-product-container label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: 600;
+    color: #555;
+  }
+  
+  .edit-product-container input[type="text"],
+  .edit-product-container input[type="number"],
+  .edit-product-container textarea,
+  .edit-product-container input[type="file"] {
+    width: 100%;
+    padding: 12px;
+    margin-bottom: 20px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 16px;
+    background-color: #f9f9f9;
+    transition: border-color 0.3s ease;
+  }
+  
+  .edit-product-container input[type="text"]:focus,
+  .edit-product-container input[type="number"]:focus,
+  .edit-product-container textarea:focus {
+    border-color: #4CAF50;
+    outline: none;
+  }
+  
+  /* زر التحديث */
+  .edit-product-container button[type="submit"] {
+    width: 100%;
+    padding: 12px;
+    background-color: #4CAF50;
+    border: none;
+    border-radius: 5px;
+    color: white;
+    font-size: 18px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .edit-product-container button[type="submit"]:hover {
+    background-color: #45a049;
+  }
+  
+  /* الصورة الحالية */
+  .edit-product-container img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 5px;
+    margin-bottom: 20px;
+    box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.1); /* ظل خفيف للصورة */
+  }
+  
+  /* رسالة النجاح */
+  .edit-product-container p {
+    text-align: center;
+    font-size: 16px;
+    color: #4CAF50;
+    margin-top: 20px;
+  }
+  

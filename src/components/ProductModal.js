@@ -5,7 +5,7 @@ import './ProductModal.css';
 const ProductModal = ({ product, onClose, addToCart }) => {
   return (
     <div className="modal-overlay">
-      <div className="modal-content">
+      <div className="modal-content show"> {/* تأكد من إضافة الكلاس 'show' هنا */}
         <button className="close-button" onClick={onClose}>
           &times;
         </button>

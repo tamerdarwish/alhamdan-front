@@ -17,6 +17,9 @@ import LandingPage  from './LandingPage/LandingPage';
 import Header from './LandingPage/components/Header';
 import Footer from './LandingPage/components/Footer';
 import AddProduct from './pages/AddProduct';
+import EditProduct from './pages/EditProduct';
+import AdminProductListPage from './pages/AdminProductListPage';
+
 
 
 import '@fortawesome/fontawesome-free/css/all.min.css';
@@ -46,6 +49,9 @@ const App = () => {
         <Route path="/admin-settings" element={<AdminSettingsPage />} />
         <Route path="/shop" element={<ShoppingPage />} />
         <Route path="/products/:id" element={<ProductDetail />} />
+        <Route path="/edit-product/:id" element={<EditProduct />} />
+        <Route path="/admin/products" element={<AdminProductListPage />} />
+
       </Routes>
       <Footer />
     </Router>
