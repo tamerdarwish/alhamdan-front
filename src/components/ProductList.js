@@ -65,11 +65,11 @@ const ProductList = () => {
     <div className="product-list">
       <Cart cartItems={cartItems} removeFromCart={removeFromCart} placeOrder={handlePlaceOrder} />
 
-      <h2>Our Products</h2>
+      <h2 className="page-title">منتجات لدينا</h2>
       
       <input
         type="text"
-        placeholder="🔍 Search for products..."
+        placeholder="إبحث هنا ..."
         value={searchTerm}
         onChange={(e) => setSearchTerm(e.target.value)}
         className="search-bar modern-search-bar"
@@ -82,7 +82,7 @@ const ProductList = () => {
               <img src={product.image_url} alt={product.name} className="product-image" />
             </div>
             <h3 className="product-name">{product.name}</h3>
-            <p className="product-price">${product.price.toFixed(2)}</p>
+            <p className="product-price">₪{product.price.toFixed(2)}</p>
           </div>
         ))}
       </div>

@@ -1,0 +1,121 @@
+/* استيراد خط Cairo من Google Fonts */
+
+body {
+  font-family: 'Cairo', sans-serif;
+}
+
+.order-details-container {
+  max-width: 900px;
+  margin: 30px auto;
+  padding: 30px;
+  background-color: #fff;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+h2 {
+  font-size: 24px;
+  color: #2b7a78;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.order-info {
+  margin-bottom: 30px;
+  padding: 20px;
+  background-color: #f4f7f8;
+  border-radius: 8px;
+  font-family: 'Cairo', sans-serif;
+
+}
+
+.order-info p {
+  margin: 12px 0;
+  font-size: 16px;
+  line-height: 1.5;
+  font-family: 'Cairo', sans-serif;
+
+}
+
+.order-info p span {
+  font-weight: bold;
+  color: #2b7a78;
+}
+
+.order-status {
+  margin-top: 20px;
+  text-align: center;
+}
+
+.order-status label {
+  display: block;
+  font-size: 18px;
+  color: #2b7a78;
+  margin-bottom: 10px;
+  font-family: 'Cairo', sans-serif;
+
+}
+
+.order-status select {
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  font-size: 16px;
+  width: 100%;
+  max-width: 300px;
+  margin: 0 auto;
+  display: block;
+}
+
+h3 {
+  font-size: 20px;
+  color: #2b7a78;
+  margin-bottom: 15px;
+  font-family: 'Cairo', sans-serif;
+
+}
+
+.product-table {
+  margin-bottom: 30px;
+}
+
+.product-table table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.product-table th, .product-table td {
+  padding: 12px;
+  border: 1px solid #ddd;
+  text-align: center;
+  font-family: 'Cairo', sans-serif;
+
+}
+
+.product-table th {
+  background-color: #2b7a78;
+  color: #fff;
+}
+
+.product-table td img {
+  width: 80px;
+  height: 80px;
+  object-fit: cover;
+  border-radius: 4px;
+}
+
+.product-table td p {
+  margin: 0;
+  font-size: 16px;
+  font-family: 'Cairo', sans-serif;
+
+}
+
+.order-total {
+  text-align: center;
+  font-size: 18px;
+  color: #2b7a78;
+  font-weight: bold;
+  font-family: 'Cairo', sans-serif;
+
+}

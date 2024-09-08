@@ -2,15 +2,17 @@
 .header {
   background-color: #222;
   color: #fff;
-  padding: 15px 0;
+  padding: 10px 0; /* تقليل المسافة الرأسية */
   position: fixed;
   width: 100%;
   top: 0;
   left: 0;
   z-index: 1000;
-  height: 80px;
+  height: 60px; /* تقليل ارتفاع الشريط */
   box-sizing: border-box;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* إضافة ظل خفيف */
+  font-family: 'Cairo', sans-serif;
+  direction: rtl; /* توجيه العناصر من اليمين إلى اليسار */
 }
 
 .header-container {
@@ -22,15 +24,22 @@
   padding: 0 20px;
 }
 
-.header-logo a {
-  font-size: 1.5rem;
-  font-weight: bold;
-  color: #fff;
-  text-decoration: none;
+.header-logo {
+  order: 2; /* تغيير ترتيب العناصر */
+}
+
+.header-logo img {
+  max-height: 40px; /* تقليل حجم الشعار */
+}
+
+.menu-toggle {
+  display: none; /* إخفاء زر القائمة على الشاشات الكبيرة */
 }
 
 .header-nav {
   display: flex; /* عرض القائمة بشكل أفقي على الشاشات الكبيرة */
+  order: 1; /* تغيير ترتيب العناصر */
+  justify-content: flex-start; /* محاذاة العناصر إلى اليمين */
 }
 
 .header-nav ul {
@@ -41,14 +50,14 @@
 }
 
 .header-nav ul li {
-  margin: 0 15px;
+  margin: 0 10px; /* تقليل المسافة بين العناصر */
 }
 
 .header-nav ul li a {
-  color: #fff;
+  color: #fe9e06;
   text-decoration: none;
   padding: 10px;
-  font-size: 1rem;
+  font-size: 0.9rem; /* حجم الخط أصغر قليلاً */
   transition: color 0.3s ease, background-color 0.3s ease;
   border-radius: 5px; /* إضافة حواف مدورة للرابط */
   cursor: pointer; /* تغيير شكل الفأرة إلى اليد عند المرور فوق الرابط */
@@ -56,16 +65,16 @@
 
 .header-nav ul li a:hover {
   background-color: #444; /* خلفية داكنة عند التمرير */
-  color: #00aaff; /* لون النص عند التمرير */
+  color: #fe9e06; /* لون النص عند التمرير */
 }
 
 .header-button {
   background-color: #007bff;
   color: #fff;
-  padding: 10px 20px;
+  padding: 8px 16px; /* حجم أصغر للزر */
   border-radius: 5px;
   text-decoration: none;
-  font-size: 1rem;
+  font-size: 0.9rem; /* حجم الخط أصغر قليلاً */
   font-weight: bold;
   transition: background-color 0.3s ease;
   cursor: pointer; /* تغيير شكل الفأرة إلى اليد عند المرور فوق الزر */
@@ -107,16 +116,16 @@
     width: 100%;
     background-color: #333;
     position: absolute;
-    top: 80px; /* التأكد من عدم تداخل القائمة مع الهيدر */
+    top: 60px; /* التأكد من عدم تداخل القائمة مع الهيدر */
     left: 0;
-    padding: 20px 0;
+    padding: 15px 0; /* زيادة المسافة الرأسية للقائمة المنبثقة */
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* إضافة ظل للقائمة المنبثقة */
   }
 
   .header-nav ul {
     display: block;
     width: 100%;
-    text-align: left;
+    text-align: right; /* محاذاة النصوص إلى اليمين */
     padding: 0;
   }
 
@@ -136,13 +145,13 @@
 }
 
 @media (max-width: 480px) {
-  .header-logo a {
-    font-size: 1rem; /* حجم شعار أصغر على الشاشات الصغيرة جداً */
+  .header-logo img {
+    max-height: 30px; /* حجم أصغر للشعار على الشاشات الصغيرة جداً */
   }
 
   .header-nav ul li a {
     padding: 8px;
-    font-size: 0.9rem;
+    font-size: 0.8rem;
   }
 
   .header-button {

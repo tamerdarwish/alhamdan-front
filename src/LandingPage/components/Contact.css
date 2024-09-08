@@ -1,7 +1,7 @@
-/* components/Contact.css */
 .contact-us {
   background-color: #f9f9f9;
   padding: 60px 0;
+  direction: rtl; /* تحديد اتجاه النص من اليمين إلى اليسار */
 }
 
 .contact-container {
@@ -24,7 +24,7 @@
   display: block;
   width: 80px;
   height: 4px;
-  background-color: #007bff;
+  background-color: #fe9e06;
   margin: 10px auto;
   border-radius: 2px;
 }
@@ -40,12 +40,16 @@
   font-size: 1rem;
   color: #555;
   margin-bottom: 30px;
-  text-align: left;
+  text-align: right; /* محاذاة النص إلى اليمين */
+  font-family: 'Cairo', sans-serif;
 }
 
 .contact-info p {
   margin: 5px 0;
 }
+.contact-info p strong + span {
+  direction: ltr; /* تحديد اتجاه النص من اليسار لليمين */
+  text-align: left; /* محاذاة النص إلى اليسار */}
 
 .contact-form {
   width: 100%;
@@ -63,6 +67,8 @@
   border: 1px solid #ccc;
   border-radius: 4px;
   font-size: 1rem;
+  font-family: 'Cairo', sans-serif;
+  text-align: right; /* محاذاة النص داخل الحقول إلى اليمين */
 }
 
 .form-group textarea {
@@ -70,7 +76,7 @@
 }
 
 .submit-button {
-  background-color: #007bff;
+  background-color: #fe9e06;
   color: white;
   padding: 12px 20px;
   border: none;
@@ -78,8 +84,10 @@
   font-size: 1rem;
   cursor: pointer;
   transition: background-color 0.3s ease;
+  font-family: 'Cairo', sans-serif;
 }
 
 .submit-button:hover {
-  background-color: #0056b3;
+  background-color: #da8600;
 }
+

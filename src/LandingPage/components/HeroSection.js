@@ -14,11 +14,11 @@ const HeroSection = () => {
         <div className="hero-overlay"></div>
       </div>
       <div className="hero-content">
-        <h1 className="hero-title">Capture Your Special Moments with Us</h1>
+        <h1 className="hero-title">خلّد لحظاتك معنا</h1>
         <p className="hero-description">
-          At [Studio Name], we turn your cherished moments into beautiful memories with our expert photography and videography services.
+        في ستوديو الحمدان، نلتقط تفاصيل مناسباتك الخاصة بجودة عالية واحترافية، لنحول كل لحظة إلى ذكرى خالدة تُحكى للأجيال القادمة
         </p>
-        <a href="#contact-us" className="hero-button">Contact Us</a>
+        <a href="#contact-us" className="hero-button">إتصل بنا</a>
       </div>
     </section>
   );

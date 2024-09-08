@@ -30,30 +30,30 @@ const Cart = ({ cartItems, removeFromCart }) => {
       {showCart && (
         <div className="cart-dropdown">
           <div className="cart-header">
-            <h2>Your Cart</h2>
+            <h2 className='cart-title'>سلتك</h2>
             <button className="close-cart" onClick={handleCartClick}>
               <i className="fas fa-times"></i>
             </button>
           </div>
           <div className="cart-items">
             {cartItems.length === 0 ? (
-              <p className="empty-cart">Your cart is empty</p>
+              <p className="empty-cart">سلتك فارغة.</p>
             ) : (
               cartItems.map((item, index) => (
                 <div key={index} className="cart-item">
                   <img src={item.image_url} alt={item.name} className="cart-item-image" />
                   <div className="cart-item-info">
                     <h3>{item.name}</h3>
-                    <p>${item.price.toFixed(2)}</p>
-                    <button onClick={() => removeFromCart(index)}>Remove</button>
+                    <p>₪{item.price.toFixed(2)}</p>
+                    <button onClick={() => removeFromCart(index)}>إزالة</button>
                   </div>
                 </div>
               ))
             )}
           </div>
           <div className="cart-summary">
-            <p>Subtotal: ${calculateTotal()}</p>
-            <button onClick={handlePlaceOrder}>Place Order</button>
+            <p>مجموع الحساب: ₪{calculateTotal()}</p>
+            <button onClick={handlePlaceOrder}>إكمال الطلبية</button>
           </div>
         </div>
       )}

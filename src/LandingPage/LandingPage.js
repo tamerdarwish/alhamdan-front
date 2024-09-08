@@ -13,9 +13,10 @@ const LandingPage = () => {
   return (
     <div className="LandingPage">
       
-      <HeroSection /> 
+      <HeroSection />
+      <About /> 
       <Features />
-      <About />
+    
       {/*<Services />*/}
       <Gallery />
       {/*<Testimonials />*/}

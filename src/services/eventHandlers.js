@@ -5,17 +5,19 @@ import { uploadImageToAlbum, deleteImageFromAlbum, deleteSelectedImagesFromAlbum
 
 
 // Fetch event data by ID
-export const fetchEvent = async (eventId, setEvent, setLoading) => {
+export const fetchEvent = async (eventId, setEvent,setUpdatedEvent, setLoading) => {
   try {
     const eventData = await fetchEventById(eventId);
     if (Array.isArray(eventData.album)) {
       eventData.album = eventData.album.map(image => JSON.parse(image));
     }
     setEvent(eventData);
+    setUpdatedEvent(eventData)
     if (typeof setLoading === 'function') {
       setLoading(false);
     }
     return eventData;
+
   } catch (error) {
     console.error('Failed to fetch event:', error);
     if (typeof setLoading === 'function') {

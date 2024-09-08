@@ -41,16 +41,16 @@ const LoginPage = () => {
 
   return (
     <div style={styles.container}>
-      <h2 style={styles.heading}>Login with Event Code</h2>
+      <h2 style={styles.heading}>لرؤية صور مناسبتك الخاصة</h2>
       <form onSubmit={handleLogin} style={styles.form}>
         <input
           type="text"
-          placeholder="Enter Event Code"
+          placeholder="أدخل الكود الذي بحوزتك هنا"
           value={eventCode}
           onChange={(e) => setEventCode(e.target.value)}
           style={styles.input}
         />
-        <button type="submit" style={styles.button}>Login</button>
+        <button type="submit" style={styles.button}>الدخول</button>
       </form>
     </div>
   );
@@ -67,28 +67,33 @@ const styles = {
     backgroundSize: 'cover', // لتغطية الخلفية بالكامل
     backgroundPosition: 'center', // لضبط الصورة في المنتصف
     backgroundRepeat: 'no-repeat', // عدم تكرار الصورة
+    fontFamily: 'Cairo, sans-serif', // تطبيق خط كايرو
   },
   heading: {
     color: '#fff', // تأكد من أن النص يمكن رؤيته على خلفية الصورة
     marginBottom: '20px',
+    fontFamily: 'Cairo, sans-serif', // تطبيق خط كايرو
   },
   form: {
     display: 'flex',
     flexDirection: 'column',
     width: '300px',
+    fontFamily: 'Cairo, sans-serif', // تطبيق خط كايرو
   },
   input: {
     margin: '10px 0',
     padding: '10px',
     fontSize: '16px',
+    fontFamily: 'Cairo, sans-serif', // تطبيق خط كايرو
   },
   button: {
     padding: '10px',
     fontSize: '16px',
-    backgroundColor: '#007bff',
+    backgroundColor: '#fe9e06',
     color: '#fff',
     border: 'none',
     cursor: 'pointer',
+    fontFamily: 'Cairo, sans-serif', // تطبيق خط كايرو
   },
 };
 

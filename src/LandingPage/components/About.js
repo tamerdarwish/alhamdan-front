@@ -10,16 +10,13 @@ const About = () => (
         <img src={aboutImage} alt="Studio Overview" />
       </div>
       <div className="about-us-content">
-        <h2 className="about-us-title">About Us</h2>
+        <h2 className="about-us-title">من نحن</h2>
         <p className="about-us-text">
-          Welcome to [Studio Name], where we capture your most cherished moments with creativity and precision. Our team of expert photographers and videographers brings years of experience to ensure that every detail of your special day is beautifully preserved.
-        </p>
+        أهلاً بكم في ستوديو الحمدان، حيث نلتقط أجمل لحظاتك بإبداع ودقة. يتمتع فريقنا من المصورين ومصوري الفيديو المحترفين بخبرة تمتد لسنوات لضمان الحفاظ على كل تفاصيل يومك الخاص بشكل جميل.        </p>
         <p className="about-us-text">
-          We specialize in wedding photography and videography, offering a range of services from pre-wedding shoots to full-day coverage. Our commitment to using the latest technology and our creative approach guarantees stunning results that you will treasure forever.
-        </p>
+        نحن متخصصون في تصوير حفلات الزفاف وتصوير الفيديو، ونقدم مجموعة من الخدمات بدءًا من التصوير قبل الزفاف وحتى التغطية الكاملة لليوم. إن التزامنا باستخدام أحدث التقنيات ونهجنا الإبداعي يضمن نتائج مذهلة ستعتز بها إلى الأبد.        </p>
         <p className="about-us-text">
-          At [Studio Name], your satisfaction is our top priority. We work closely with you to understand your vision and ensure that every moment is captured exactly as you envisioned.
-        </p>
+        في ستوديو الحمدان، رضاكم هو أولويتنا القصوى. نعمل معك عن كثب لفهم رؤيتك وضمان التقاط كل لحظة كما تخيلتها بالضبط.        </p>
       </div>
     </div>
   </section>

@@ -17,6 +17,8 @@
   flex-direction: column;
   align-items: center;
   margin-bottom: 20px;
+  font-family: 'Cairo', sans-serif;
+
 }
 
 .footer-text {
@@ -25,7 +27,7 @@
 }
 
 .footer-text a {
-  color: #007bff;
+  color: #fe9e06;
   text-decoration: none;
   font-weight: bold;
 }
@@ -54,7 +56,7 @@
 }
 
 .footer-links a:hover {
-  color: #007bff;
+  color: #fe9e06;
 }
 
 .footer-social {
@@ -70,5 +72,5 @@
 }
 
 .footer-social a:hover {
-  color: #007bff;
+  color: #fe9e06;
 }

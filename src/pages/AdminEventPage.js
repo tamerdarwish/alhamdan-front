@@ -49,7 +49,7 @@ const EventPage = () => {
 
   const { name, date, main_image, drive_link, access_code, album } = event || {};
 
-  if (loading || uploading) {
+  if ( uploading) {
     return (
       <div className="loading">
         {loading && <div>Loading...</div>}

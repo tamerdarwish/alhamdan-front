@@ -39,9 +39,6 @@ const ViewEventPage = () => {
 
   const { name, date, main_image, drive_link, access_code,watermark_setting } = event || {};
 
-  if (loading) {
-    return <div className="loading">Loading...</div>;
-  }
 
   if (!event) {
     return <div className="error">Event not found.</div>;

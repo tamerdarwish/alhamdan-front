@@ -1,4 +1,6 @@
 /* components/HeroSection.css */
+@import url('https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&display=swap');
+
 .hero-section {
   position: relative;
   height: 100vh;
@@ -49,12 +51,16 @@
   margin-bottom: 20px;
   font-weight: bold;
   animation: fadeInUp 1s ease-out;
+  font-family: 'Cairo', sans-serif; /* استخدم الخط هنا */
+
 }
 
 .hero-description {
   font-size: 1.2rem;
   margin-bottom: 30px;
   animation: fadeInUp 1.5s ease-out;
+  font-family: 'Cairo', sans-serif; /* استخدم الخط هنا */
+
 }
 
 .hero-button {
@@ -62,11 +68,13 @@
   padding: 10px 20px;
   font-size: 1rem;
   color: #fff;
-  background-color: #007bff;
+  background-color: #fe9e06;
   text-decoration: none;
   border-radius: 5px;
   transition: background-color 0.3s ease;
   animation: fadeInUp 2s ease-out;
+  font-family: 'Cairo', sans-serif; /* استخدم الخط هنا */
+
 }
 
 .hero-button:hover {

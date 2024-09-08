@@ -1,9 +1,11 @@
 import React, { useState } from 'react';
 import { FaTrash, FaCheck, FaPrint } from 'react-icons/fa';
+import Modal from 'react-modal'; // استيراد مكتبة react-modal
 import './AdminImageGrid.css';
 import ImageUploader from './ImageUploader';
 import PropTypes from 'prop-types'; // تأكد من إضافة PropTypes هنا
 
+Modal.setAppElement('#root'); // لتجنب التحذيرات المتعلقة بإمكانية الوصول
 
 const ImageGrid = ({
   album,
@@ -78,7 +80,7 @@ const ImageGrid = ({
               key={index} 
               className={`image-container ${selectedImages.includes(image) ? 'selected' : ''}`}
               onClick={() => handleImageClick(image)}
-              onDoubleClick={() => handleImageDoubleClick(image)}
+              onDoubleClick={() => handleImageDoubleClick(image)} // فتح المودال عند النقر المزدوج
             >
               <img 
                 src={image.url} 
@@ -102,43 +104,38 @@ const ImageGrid = ({
         </div>
       )}
 
-      {selectedImage && (
-        <div className="modal" onClick={closeModal}>
-          <div className="modal-content" onClick={(e) => e.stopPropagation()}>
+      <Modal
+        isOpen={!!selectedImage}
+        onRequestClose={closeModal}
+        contentLabel="Image Modal"
+        className="modal-content"
+        overlayClassName="modal-overlay"
+      >
+        {selectedImage && (
+          <>
             <span className="close-button" onClick={closeModal}>&times;</span>
             <img
               src={selectedImage.url}
               alt={`Selected image`}
               className="modal-image"
             />
-          </div>
-        </div>
-      )}
+          </>
+        )}
+      </Modal>
     </div>
   );
 };
 
+// PropTypes للتحقق من أنواع البيانات
 ImageGrid.propTypes = {
-  album: PropTypes.arrayOf(
-    PropTypes.shape({
-      url: PropTypes.string.isRequired,
-      id: PropTypes.string.isRequired,
-      printStatus: PropTypes.bool
-    })
-  ).isRequired,
-  selectedImages: PropTypes.arrayOf(
-    PropTypes.shape({
-      url: PropTypes.string.isRequired,
-      id: PropTypes.string.isRequired,
-      printStatus: PropTypes.bool
-    })
-  ).isRequired,
+  album: PropTypes.array.isRequired,
+  selectedImages: PropTypes.array.isRequired,
   setSelectedImages: PropTypes.func.isRequired,
   handleDeleteImage: PropTypes.func.isRequired,
   handleDeleteSelectedImages: PropTypes.func.isRequired,
   handlePrintSelected: PropTypes.func.isRequired,
   handleSelectAllImages: PropTypes.func.isRequired,
-  handleAddImages: PropTypes.func.isRequired
+  handleAddImages: PropTypes.func.isRequired,
 };
 
 export default ImageGrid;

@@ -17,6 +17,9 @@
   margin-bottom: 40px;
   position: relative;
   display: inline-block;
+  font-family: 'Cairo', sans-serif;
+
+  
 }
 
 .gallery-title::after {
@@ -24,7 +27,7 @@
   display: block;
   width: 80px;
   height: 4px;
-  background-color: #007bff;
+  background-color: #fe9e06;
   margin: 10px auto;
   border-radius: 2px;
 }

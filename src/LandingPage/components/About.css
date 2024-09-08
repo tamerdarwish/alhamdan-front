@@ -34,6 +34,8 @@
     margin-bottom: 20px;
     position: relative;
     display: inline-block;
+    font-family: 'Cairo', sans-serif;
+
   }
   
   .about-us-title::after {
@@ -41,7 +43,7 @@
     display: block;
     width: 80px; /* عرض الخط أسفل العنوان */
     height: 4px; /* سماكة الخط */
-    background-color: #007bff; /* لون الخط */
+    background-color: #fe9e06; /* لون الخط */
     margin-top: 10px;
     border-radius: 2px; /* جعل حواف الخط دائرية */
   }
@@ -51,5 +53,7 @@
     color: #666;
     line-height: 1.6;
     margin-bottom: 15px;
+    font-family: 'Cairo', sans-serif;
+
   }
   

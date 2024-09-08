@@ -22,7 +22,7 @@ const Gallery = () => {
   return (
     <section id="gallery" className="gallery">
       <div className="gallery-container">
-        <h2 className="gallery-title">Our Gallery</h2>
+        <h2 className="gallery-title">من أعمالنا</h2>
         <div className="gallery-grid">
           {images.map((image, index) => (
             <div className="gallery-item" key={index}>

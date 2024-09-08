@@ -20,9 +20,22 @@ export const useOrderManager = (cartItems, setCartItems) => {
     setCartItems(newCartItems);
   };
 
+  // الدالة الجديدة لتفريغ السلة
+  const clearCart = async() => {
+    setCartItems([]); // تعيين السلة كقائمة فارغة
+
+     localStorage.removeItem('cartdata'); // إزالة السلة من localStorage
+
+
+    console.log('Cart cleared and removed from localStorage');
+    
+
+  };
+
   return {
     handlePlaceOrder,
     handleOrderSubmit,
     removeFromCart,
+    clearCart, // تضمين الدالة الجديدة في الدوال المُعادة
   };
 };
