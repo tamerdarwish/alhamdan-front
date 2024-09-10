@@ -1,4 +1,3 @@
-
 //POST Image To Album Of Spicific Event
 
 export const uploadImageToAlbum = async (eventId, formData) => {
@@ -79,6 +78,7 @@ export const togglePrintStatus = async (eventId, imageId, currentStatus) => {
     console.error('Failed to update print status:', error.message);
   }
 };
+
 
 
 // services/images-api.js

@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { FaTrash, FaCheck, FaPrint } from 'react-icons/fa';
 import Modal from 'react-modal'; // استيراد مكتبة react-modal
 import './AdminImageGrid.css';
-import ImageUploader from './ImageUploader';
+import ImageUploader from './AdminImageUploader';
 import PropTypes from 'prop-types'; // تأكد من إضافة PropTypes هنا
 
 Modal.setAppElement('#root'); // لتجنب التحذيرات المتعلقة بإمكانية الوصول

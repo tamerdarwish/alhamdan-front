@@ -21,6 +21,9 @@ import EditProduct from './pages/EditProduct';
 import AdminProductListPage from './pages/AdminProductListPage';
 import AdminOrders from './pages/AdminOrders';
 import OrderDetails from './components/OrderDetails';
+import PhotoPrintPage from './pages/PhotoPrintPage';
+import CustomerInfoPage from './pages/CustomerInfoPage';
+import PrintConfirmationPage from './pages/PrintConfirmationPage'; // صفحة تأكيد
 
 import '@fortawesome/fontawesome-free/css/all.min.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -53,6 +56,10 @@ const App = () => {
         <Route path="/admin/products" element={<AdminProductListPage />} />
         <Route path="/admin/orders" element={<AdminOrders />} />.
         <Route path="/orders/:id" element={<OrderDetails />} />
+        <Route path="/print-photos" element={<PhotoPrintPage />} />
+        <Route path="/customer-info" element={<CustomerInfoPage />} />
+        <Route path="/confirmation" element={<PrintConfirmationPage />} />
+
 
       </Routes>
       <Footer />
