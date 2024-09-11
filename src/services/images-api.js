@@ -2,7 +2,7 @@
 
 export const uploadImageToAlbum = async (eventId, formData) => {
     try {
-        const response = await fetch(`http://localhost:5000/api/upload/${eventId}/add-images`, {
+        const response = await fetch(`http://localhost:5005/api/upload/${eventId}/add-images`, {
             method: 'POST',
             body: formData,
           });
@@ -21,7 +21,7 @@ return data
 
 export const deleteImageFromAlbum = async (eventId,imageId) => {
     try {
-        const response = await fetch(`http://localhost:5000/api/upload/${eventId}/delete-image`, {
+        const response = await fetch(`http://localhost:5005/api/upload/${eventId}/delete-image`, {
             method: 'DELETE',
             headers: {
               'Content-Type': 'application/json'
@@ -39,7 +39,7 @@ export const deleteImageFromAlbum = async (eventId,imageId) => {
 
 export const deleteSelectedImagesFromAlbum = async (eventId,selectedImages) => {
     try {
-        const response = await fetch(`http://localhost:5000/api/upload/${eventId}/delete-images`, {
+        const response = await fetch(`http://localhost:5005/api/upload/${eventId}/delete-images`, {
             method: 'DELETE',
             headers: {
               'Content-Type': 'application/json'
@@ -57,7 +57,7 @@ export const deleteSelectedImagesFromAlbum = async (eventId,selectedImages) => {
 // Change printStatus of a specific image in the album
 export const togglePrintStatus = async (eventId, imageId, currentStatus) => {
   try {
-    const response = await fetch(`http://localhost:5000/api/events/${eventId}/album/${imageId}`, {
+    const response = await fetch(`http://localhost:5005/api/events/${eventId}/album/${imageId}`, {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json',
@@ -87,7 +87,7 @@ export const uploadMainImage = async (eventId, file) => {
   formData.append('file', file);
 
   try {
-    const response = await fetch(`http://localhost:5000/api/upload/update-main-image/${eventId}`, {
+    const response = await fetch(`http://localhost:5005/api/upload/update-main-image/${eventId}`, {
       method: 'POST',
       body: formData, // إرسال FormData التي تحتوي على الصورة
     });

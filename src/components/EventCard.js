@@ -57,7 +57,7 @@ const EventCard = ({ event, onDelete }) => {
   const handleDelete = async () => {
     if (window.confirm('Are you sure you want to delete this event?')) {
       try {
-        const response = await fetch(`http://localhost:5000/api/events/${id}`, {
+        const response = await fetch(`http://localhost:5005/api/events/${id}`, {
           method: 'DELETE',
         });
 

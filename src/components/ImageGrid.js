@@ -29,7 +29,7 @@ const ImageGrid = ({ album, handlePrintStatusToggle, watermark_setting }) => {
     try {
       for (let image of selectedImages) {
         const fileName = image.url.split('/').pop();
-        const response = await fetch(`http://localhost:5000/api/upload/watermark/${fileName}`, {
+        const response = await fetch(`http://localhost:5005/api/upload/watermark/${fileName}`, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',

@@ -34,7 +34,7 @@ const ProductList = () => {
   useEffect(() => {
     const fetchProducts = async () => {
       try {
-        const response = await fetch(`http://localhost:5000/api/products?page=${currentPage}&limit=${itemsPerPage}&search=${searchTerm}`);
+        const response = await fetch(`http://localhost:5005/api/products?page=${currentPage}&limit=${itemsPerPage}&search=${searchTerm}`);
         const data = await response.json();
         console.log('Fetched data:', data); // تحقق من البيانات المسترجعة
         setProducts(data.products);

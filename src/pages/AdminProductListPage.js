@@ -10,7 +10,7 @@ const AdminProductListPage = () => {
   useEffect(() => {
     const fetchProducts = async () => {
       try {
-        const response = await fetch(`http://localhost:5000/api/products?search=${searchTerm}`);
+        const response = await fetch(`http://localhost:5005/api/products?search=${searchTerm}`);
         const data = await response.json();
         setProducts(data.products);
       } catch (error) {

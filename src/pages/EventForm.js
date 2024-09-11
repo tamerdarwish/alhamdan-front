@@ -29,7 +29,7 @@ const EventForm = () => {
         const formData = new FormData();
         formData.append('file', imageFile);
 
-        const uploadResponse = await fetch('http://localhost:5000/api/upload', {
+        const uploadResponse = await fetch('http://localhost:5005/api/upload', {
           method: 'POST',
           body: formData,
         });
@@ -44,7 +44,7 @@ const EventForm = () => {
       }
 
       // حفظ تفاصيل المناسبة مع رابط الصورة
-      const response = await fetch('http://localhost:5000/api/events', {
+      const response = await fetch('http://localhost:5005/api/events', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ ...eventDetails, main_image: imageUrl }),

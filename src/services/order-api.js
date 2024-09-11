@@ -1,6 +1,6 @@
 // order-api.js
 
-const API_URL = 'http://localhost:5000/api/orders';
+const API_URL = 'http://localhost:5005/api/orders';
 
 // جلب جميع الطلبات
 export const fetchOrders = async () => {

@@ -17,7 +17,7 @@ const EditProduct = () => {
     // جلب بيانات المنتج عندما يتم تحميل المكون
     const fetchProduct = async () => {
       try {
-        const response = await fetch(`http://localhost:5000/api/products/${id}`);
+        const response = await fetch(`http://localhost:5005/api/products/${id}`);
         const data = await response.json();
 
         // تعيين البيانات في الحقول
@@ -56,7 +56,7 @@ const EditProduct = () => {
     }
 
     try {
-      const response = await fetch(`http://localhost:5000/api/products/${id}`, {
+      const response = await fetch(`http://localhost:5005/api/products/${id}`, {
         method: 'PUT',
         body: formData,
       });

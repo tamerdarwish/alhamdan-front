@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom';
 // دالة افتراضية للتحقق من صحة كود الوصول
 const verifyEventCode = async (eventCode) => {
   try {
-    const response = await fetch(`http://localhost:5000/api/events/by-code/${eventCode}`);
+    const response = await fetch(`http://localhost:5005/api/events/by-code/${eventCode}`);
     if (!response.ok) {
       throw new Error('Event not found or error fetching event');
     }

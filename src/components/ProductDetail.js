@@ -11,7 +11,7 @@ const ProductDetail = ({ addToCart }) => {
   const [isCartOpen, setIsCartOpen] = useState(false);
 
   useEffect(() => {
-    fetch(`http://localhost:5000/api/products/${id}`)
+    fetch(`http://localhost:5005/api/products/${id}`)
       .then(response => response.json())
       .then(data => setProduct(data))
       .catch(error => console.error('Error fetching product:', error));
