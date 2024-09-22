@@ -97,7 +97,7 @@ const PhotoUploadPage = () => {
       <input
         type="tel"
         placeholder="رقم الهاتف"
-        value={customerAddress}
+        value={customerPhoneNumber}
         onChange={(e) => setCustomerPhoneNumber(e.target.value)}
         required // جعل الحقل مطلوب
         className='form-input'

@@ -48,7 +48,7 @@ const AdminProductListPage = () => {
       
 
 <div className="product-grid">
-  <Link to="/event/new" className="product-card add-product-card">
+  <Link to="/admin/newProduct" className="product-card add-product-card">
     <FaPlus className="plus-icon" />
     <p>إضافة منتج جديد</p>
   </Link>

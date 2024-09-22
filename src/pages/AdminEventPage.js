@@ -17,8 +17,8 @@ import {
 import './EventPage.css';
 import ImageGrid from '../components/AdminImageGrid';
 import EventInfo from '../components/AdminEventInfo'; // استيراد مكون EventInfo
-import JSZip from 'jszip';
-import { saveAs } from 'file-saver';
+import { checkAdminAuth } from '../utils/adminAuth';
+
 
 
 
@@ -32,6 +32,16 @@ const EventPage = () => {
   const [isEditing, setIsEditing] = useState(false);
   const [updatedEvent, setUpdatedEvent] = useState({});
   const navigate = useNavigate();
+
+  useEffect(() => {
+    // التحقق من إذا ما كان الأدمن مسجلاً للدخول
+    const isAdminAuthenticated = checkAdminAuth();
+  
+    // إذا لم يكن الأدمن مسجلاً للدخول، التوجيه لصفحة تسجيل الدخول
+    if (!isAdminAuthenticated) {
+      navigate('/admin/login');
+    }
+  }, [navigate]);
 
   useEffect(() => {
     fetchEvent(eventId, setEvent, setUpdatedEvent, setLoading);

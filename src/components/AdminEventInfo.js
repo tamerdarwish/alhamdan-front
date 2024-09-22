@@ -89,6 +89,7 @@ const EventInfo = ({
           <p>
             رابط الفيديوهات: <a href={drive_link} target="_blank" rel="noopener noreferrer">{drive_link}</a>
           </p>
+          
           <button className="edit-button" onClick={() => handleEditClick(setIsEditing)}>
             تعديل المعلومات
           </button>
