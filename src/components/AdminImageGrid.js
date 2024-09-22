@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { FaTrash, FaCheck, FaPrint } from 'react-icons/fa';
+import { FaTrash, FaCheck, FaPrint, FaDownload } from 'react-icons/fa';
 import Modal from 'react-modal'; // استيراد مكتبة react-modal
 import './AdminImageGrid.css';
 import ImageUploader from './AdminImageUploader';
@@ -13,7 +13,7 @@ const ImageGrid = ({
   setSelectedImages,
   handleDeleteImage,
   handleDeleteSelectedImages,
-  handlePrintSelected,
+   handleDownloadSelected,
   handleSelectAllImages,
   handleAddImages
 }) => {
@@ -53,8 +53,8 @@ const ImageGrid = ({
         <button className="delete-selected-button" onClick={handleDeleteSelectedImages}>
           <FaTrash /> حذف الصور المحددة
         </button>
-        <button className="print-selected-button" onClick={handlePrintSelected}>
-          <FaPrint /> اطبع الصور المحددة
+        <button className="print-selected-button" onClick={handleDownloadSelected}>
+          <FaDownload /> تحميل الصور المحددة
         </button>
         <button className="select-all-button" onClick={handleSelectAllImages}>
           <FaCheck /> تحديد الكل

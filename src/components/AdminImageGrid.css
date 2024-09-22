@@ -225,6 +225,8 @@
     text-transform: uppercase;
     letter-spacing: 1.5px; /* تباعد الحروف */
     text-align: center;
+    font-family: 'Cairo', sans-serif;
+
   }
   
   /* حركة الدوران */

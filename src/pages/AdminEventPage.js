@@ -11,12 +11,16 @@ import {
   handleCancelEdit,
   handleChange,
   handleSaveChanges,
-  handlePrintSelected,
-  handleSelectAllImages
+  handleSelectAllImages,
+  handleDownloadZip
 } from '../services/eventHandlers';
 import './EventPage.css';
 import ImageGrid from '../components/AdminImageGrid';
 import EventInfo from '../components/AdminEventInfo'; // استيراد مكون EventInfo
+import JSZip from 'jszip';
+import { saveAs } from 'file-saver';
+
+
 
 const EventPage = () => {
   const { eventId } = useParams();
@@ -32,6 +36,50 @@ const EventPage = () => {
   useEffect(() => {
     fetchEvent(eventId, setEvent, setUpdatedEvent, setLoading);
   }, [eventId]);
+
+ /* const handleDownloadZip = () => {
+    if (selectedImages.length === 0) {
+      alert('يرجى تحديد صور للتحميل.');
+      return;
+    }
+    
+  
+    const zip = new JSZip();
+    const mainFolder = zip.folder(event.name);
+  
+    const fetchPromises = selectedImages.map(photo => {
+      const { url } = photo;
+      const imageName = url.split('/').pop();
+      const fileExtension = 'JPEG';
+      const fileName = `${imageName.replace(`.${fileExtension}`, '')}_copy_.${fileExtension}`;
+      console.log(url);
+
+  
+      return fetch(url)
+
+        .then(res => {
+          if (!res.ok) {
+            throw new Error(`Error fetching image: ${url}`);
+          }
+          return res.blob();
+        })
+        .then(blob => {
+          // تأكد من استخدام الامتداد الصحيح للملف
+          mainFolder.file(fileName, blob, { binary: true });
+        });
+    });
+  
+    Promise.all(fetchPromises).then(() => {
+      zip.generateAsync({ type: 'blob' }).then(content => {
+        saveAs(content, `${event.name}_photos.zip`);
+      }).catch(error => {
+        console.error('Error generating ZIP:', error);
+      });
+    }).catch(error => {
+      console.error('Error fetching images:', error);
+    });
+  };*/
+  
 
   const handleAddImagesWithProgress = async (e) => {
     const progressUpdateInterval = 100; // تحديث التقدم كل 100 مللي ثانية
@@ -91,7 +139,7 @@ const EventPage = () => {
           handleSelectImage={(image) => handleSelectImage(image, selectedImages, setSelectedImages)}
           handleDeleteImage={(imageId) => handleDeleteImage(imageId, eventId, event, setEvent, setUpdatedEvent, setLoading)}
           handleDeleteSelectedImages={() => handleDeleteSelectedImages(eventId, selectedImages, event, setEvent, setUpdatedEvent, setSelectedImages, setLoading)}
-          handlePrintSelected={() => handlePrintSelected(selectedImages)}
+          handleDownloadSelected={() => handleDownloadZip(event,selectedImages)}
           handleSelectAllImages={() => handleSelectAllImages(selectedImages, album, setSelectedImages)}
           handleAddImages={handleAddImagesWithProgress} // تعديل هنا
         />

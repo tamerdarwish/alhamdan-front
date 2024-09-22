@@ -53,6 +53,9 @@ export default function AdminPrintAlbum() {
       <div className="album-header">
         <AdminAlbumDetails
           name={album.customer_name}
+          address={album.address}
+          phoneNumber={album.phone_number}
+          email={album.customer_email}
           date={album.created_at}
           status={status}
           onStatusChange={handleStatusChange}
