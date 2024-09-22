@@ -10,6 +10,7 @@ const EventInfo = ({
   date,
   main_image,
   drive_link,
+  watermark_setting,
   access_code,
   isEditing,
   updatedEvent,
@@ -88,6 +89,10 @@ const EventInfo = ({
           <p>كود الوصول: {access_code}</p>
           <p>
             رابط الفيديوهات: <a href={drive_link} target="_blank" rel="noopener noreferrer">{drive_link}</a>
+          </p>
+
+          <p>
+             حالة العلامة المائية:<a>{watermark_setting}</a>
           </p>
           
           <button className="edit-button" onClick={() => handleEditClick(setIsEditing)}>

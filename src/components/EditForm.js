@@ -1,5 +1,5 @@
 import React from 'react';
-import PropTypes from 'prop-types'; // استيراد مكتبة PropTypes
+import PropTypes from 'prop-types';
 import { FaSave } from 'react-icons/fa';
 
 const EditForm = ({ updatedEvent, handleChange, handleSaveChanges, handleCancelEdit }) => {
@@ -15,7 +15,7 @@ const EditForm = ({ updatedEvent, handleChange, handleSaveChanges, handleCancelE
         />
       </label>
       <label>
-        تاريخ المناسبة
+        تاريخ المناسبة:
         <input
           type="date"
           name="date"
@@ -24,7 +24,7 @@ const EditForm = ({ updatedEvent, handleChange, handleSaveChanges, handleCancelE
         />
       </label>
       <label>
-        رابط خارجي للفيديوهات
+        رابط خارجي للفيديوهات:
         <input
           type="text"
           name="drive_link"
@@ -32,6 +32,20 @@ const EditForm = ({ updatedEvent, handleChange, handleSaveChanges, handleCancelE
           onChange={handleChange}
         />
       </label>
+
+      <label>
+        حالة العلامة المائية:
+        <select
+          name="watermark_setting"
+          value={updatedEvent.watermark_setting || 'none'} // تعيين قيمة افتراضية
+          onChange={handleChange}
+        >
+          <option value="بدون علامة مائية">بدون علامة مائية</option>
+          <option value="علامة مائية جزئية">علامة مائية جزئية</option>
+          <option value="علامة مائية كاملة">علامة مائية كاملة</option>
+        </select>
+      </label>
+
       <label>
         كود الوصول للزبون:
         <input
@@ -58,6 +72,7 @@ EditForm.propTypes = {
     date: PropTypes.string,
     drive_link: PropTypes.string,
     access_code: PropTypes.string,
+    watermark_setting: PropTypes.string, // إضافة الخاصية الجديدة
   }).isRequired,
   handleChange: PropTypes.func.isRequired,
   handleSaveChanges: PropTypes.func.isRequired,

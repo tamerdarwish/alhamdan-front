@@ -119,9 +119,9 @@ const EventForm = () => {
             onChange={(e) => setEventDetails({ ...eventDetails, watermark_setting: e.target.value })}
             className="select"
           >
-            <option value="0">بدون علامة مائية</option>
-            <option value="1">علامة مائية جزئية</option>
-            <option value="2">علامة مائية كاملة</option>
+            <option value="بدون علامة مائية">بدون علامة مائية</option>
+            <option value="علامة مائية جزئية">علامة مائية جزئية</option>
+            <option value="علامة مائية كاملة">علامة مائية كاملة</option>
           </select>
         </div>
         <div className="form-group">

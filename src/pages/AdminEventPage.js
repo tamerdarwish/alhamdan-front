@@ -105,7 +105,7 @@ const EventPage = () => {
     setUploading(false);
   };
 
-  const { name, date, main_image, drive_link, access_code, album } = event || {};
+  const { name, date, main_image, drive_link,watermark_setting, access_code, album } = event || {};
 
   if ( uploading) {
     return (
@@ -127,6 +127,7 @@ const EventPage = () => {
         date={date}
         main_image={main_image}
         drive_link={drive_link}
+        watermark_setting={watermark_setting}
         access_code={access_code}
         isEditing={isEditing}
         updatedEvent={updatedEvent}
