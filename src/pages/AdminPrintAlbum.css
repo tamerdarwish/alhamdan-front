@@ -1,0 +1,30 @@
+.admin-print-album {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-family: 'Arial', sans-serif;
+  background: linear-gradient(135deg, #f3f4f6, #e5e7eb);
+  padding: 20px;
+  min-height: 100vh;
+}
+
+.album-header {
+  width: 100%;
+  background: #ffffff; /* لون داكن */
+  color: white;
+  padding: 30px;
+  border-radius: 10px;
+  margin-bottom: 20px;
+}
+
+.loading {
+  text-align: center;
+  font-size: 24px;
+  color: #555;
+}
+
+@media (max-width: 768px) {
+  .album-header {
+    padding: 20px;
+  }
+}

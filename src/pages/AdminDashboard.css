@@ -1,0 +1,64 @@
+/* إزالة الخطوط السفلية من النصوص والروابط */
+a {
+    text-decoration: none; /* إزالة الخطوط السفلية من الروابط */
+  }
+  h1 {
+    font-family: 'Cairo', sans-serif; /* تعيين الخط لعناوين الصفحة */
+    font-weight: 600; /* تعيين وزن الخط */
+    color: #333; /* لون النصوص */
+  }
+  .card {
+    border: none; /* إزالة الحدود */
+    border-radius: 10px; /* زوايا مدورة */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* إضافة ظل خفيف */
+    transition: transform 0.3s ease, box-shadow 0.3s ease; /* تأثير الانتقال */
+    background-color: #fff; /* خلفية بيضاء */
+  }
+  
+  .card:hover {
+    transform: scale(1.05); /* تكبير البطاقة عند التمرير */
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2); /* زيادة الظل عند التمرير */
+  }
+  
+  .card-title {
+    font-family: 'Cairo', sans-serif; /* تعيين الخط لعناوين البطاقة */
+    font-weight: 600; /* تعيين وزن الخط */
+    color: #333; /* لون نصوص داكن */
+    margin-top: 10px; /* مسافة من الأعلى */
+  }
+  
+  .container {
+    background-color: #f9f9f9; /* خلفية خفيفة للصفحة */
+    padding: 2rem; /* إضافة حشو للصفحة */
+    border-radius: 10px; /* زوايا مدورة */
+  }
+  
+  .btn-link {
+    background-color: #007bff; /* لون خلفية الزر */
+    color: #fff; /* لون النصوص */
+    border: none; /* إزالة الحدود */
+    border-radius: 5px; /* زوايا مدورة */
+    padding: 10px 20px; /* حشو داخلي */
+    font-size: 1rem; /* حجم الخط */
+    text-decoration: none; /* إزالة الخطوط تحت النصوص */
+    transition: background-color 0.3s ease, transform 0.3s ease; /* تأثير الانتقال */
+  }
+  
+  .btn-link:hover {
+    background-color: #0056b3; /* تغيير اللون عند التمرير */
+    transform: scale(1.05); /* تكبير الزر عند التمرير */
+  }
+  
+  .row {
+    margin: 0 -15px; /* إزالة المسافة الجانبية */
+  }
+  
+  .col-md-4 {
+    padding: 0 15px; /* إضافة حشو جانبي */
+  }
+  
+  .icon {
+    color: #007bff; /* لون الأيقونات */
+    margin-bottom: 10px; /* مسافة من الأسفل */
+  }
+  

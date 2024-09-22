@@ -1,39 +1,67 @@
-import React, { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
-import EventCard from '../components/EventCard';
-import { fetchEvents } from '../services/events-api'; // إضافة فاصلة منقوطة هنا
+import React, { useEffect } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
+import { Card, Container, Row, Col } from 'react-bootstrap';
+import { FaCalendarAlt, FaBox, FaShoppingCart, FaPrint, FaHome } from 'react-icons/fa';
+import { checkAdminAuth } from '../utils/adminAuth';
+import './AdminDashboard.css'; // تأكد من استيراد ملف CSS المحسن
 
 const AdminDashboard = () => {
-  const [events, setEvents] = useState([]);
+    const navigate = useNavigate();
 
-  useEffect(() => {
-    const getEvents = async () => {
-      let events = await fetchEvents();
-      setEvents(events);
-    };
+    useEffect(() => {
+        const isAdminAuthenticated = checkAdminAuth();
+        if (!isAdminAuthenticated) {
+            navigate('/admin/login');
+        }
+    }, [navigate]);
 
-    getEvents();
-  }, []);
-
-  const handleDelete = (id) => {
-    setEvents(events.filter(event => event.id !== id));
-  };
-
-  return (
-    <div style={{ padding: '20px' }}>
-      <h1>Admin Dashboard</h1>
-      <Link to="/event/new">
-        <button style={{ marginBottom: '20px', padding: '10px 20px', fontSize: '16px' }}>
-          Create New Event
-        </button>
-      </Link>
-      <div style={{ display: 'flex', flexWrap: 'wrap' }}>
-        {events.map((event) => (
-          <EventCard key={event.id} event={event} onDelete={handleDelete} />
-        ))}
-      </div>
-    </div>
-  );
+    return (
+        <Container className="mt-5">
+            <h1 className="text-center mb-4">لوحة تحكم الأدمن</h1>
+            <Row>
+                <Col md={4} className="mb-4">
+                    <Card as={Link} to="/admin/events" className="text-center h-100 dashboard-card">
+                        <Card.Body>
+                            <FaCalendarAlt size={50} className="mb-3" />
+                            <Card.Title>إدارة قائمة المناسبات</Card.Title>
+                        </Card.Body>
+                    </Card>
+                </Col>
+                <Col md={4} className="mb-4">
+                    <Card as={Link} to="/admin/products" className="text-center h-100 dashboard-card">
+                        <Card.Body>
+                            <FaBox size={50} className="mb-3" />
+                            <Card.Title>إدارة منتجات المتجر</Card.Title>
+                        </Card.Body>
+                    </Card>
+                </Col>
+                <Col md={4} className="mb-4">
+                    <Card as={Link} to="/admin/orders" className="text-center h-100 dashboard-card">
+                        <Card.Body>
+                            <FaShoppingCart size={50} className="mb-3" />
+                            <Card.Title>إدارة الطلبات</Card.Title>
+                        </Card.Body>
+                    </Card>
+                </Col>
+                <Col md={4} className="mb-4">
+                    <Card as={Link} to="/admin-printalbums" className="text-center h-100 dashboard-card">
+                        <Card.Body>
+                            <FaPrint size={50} className="mb-3" />
+                            <Card.Title>إدارة الطباعات</Card.Title>
+                        </Card.Body>
+                    </Card>
+                </Col>
+                <Col md={4} className="mb-4">
+                    <Card as={Link} to="/" className="text-center h-100 dashboard-card">
+                        <Card.Body>
+                            <FaHome size={50} className="mb-3" />
+                            <Card.Title>الانتقال للموقع</Card.Title>
+                        </Card.Body>
+                    </Card>
+                </Col>
+            </Row>
+        </Container>
+    );
 };
 
 export default AdminDashboard;

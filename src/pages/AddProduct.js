@@ -1,5 +1,7 @@
-import React, { useState } from 'react';
+import React, { useState,useEffect } from 'react';
 import './AddProduct.css';
+import { checkAdminAuth } from '../utils/adminAuth';
+import { useNavigate  } from 'react-router-dom'
 
 const AddProduct = () => {
   const [name, setName] = useState('');
@@ -7,6 +9,17 @@ const AddProduct = () => {
   const [price, setPrice] = useState('');
   const [image, setImage] = useState(null); // State to hold the selected image
   const [successMessage, setSuccessMessage] = useState('');
+
+  const navigate = useNavigate();
+  useEffect(() => {
+    // التحقق من إذا ما كان الأدمن مسجلاً للدخول
+    const isAdminAuthenticated = checkAdminAuth();
+
+    // إذا لم يكن الأدمن مسجلاً للدخول، التوجيه لصفحة تسجيل الدخول
+    if (!isAdminAuthenticated) {
+      navigate('/admin/login');
+    }
+  }, [navigate]);
 
   const handleImageChange = (e) => {
     setImage(e.target.files[0]); // Save the selected image to state

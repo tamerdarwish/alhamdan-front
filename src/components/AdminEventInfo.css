@@ -23,6 +23,7 @@
     height: 50px;
     cursor: pointer;
     font-size: 20px;
+
   }
   
   .event-info .back-button:hover {
@@ -42,17 +43,23 @@
     font-size: 28px;
     margin: 15px 0;
     color: #333;
+    font-family: 'Cairo', sans-serif;
+
   }
   
   .event-info p {
     font-size: 18px;
     color: #666;
     margin-bottom: 15px;
+    font-family: 'Cairo', sans-serif;
+
   }
   
   .event-info a {
     color: #007bff;
     text-decoration: none;
+    font-family: 'Cairo', sans-serif;
+
   }
   
   .event-info a:hover {
@@ -68,6 +75,8 @@
     cursor: pointer;
     font-size: 18px;
     margin-top: 20px;
+    font-family: 'Cairo', sans-serif;
+
   }
   
   .event-info .edit-button:hover {
@@ -83,10 +92,11 @@
   border-radius: 5px;
   background-color: #007bff;
   color: #fff;
-  font-size: 16px;
-  font-weight: bold;
+  font-size: 10px;
   cursor: pointer;
   transition: background-color 0.3s, transform 0.3s;
+  font-family: 'Cairo', sans-serif;
+
 }
 
 .upload-button:hover {

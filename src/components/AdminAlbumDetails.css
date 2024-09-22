@@ -1,0 +1,99 @@
+.admin-album-details {
+  padding: 20px;
+  border-radius: 10px;
+  background-color: #ffffff;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  text-align: center; /* توازن التصميم */
+  font-family: 'Cairo', sans-serif;
+
+}
+
+.admin-album-details:hover {
+  transform: scale(1.02);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+}
+
+.album-title {
+  font-size: 26px;
+  color: #333;
+  margin: 0;
+}
+
+.album-info p {
+  font-size: 18px;
+  color: #555;
+}
+
+
+.active {
+  color: #28a745; /* أخضر */
+  font-weight: bold;
+}
+
+.inactive {
+  color: #dc3545; /* أحمر */
+  font-weight: bold;
+}
+
+.status-toggle {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 40px;
+  height: 24px;
+  margin-right: 10px;
+}
+
+.switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #ccc;
+  transition: .4s;
+  border-radius: 24px;
+}
+
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 16px;
+  width: 16px;
+  border-radius: 50%;
+  left: 4px;
+  bottom: 4px;
+  background-color: white;
+  transition: .4s;
+}
+
+input:checked + .slider {
+  background-color: #007bff; /* اللون الرئيسي */
+}
+
+input:checked + .slider:before {
+  transform: translateX(16px);
+}
+
+.round {
+  border-radius: 24px;
+}
+
+.status-text {
+  font-weight: 600;
+  color: #343a40;
+}

@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import './EventForm.css'; // استيراد ملف الـ CSS
 
 const EventForm = () => {
   const [eventDetails, setEventDetails] = useState({
@@ -7,10 +8,10 @@ const EventForm = () => {
     main_image: '',
     drive_link: '',
     access_code: '',
-    album:[],
+    album: [],
     watermark_setting: 'none',
   });
-  
+
   const [imageFile, setImageFile] = useState(null);
 
   const handleImageChange = (e) => {
@@ -24,7 +25,6 @@ const EventForm = () => {
     try {
       let imageUrl = '';
 
-      // إذا تم اختيار صورة، قم برفعها إلى الخادم
       if (imageFile) {
         const formData = new FormData();
         formData.append('file', imageFile);
@@ -36,14 +36,13 @@ const EventForm = () => {
 
         const uploadData = await uploadResponse.json();
         if (uploadData.success) {
-          imageUrl = uploadData.url; // استلام الرابط من الخادم
+          imageUrl = uploadData.url;
         } else {
           alert('Failed to upload image: ' + uploadData.message);
           return;
         }
       }
 
-      // حفظ تفاصيل المناسبة مع رابط الصورة
       const response = await fetch('http://localhost:5005/api/events', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -53,8 +52,7 @@ const EventForm = () => {
       const data = await response.json();
 
       if (data.success) {
-        // توجيه المستخدم إلى صفحة مناسبة أخرى بعد الحفظ الناجح
-        window.location.href = '/admin';
+        window.location.href = '/admin/events';
       } else {
         alert('Failed to save event: ' + data.message);
       }
@@ -65,81 +63,78 @@ const EventForm = () => {
   };
 
   return (
-    <div style={{ maxWidth: '600px', margin: '0 auto', padding: '20px', border: '1px solid #ddd', borderRadius: '8px' }}>
-      <h1>Create/Edit Event</h1>
+    <div className="container">
+      <h1>إنشاء مناسبة جديدة</h1>
       <form
         onSubmit={(e) => {
           e.preventDefault();
           handleSave();
         }}
       >
-        <div style={{ marginBottom: '15px' }}>
-          <label style={{ display: 'block', marginBottom: '5px' }}>Event Name</label>
+        <div className="form-group">
+          <label className="label">عنوان المناسبة</label>
           <input
             type="text"
             value={eventDetails.name}
             onChange={(e) => setEventDetails({ ...eventDetails, name: e.target.value })}
-            placeholder="Enter event name"
-            style={{ width: '100%', padding: '10px', borderRadius: '4px', border: '1px solid #ddd' }}
+            placeholder="أدخل عنوان المناسبة"
+            className="input"
             required
           />
         </div>
-        <div style={{ marginBottom: '15px' }}>
-          <label style={{ display: 'block', marginBottom: '5px' }}>Event Date</label>
+        <div className="form-group">
+          <label className="label">تاريخ المناسبة</label>
           <input
             type="date"
             value={eventDetails.date}
             onChange={(e) => setEventDetails({ ...eventDetails, date: e.target.value })}
-            style={{ width: '100%', padding: '10px', borderRadius: '4px', border: '1px solid #ddd' }}
+            className="input"
             required
           />
         </div>
-        <div style={{ marginBottom: '15px' }}>
-          <label style={{ display: 'block', marginBottom: '5px' }}>Google Drive Link</label>
+        <div className="form-group">
+          <label className="label">رابط الفيديوهات</label>
           <input
             type="text"
             value={eventDetails.drive_link}
             onChange={(e) => setEventDetails({ ...eventDetails, drive_link: e.target.value })}
-            placeholder="Enter Google Drive link"
-            style={{ width: '100%', padding: '10px', borderRadius: '4px', border: '1px solid #ddd' }}
+            placeholder="أدخل رابط فيديوهات المناسبة"
+            className="input"
           />
         </div>
-        <div style={{ marginBottom: '15px' }}>
-          <label style={{ display: 'block', marginBottom: '5px' }}>Access Code</label>
+        <div className="form-group">
+          <label className="label">كود الوصول </label>
           <input
             type="text"
             value={eventDetails.access_code}
             onChange={(e) => setEventDetails({ ...eventDetails, access_code: e.target.value })}
-            placeholder="Enter Access Code"
-            style={{ width: '100%', padding: '10px', borderRadius: '4px', border: '1px solid #ddd' }}
+            placeholder="قم بإختيار كود للزبون"
+            className="input"
           />
         </div>
-        <div style={{ marginBottom: '15px' }}>
-          <label style={{ display: 'block', marginBottom: '5px' }}>Watermark Option</label>
+        <div className="form-group">
+          <label className="label">خيارات العلامة المائية</label>
           <select
             value={eventDetails.watermark_setting}
             onChange={(e) => setEventDetails({ ...eventDetails, watermark_setting: e.target.value })}
-            style={{ width: '100%', padding: '10px', borderRadius: '4px', border: '1px solid #ddd' }}
+            className="select"
           >
-            <option value="0">No Watermark</option>
-            <option value="1">Partial Watermark</option>
-            <option value="2">Full Watermark</option>
+            <option value="0">بدون علامة مائية</option>
+            <option value="1">علامة مائية جزئية</option>
+            <option value="2">علامة مائية كاملة</option>
           </select>
         </div>
-        <div style={{ marginBottom: '15px' }}>
-          <label style={{ display: 'block', marginBottom: '5px' }}>Main Image</label>
+        <div className="form-group">
+          <label className="label">  إختر صورة رئيسية للمناسبة:</label>
           <input
             type="file"
             accept="image/*"
             onChange={handleImageChange}
-            style={{ width: '100%', padding: '10px', borderRadius: '4px', border: '1px solid #ddd' }}
+            className="input"
           />
         </div>
-        <button
-          type="submit"
-          style={{ width: '100%', padding: '10px', borderRadius: '4px', border: 'none', backgroundColor: '#007bff', color: '#fff', fontSize: '16px' }}
-        >
-          Save Event
+        <button type="submit" className="button">
+          حفظ المناسبة
         </button>
       </form>
     </div>

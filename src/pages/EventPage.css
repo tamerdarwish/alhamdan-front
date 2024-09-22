@@ -232,6 +232,8 @@
 .edit-form label {
     display: block;
     margin-bottom: 10px;
+    font-family: 'Cairo', sans-serif;
+
 }
 
 .edit-form input {
@@ -240,6 +242,8 @@
     margin-top: 5px;
     border: 1px solid #ccc;
     border-radius: 4px;
+    font-family: 'Cairo', sans-serif;
+
 }
 
 .save-button, .cancel-button {
@@ -249,6 +253,8 @@
     color: #fff;
     cursor: pointer;
     margin-right: 10px;
+    font-family: 'Cairo', sans-serif;
+
     transition: opacity 0.3s ease;
 }
 

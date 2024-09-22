@@ -44,35 +44,35 @@ const ImageGrid = ({
 
   return (
     <div className="album-section">
-      <h2>Album</h2>
+      <h2>ألبوم المناسبة</h2>
 
       <div className="fixed-button-container">
         <button className="upload-button">
           <ImageUploader handleAddImages={handleAddImages} setUploading={setUploading} />
         </button>
         <button className="delete-selected-button" onClick={handleDeleteSelectedImages}>
-          <FaTrash /> Delete Selected
+          <FaTrash /> حذف الصور المحددة
         </button>
         <button className="print-selected-button" onClick={handlePrintSelected}>
-          <FaPrint /> Print Selected
+          <FaPrint /> اطبع الصور المحددة
         </button>
         <button className="select-all-button" onClick={handleSelectAllImages}>
-          <FaCheck /> Select All
+          <FaCheck /> تحديد الكل
         </button>
         <button className="select-printed-button" onClick={handleSelectPrintedImages}>
-          <FaCheck /> Select Printed
+          <FaCheck /> تحديد المطبوعات
         </button>
       </div>
 
       {uploading && (
         <div className="loading-overlay">
           <div className="spinner-icon"></div>
-          <div className="loading-text">Uploading...</div>
+          <div className="loading-text">جاري التحميل...</div>
         </div>
       )}
 
       {album.length === 0 && !uploading ? (
-        <p className="no-images">No images in the album.</p>
+        <p className="no-images">ألبوم المناسبة فارغ.</p>
       ) : (
         <div className="images-grid">
           {album.map((image, index) => (

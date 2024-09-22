@@ -3,11 +3,26 @@ import React, { useEffect, useState } from 'react';
 import OrderCard from '../components/OrderCard';
 import { fetchOrders } from '../services/order-api'; // تأكد من المسار الصحيح
 import './AdminOrders.css';
+import { checkAdminAuth } from '../utils/adminAuth';
+import { useNavigate  } from 'react-router-dom';
+
+
 
 const AdminOrders = () => {
   const [orders, setOrders] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+
+  const navigate = useNavigate();
+  useEffect(() => {
+    // التحقق من إذا ما كان الأدمن مسجلاً للدخول
+    const isAdminAuthenticated = checkAdminAuth();
+
+    // إذا لم يكن الأدمن مسجلاً للدخول، التوجيه لصفحة تسجيل الدخول
+    if (!isAdminAuthenticated) {
+      navigate('/admin/login');
+    }
+  }, [navigate]);
 
   useEffect(() => {
     const getOrders = async () => {

@@ -1,0 +1,76 @@
+.admin-album-card {
+  background-color: #fff;
+  border-radius: 12px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  width: 240px; /* عرض البطاقة */
+  height: 260px; /* ارتفاع البطاقة */
+  margin: 16px;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  cursor: pointer; /* تغيير شكل الفأرة إلى اليد */
+  position: relative;
+}
+
+.admin-album-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+}
+
+.album-image-container {
+  position: relative;
+  width: 100%;
+  height: 60%; /* 60% من ارتفاع البطاقة للصورة */
+  overflow: hidden;
+}
+
+.album-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.album-details {
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 40%; /* 40% للتفاصيل */
+}
+
+.album-name {
+  font-size: 16px;
+  font-weight: bold;
+  color: #333;
+  margin-bottom: 8px;
+  font-family: 'Cairo', sans-serif;
+
+}
+
+.album-date {
+  font-size: 14px;
+  color: #777;
+  margin-bottom: 12px;
+}
+
+/* تصميم أيقونة الحالة */
+.status-icon-container {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  z-index: 1;
+}
+
+.status-icon {
+  font-size: 24px;
+}
+
+.status-icon-green {
+  background-color: #28a745; /* لون أخضر */
+}
+
+.status-icon-yellow {
+  background-color: #ffc107; /* لون أصفر */
+}

@@ -9,6 +9,10 @@ const PhotoUploadPage = () => {
   const [photoDetails, setPhotoDetails] = useState([]);
   const [customerName, setCustomerName] = useState('');
   const [customerEmail, setCustomerEmail] = useState('');
+  const [customerAddress, setCustomerAddress] = useState('');
+  const [customerPhoneNumber, setCustomerPhoneNumber] = useState('');
+
+
 
   const handleUpload = (uploadedPhotos) => {
     setPhotos(uploadedPhotos);
@@ -37,6 +41,10 @@ const PhotoUploadPage = () => {
       const formData = new FormData();
       formData.append('customer_name', customerName);
       formData.append('customer_email', customerEmail);
+      formData.append('customer_address', customerAddress);
+      formData.append('customer_phone_number', customerPhoneNumber);
+
+
 
       photos.forEach((file, index) => {
         const filePath = `customer_photos/${customerEmail}/${file.name}`;
@@ -77,6 +85,22 @@ const PhotoUploadPage = () => {
         required // جعل الحقل مطلوب
         className='form-input'
 
+      />
+        <input
+        type="text"
+        placeholder=" العنوان الكامل"
+        value={customerAddress}
+        onChange={(e) => setCustomerAddress(e.target.value)}
+        required // جعل الحقل مطلوب
+        className='form-input'
+      />
+      <input
+        type="tel"
+        placeholder="رقم الهاتف"
+        value={customerAddress}
+        onChange={(e) => setCustomerPhoneNumber(e.target.value)}
+        required // جعل الحقل مطلوب
+        className='form-input'
       />
       <input
         type="email"

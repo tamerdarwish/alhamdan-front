@@ -1,0 +1,93 @@
+/* src/components/AdminAlbumImages.css */
+.album-images {
+  width: 100%; /* استخدام العرض الكامل */
+  padding: 20px;
+  border-radius: 10px;
+  background-color: #ffffff;
+  box-shadow: 0 4px 10px rgba(255, 255, 255, 0.1);
+  margin-top: 20px;
+}
+
+.size-filter {
+  margin-bottom: 20px;
+}
+
+  
+  .size-filter label {
+    margin-right: 10px;
+    font-family: 'Cairo', sans-serif;
+
+  }
+  
+  .size-filter select {
+    padding: 5px;
+    font-family: 'Cairo', sans-serif;
+
+  }
+  
+  .actions {
+    display: flex;
+    gap: 10px; /* تباعد بسيط بين الأزرار */
+    margin-bottom: 20px;
+  }
+  
+  .actions button {
+    padding: 10px 15px; /* تعديل الحشوة لتكون متساوية */
+    font-size: 16px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s; /* تأثير عند التمرير */
+    font-family: 'Cairo', sans-serif;
+
+  }
+  
+  .actions button:hover {
+    background-color: #0056b3; /* تغيير لون الخلفية عند التمرير */
+  }
+  
+  .actions button i {
+    margin-right: 5px; /* تباعد بين الأيقونة والنص */
+  }
+  
+ 
+  .image-gallery {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+  }
+  
+  .image-card {
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    overflow: hidden;
+    width: 200px;
+    position: relative;
+    cursor: pointer;
+    font-family: 'Cairo', sans-serif;
+
+  }
+  
+  .image-card.selected {
+    border-color: #007bff;
+  }
+  
+  .image-card img {
+    width: 100%;
+    height: auto;
+  }
+  
+  .image-info {
+    padding: 10px;
+  }
+  
+  .image-size {
+    font-weight: bold;
+  }
+  
+  .image-copies {
+    margin-top: 5px;
+  }
+  

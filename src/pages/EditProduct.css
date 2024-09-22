@@ -21,10 +21,10 @@ body {
   /* عنوان الصفحة */
   .edit-product-container h2 {
     font-size: 24px;
-    color: #4CAF50; /* لون أخضر حديث */
+    color: #dd7600; /* لون أخضر حديث */
     margin-bottom: 20px;
     text-align: center;
-    font-weight: bold;
+    font-family: 'Cairo', sans-serif;
   }
   
   /* الحقول */
@@ -33,6 +33,8 @@ body {
     margin-bottom: 5px;
     font-weight: 600;
     color: #555;
+    font-family: 'Cairo', sans-serif;
+
   }
   
   .edit-product-container input[type="text"],
@@ -47,12 +49,14 @@ body {
     font-size: 16px;
     background-color: #f9f9f9;
     transition: border-color 0.3s ease;
+    font-family: 'Cairo', sans-serif;
+
   }
   
   .edit-product-container input[type="text"]:focus,
   .edit-product-container input[type="number"]:focus,
   .edit-product-container textarea:focus {
-    border-color: #4CAF50;
+    border-color: #dd7600;
     outline: none;
   }
   
@@ -60,17 +64,19 @@ body {
   .edit-product-container button[type="submit"] {
     width: 100%;
     padding: 12px;
-    background-color: #4CAF50;
+    background-color: #ff8800;
     border: none;
     border-radius: 5px;
     color: white;
     font-size: 18px;
     cursor: pointer;
     transition: background-color 0.3s ease;
+    font-family: 'Cairo', sans-serif;
+
   }
   
   .edit-product-container button[type="submit"]:hover {
-    background-color: #45a049;
+    background-color: #dd7600;
   }
   
   /* الصورة الحالية */

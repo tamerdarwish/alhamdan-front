@@ -1,0 +1,66 @@
+.container {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 20px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+  }
+  
+  h1 {
+    text-align: center;
+    margin-bottom: 20px;
+    font-family: 'Cairo', sans-serif;
+
+  }
+  
+  .form-group {
+    margin-bottom: 15px;
+  }
+  
+  .label {
+    display: block;
+    margin-bottom: 5px;
+    font-family: 'Cairo', sans-serif;
+
+  }
+  
+  .select {
+    width: 100%;
+    padding: 10px;
+    border-radius: 4px;
+    border: 1px solid #ddd;
+    font-family: 'Cairo', sans-serif;
+
+  }
+  input[type="file"] {
+    display: block;
+    width: 100%;
+    padding: 10px;
+    font-size: 16px;
+    cursor: pointer;
+    background-color: #f8f9fa;
+    border-radius: 4px;
+    border: 1px solid #ddd;
+    margin-top: 10px;
+  }
+  
+  
+  
+  .button {
+    width: 100%;
+    padding: 10px;
+    border-radius: 4px;
+    border: none;
+    background-color: #007bff;
+    color: #fff;
+    font-size: 16px;
+    cursor: pointer;
+    font-family: 'Cairo', sans-serif;
+
+
+  }
+  
+  .button:hover {
+    background-color: #0056b3;
+  }
+  

@@ -1,18 +1,19 @@
-/* components/Header.css */
+/* التصميم الأساسي للهيدر */
 .header {
   background-color: #222;
   color: #fff;
-  padding: 10px 0; /* تقليل المسافة الرأسية */
+  padding: 10px 0;
   position: fixed;
   width: 100%;
   top: 0;
   left: 0;
   z-index: 1000;
-  height: 60px; /* تقليل ارتفاع الشريط */
+  height: 60px; 
   box-sizing: border-box;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* إضافة ظل خفيف */
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
   font-family: 'Cairo', sans-serif;
-  direction: rtl; /* توجيه العناصر من اليمين إلى اليسار */
+  direction: rtl;
+  margin-bottom: 10%;
 }
 
 .header-container {
@@ -25,11 +26,11 @@
 }
 
 .header-logo {
-  order: 2; /* تغيير ترتيب العناصر */
+  order: 1; /* تأكد من ترتيب العناصر بشكل صحيح */
 }
 
 .header-logo img {
-  max-height: 40px; /* تقليل حجم الشعار */
+  max-height: 40px;
 }
 
 .menu-toggle {
@@ -37,9 +38,9 @@
 }
 
 .header-nav {
-  display: flex; /* عرض القائمة بشكل أفقي على الشاشات الكبيرة */
-  order: 1; /* تغيير ترتيب العناصر */
-  justify-content: flex-start; /* محاذاة العناصر إلى اليمين */
+  display: flex; 
+  order: 2; /* تأكد من ترتيب العناصر بشكل صحيح */
+  justify-content: flex-start;
 }
 
 .header-nav ul {
@@ -50,34 +51,34 @@
 }
 
 .header-nav ul li {
-  margin: 0 10px; /* تقليل المسافة بين العناصر */
+  margin: 0 10px; 
 }
 
 .header-nav ul li a {
   color: #fe9e06;
   text-decoration: none;
   padding: 10px;
-  font-size: 0.9rem; /* حجم الخط أصغر قليلاً */
+  font-size: 0.9rem; 
   transition: color 0.3s ease, background-color 0.3s ease;
-  border-radius: 5px; /* إضافة حواف مدورة للرابط */
-  cursor: pointer; /* تغيير شكل الفأرة إلى اليد عند المرور فوق الرابط */
+  border-radius: 5px; 
+  cursor: pointer;
 }
 
 .header-nav ul li a:hover {
-  background-color: #444; /* خلفية داكنة عند التمرير */
-  color: #fe9e06; /* لون النص عند التمرير */
+  background-color: #444; 
+  color: #fe9e06; 
 }
 
 .header-button {
   background-color: #007bff;
   color: #fff;
-  padding: 8px 16px; /* حجم أصغر للزر */
+  padding: 8px 16px; 
   border-radius: 5px;
   text-decoration: none;
-  font-size: 0.9rem; /* حجم الخط أصغر قليلاً */
+  font-size: 0.9rem;
   font-weight: bold;
   transition: background-color 0.3s ease;
-  cursor: pointer; /* تغيير شكل الفأرة إلى اليد عند المرور فوق الزر */
+  cursor: pointer;
 }
 
 .header-button:hover {
@@ -87,21 +88,21 @@
 /* استعلامات الوسائط لتصميم متجاوب */
 @media (min-width: 769px) {
   .header-nav {
-    display: flex; /* عرض القائمة بشكل أفقي على الشاشات الكبيرة */
+    display: flex; 
   }
 
   .menu-toggle {
-    display: none; /* إخفاء زر القائمة على الشاشات الكبيرة */
+    display: none; 
   }
 
   .header-nav.active {
-    display: none; /* التأكد من عدم عرض القائمة المنبثقة على الشاشات الكبيرة */
+    display: none; 
   }
 }
 
 @media (max-width: 768px) {
   .header-nav {
-    display: none; /* إخفاء القائمة على الشاشات الصغيرة */
+    display: none; 
   }
 
   .menu-toggle {
@@ -112,20 +113,20 @@
   }
 
   .header-nav.active {
-    display: block; /* عرض القائمة المنبثقة عند تفعيلها */
+    display: block; 
     width: 100%;
     background-color: #333;
     position: absolute;
-    top: 60px; /* التأكد من عدم تداخل القائمة مع الهيدر */
+    top: 60px; 
     left: 0;
-    padding: 15px 0; /* زيادة المسافة الرأسية للقائمة المنبثقة */
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* إضافة ظل للقائمة المنبثقة */
+    padding: 15px 0; 
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); 
   }
 
   .header-nav ul {
     display: block;
     width: 100%;
-    text-align: right; /* محاذاة النصوص إلى اليمين */
+    text-align: right; 
     padding: 0;
   }
 
@@ -146,7 +147,7 @@
 
 @media (max-width: 480px) {
   .header-logo img {
-    max-height: 30px; /* حجم أصغر للشعار على الشاشات الصغيرة جداً */
+    max-height: 30px; 
   }
 
   .header-nav ul li a {
@@ -158,4 +159,26 @@
     font-size: 0.8rem;
     padding: 6px 12px;
   }
+}
+
+.header-nav ul li button {
+  background-color: #dc3545; /* لون الخلفية */
+  color: #fff; /* لون النص */
+  border: none; /* إزالة الحدود */
+  padding: 10px 20px; /* إضافة padding */
+  border-radius: 5px; /* حواف مدورة */
+  font-size: 1rem; /* حجم الخط */
+  font-weight: bold; /* جعل النص عريض */
+  cursor: pointer; /* تغيير شكل الفأرة إلى اليد عند المرور فوق الزر */
+  transition: background-color 0.3s ease, transform 0.2s ease; /* تأثيرات الانتقال */
+}
+
+.header-nav ul li button:hover {
+  background-color: #c82333; /* تغيير اللون عند التمرير */
+  transform: scale(1.05); /* تكبير الزر قليلاً عند التمرير */
+}
+
+.header-nav ul li button:focus {
+  outline: none; /* إزالة الإطار الافتراضي عند التركيز */
+  box-shadow: 0 0 0 3px rgba(220, 53, 69, 0.5); /* إضافة ظل عند التركيز */
 }

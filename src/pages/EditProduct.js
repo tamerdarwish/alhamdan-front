@@ -78,10 +78,10 @@ const EditProduct = () => {
 
   return (
     <div className="edit-product-container">
-      <h2>Edit Product</h2>
+      <h2>تعديل المنتج</h2>
       <form onSubmit={handleSubmit}>
         <div>
-          <label>Name</label>
+          <label>إسم المنتج</label>
           <input
             type="text"
             value={name}
@@ -90,7 +90,7 @@ const EditProduct = () => {
           />
         </div>
         <div>
-          <label>Description</label>
+          <label>وصف المنتج</label>
           <textarea
             value={description}
             onChange={(e) => setDescription(e.target.value)}
@@ -98,7 +98,7 @@ const EditProduct = () => {
           ></textarea>
         </div>
         <div>
-          <label>Price</label>
+          <label>سعر المنتج:</label>
           <input
             type="number"
             value={price}
@@ -107,7 +107,7 @@ const EditProduct = () => {
           />
         </div>
         <div>
-          <label>Current Image</label>
+          <label>الصورة الحالية:</label>
           {imagePreview && (
             <div>
               <img src={imagePreview} alt="Preview" width="100" />
@@ -115,10 +115,10 @@ const EditProduct = () => {
           )}
         </div>
         <div>
-          <label>New Image (optional)</label>
+          <label>صورة جديدة (اختياري)</label>
           <input type="file" accept="image/*" onChange={handleImageChange} />
         </div>
-        <button type="submit">Update Product</button>
+        <button type="submit">حفظ التغييرات</button>
       </form>
       {successMessage && <p>{successMessage}</p>}
     </div>

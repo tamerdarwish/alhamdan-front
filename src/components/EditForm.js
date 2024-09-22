@@ -6,7 +6,7 @@ const EditForm = ({ updatedEvent, handleChange, handleSaveChanges, handleCancelE
   return (
     <div className="edit-form">
       <label>
-        Event Name:
+        عنوان المناسبة:
         <input
           type="text"
           name="name"
@@ -15,7 +15,7 @@ const EditForm = ({ updatedEvent, handleChange, handleSaveChanges, handleCancelE
         />
       </label>
       <label>
-        Date:
+        تاريخ المناسبة
         <input
           type="date"
           name="date"
@@ -24,7 +24,7 @@ const EditForm = ({ updatedEvent, handleChange, handleSaveChanges, handleCancelE
         />
       </label>
       <label>
-        Drive Link:
+        رابط خارجي للفيديوهات
         <input
           type="text"
           name="drive_link"
@@ -33,7 +33,7 @@ const EditForm = ({ updatedEvent, handleChange, handleSaveChanges, handleCancelE
         />
       </label>
       <label>
-        Access Code:
+        كود الوصول للزبون:
         <input
           type="text"
           name="access_code"
@@ -42,10 +42,10 @@ const EditForm = ({ updatedEvent, handleChange, handleSaveChanges, handleCancelE
         />
       </label>
       <button className="save-button" onClick={handleSaveChanges}>
-        <FaSave /> Save Changes
+        <FaSave /> حفظ التغييرات
       </button>
       <button className="cancel-button" onClick={handleCancelEdit}>
-        Cancel
+        إلغاء
       </button>
     </div>
   );

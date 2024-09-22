@@ -67,7 +67,7 @@ const EventInfo = ({
           style={{ display: 'none' }}
           id="image-upload"
         />
-        <label htmlFor="image-upload" className="upload-button">Change Image</label>
+        <label htmlFor="image-upload" className="upload-button">تغيير الصورة الرئيسية </label>
         {newImage && (
           <button onClick={handleImageUpload} className="upload-image-button">Upload</button>
         )}
@@ -85,12 +85,12 @@ const EventInfo = ({
         />
       ) : (
         <>
-          <p>Access Code: {access_code}</p>
+          <p>كود الوصول: {access_code}</p>
           <p>
-            Drive Link: <a href={drive_link} target="_blank" rel="noopener noreferrer">{drive_link}</a>
+            رابط الفيديوهات: <a href={drive_link} target="_blank" rel="noopener noreferrer">{drive_link}</a>
           </p>
           <button className="edit-button" onClick={() => handleEditClick(setIsEditing)}>
-            Edit
+            تعديل المعلومات
           </button>
         </>
       )}

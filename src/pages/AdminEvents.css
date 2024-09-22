@@ -1,0 +1,31 @@
+/* AdminEvents.css */
+.admin-events-container {
+    padding: 20px;
+  }
+  
+  .events-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px; /* إضافة مسافة بين العناصر */
+  }
+  
+  .plus-button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 300px;
+    padding: 15px;
+        border: 2px dashed #007bff; /* حدود منقطة */
+    border-radius: 10px; /* زوايا مدورة */
+    font-size: 36px; /* حجم أيقونة الزر */
+    color: #007bff; /* لون الأيقونة */
+    transition: background-color 0.3s ease, transform 0.3s ease;
+    cursor: pointer;
+    text-decoration: none;
+  }
+  
+  .plus-button:hover {
+    background-color: #f0f8ff;
+    transform: scale(1.05);
+  }
+  

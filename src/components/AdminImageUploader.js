@@ -12,7 +12,7 @@ const ImageUploader = ({ handleAddImages, setUploading }) => {
   return (
     <div>
       <label htmlFor="file-upload" className="upload-button">
-        <FaPlus /> Upload Images
+        <FaPlus /> إضافة صور جديدة
       </label>
       <input
         id="file-upload"

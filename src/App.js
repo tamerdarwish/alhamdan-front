@@ -1,6 +1,9 @@
 import React from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import { useEffect } from 'react';
+
 import LoginPage from './pages/LoginPage';
+import AdminEvents from './pages/AdminEvents';
 import AdminDashboard from './pages/AdminDashboard';
 import AdminLogin from './pages/AdminLogin';
 import EventForm from './pages/EventForm';
@@ -24,6 +27,8 @@ import OrderDetails from './components/OrderDetails';
 import CustomerInfoPage from './pages/CustomerInfoPage';
 import PrintConfirmationPage from './pages/PrintConfirmationPage'; // صفحة تأكيد
 import PhotoUploadPage from './pages/PhotoUploadPage';
+import AdminPrintPage from './pages/AdminPrintPage';
+import AdminPrintAlbum from './pages/AdminPrintAlbum';
 
 import '@fortawesome/fontawesome-free/css/all.min.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -32,15 +37,29 @@ const App = () => {
   const scrollToSection = (section) => {
     document.getElementById(section).scrollIntoView({ behavior: 'smooth' });
   };
+
+  useEffect(() => {
+    const header = document.querySelector('header');
+    const pageContent = document.querySelector('.page-content');
+
+    if (header && pageContent) {
+      const headerHeight = header.offsetHeight;
+      pageContent.style.marginTop = `${headerHeight}px`;
+    }
+  }, []);
+
   return (
     <Router>
       <Header scrollToSection={scrollToSection} />
+      <div className="page-content">
+
       <Routes>
       <Route path="/" element={<LandingPage />} />
 
         <Route path="/login" element={<LoginPage />} />
         <Route path="/admin/login" element={<AdminLogin />} />
-        <Route path="/admin" element={<AdminDashboard />} />
+        <Route path="/admin/dashboard" element={<AdminDashboard />} />
+        <Route path="/admin/events" element={<AdminEvents />} />
         <Route path="/admin/newProduct" element={<AddProduct />} />
         <Route path="/admin-event/:eventId" element={<AdminEventPage />} />
         <Route path="/event/:eventId" element={<EventPage />} />
@@ -59,10 +78,15 @@ const App = () => {
         <Route path="/customer-info" element={<CustomerInfoPage />} />
         <Route path="/confirmation" element={<PrintConfirmationPage />} />
         <Route path="/print" element={<PhotoUploadPage />} />
+        <Route path="/admin-printalbums" element={<AdminPrintPage />} />
+        <Route path="/album/:id" element={<AdminPrintAlbum />} />
+
+
 
 
 
       </Routes>
+      </div>
       <Footer />
     </Router>
   );
