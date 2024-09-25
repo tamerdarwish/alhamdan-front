@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { FaTrash, FaCheck, FaPrint, FaDownload } from 'react-icons/fa';
+import { FaTrash, FaCheck, FaDownload } from 'react-icons/fa';
 import Modal from 'react-modal';
 import './AdminImageGrid.css';
 import ImageUploader from './AdminImageUploader';
@@ -15,14 +15,14 @@ const ImageGrid = ({
   handleDeleteSelectedImages,
   handleDownloadSelected,
   handleSelectAllImages,
-  handleAddImages
+  handleAddImages,
 }) => {
   const [selectedImage, setSelectedImage] = useState(null);
   const [uploading, setUploading] = useState(false);
 
   const handleImageClick = (image) => {
     if (selectedImages.includes(image)) {
-      setSelectedImages(selectedImages.filter(img => img !== image));
+      setSelectedImages(selectedImages.filter((img) => img !== image));
     } else {
       setSelectedImages([...selectedImages, image]);
     }
@@ -37,18 +37,18 @@ const ImageGrid = ({
   };
 
   const handleSelectPrintedImages = () => {
-    const printedImages = album.filter(image => image.printStatus === true);
+    const printedImages = album.filter((image) => image.printStatus === true);
     setSelectedImages(printedImages);
   };
 
-  // حساب عدد الصور المطبوعة
-  const printedImagesCount = album.filter(image => image.printStatus).length;
+  // Count printed images
+  const printedImagesCount = album.filter((image) => image.printStatus).length;
 
   return (
     <div className="album-section">
       <h2>ألبوم المناسبة</h2>
 
-      {/* شريط الإحصائيات */}
+      {/* Stats Bar */}
       <div className="stats-bar">
         <span>عدد الصور: {album.length}</span>
         <span>عدد الصور المحددة: {selectedImages.length}</span>
@@ -85,17 +85,13 @@ const ImageGrid = ({
       ) : (
         <div className="images-grid">
           {album.map((image, index) => (
-            <div 
-              key={index} 
+            <div
+              key={index}
               className={`image-container ${selectedImages.includes(image) ? 'selected' : ''}`}
               onClick={() => handleImageClick(image)}
               onDoubleClick={() => handleImageDoubleClick(image)}
             >
-              <img 
-                src={image.url} 
-                alt={`Album image ${index + 1}`} 
-                className="album-image" 
-              />
+              <img src={image.url} alt={`Album image ${index + 1}`} className="album-image" />
               <button
                 className="delete-button"
                 onClick={(e) => {
@@ -105,9 +101,7 @@ const ImageGrid = ({
               >
                 <FaTrash />
               </button>
-              <FaCheck
-                className={`status-icon ${image.printStatus ? 'checked' : 'unchecked'}`}
-              />
+              <FaCheck className={`status-icon ${image.printStatus ? 'checked' : 'unchecked'}`} />
             </div>
           ))}
         </div>
@@ -122,12 +116,10 @@ const ImageGrid = ({
       >
         {selectedImage && (
           <>
-            <span className="close-button" onClick={closeModal}>&times;</span>
-            <img
-              src={selectedImage.url}
-              alt={`Selected image`}
-              className="modal-image"
-            />
+            <span className="close-button" onClick={closeModal}>
+              &times;
+            </span>
+            <img src={selectedImage.url} alt={`Selected image`} className="modal-image" />
           </>
         )}
       </Modal>

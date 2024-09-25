@@ -73,20 +73,20 @@
 }
 
 /* Status icon styling */
+/* تنسيق الأيقونة التي تشير إلى حالة الطباعة */
 .status-icon {
     position: absolute;
-    bottom: 10px; /* Move to bottom of the container */
-    left: 50%;
-    transform: translateX(-50%); /* Center horizontally */
-    background-color: rgba(0, 0, 0, 0.5);
+    bottom: 10px; /* التأكيد على أن الأيقونة في أسفل الصورة */
+    transform: translateX(-500%); /* تثبيت الأيقونة بشكل مركزي */
+    background-color: rgba(0, 0, 0, 0.5); /* خلفية شفافة */
     color: white;
     border-radius: 50%;
     padding: 5px;
     font-size: 1.2rem;
-    width: 30px; /* Fixed width */
-    height: 30px; /* Fixed height */
-    text-align: center; /* Center text horizontally */
+    width: 30px; /* عرض ثابت */
+    height: 30px; /* ارتفاع ثابت */
 }
+
 
 /* Button styling */
 .upload-button, .delete-selected-button, .print-selected-button, .select-all-button {
