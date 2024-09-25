@@ -125,50 +125,59 @@ export const handleAddImages = async (e, eventId, eventData, setEvent, setUpdate
     useWebWorker: true
   };
 
-  const newImages = [];
-  const uploadPromises = [];
+  let formData = new FormData();
   let totalFiles = files.length;
   let processedFiles = 0;
 
+  // ضغط الصور وإضافتها إلى formData
   for (const file of files) {
-    uploadPromises.push(async () => {
-      try {
-        const compressedFile = await imageCompression(file, compressOptions);
-        const formData = new FormData();
-        formData.append('images', compressedFile);
-
-        const { album: newAlbum } = await uploadImageToAlbum(eventId, formData);
-
-        const validImages = newAlbum.filter(img => img && img.url);
-
-        if (validImages.length > 0) {
-          newImages.push(...validImages);
-        }
-      } catch (error) {
-        console.error('Error uploading image:', error);
-        alert('Failed to upload image');
-      } finally {
-        processedFiles++;
-        if (updateProgress) {
-          updateProgress((processedFiles / totalFiles) * 100);
-        }
-      }
-    });
+    try {
+      const compressedFile = await imageCompression(file, compressOptions);
+      formData.append('images', compressedFile); // نضيف الصورة المضغوطة إلى formData
+    } catch (error) {
+      console.error('Error compressing image:', error);
+      alert('Failed to compress image');
+    }
   }
 
-  await Promise.all(uploadPromises.map(fn => fn()));
+  try {
+    // رفع الصور إلى الألبوم عبر استدعاء API
+    const { album: newAlbum } = await uploadImageToAlbum(eventId, formData);
 
-  if (newImages.length > 0) {
-    const updatedAlbum = [...eventData.album, ...newImages];
-    setEvent(prevEvent => ({
-      ...prevEvent,
-      album: updatedAlbum,
-    }));
-    setUpdatedEvent(prevEvent => ({
-      ...prevEvent,
-      album: updatedAlbum,
-    }));
+    // التأكد من صحة الروابط المرفوعة
+    const validImages = newAlbum.filter(img => img && img.url);
+
+    // إذا تم رفع صور جديدة بنجاح
+    if (validImages.length > 0) {
+      const updatedAlbum = [...eventData.album, ...validImages];
+      setEvent(prevEvent => ({
+        ...prevEvent,
+        album: updatedAlbum,
+      }));
+      setUpdatedEvent(prevEvent => ({
+        ...prevEvent,
+        album: updatedAlbum,
+      }));
+    }
+  } catch (error) {
+    console.error('Error uploading image:', error);
+    alert('Failed to upload image');
+  } finally {
+    processedFiles++;
+    if (updateProgress) {
+      updateProgress((processedFiles / totalFiles) * 100);
+    }
   }
+};
+
+// دالة لتحويل الملف إلى Base64
+const convertFileToBase64 = (file) => {
+  return new Promise((resolve, reject) => {
+    const reader = new FileReader();
+    reader.onload = () => resolve(reader.result);
+    reader.onerror = (error) => reject(error);
+    reader.readAsDataURL(file); // قراءة الملف كـ Base64
+  });
 };
 
 

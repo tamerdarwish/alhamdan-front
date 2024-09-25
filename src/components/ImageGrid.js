@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { FaPrint, FaTrashAlt } from 'react-icons/fa';
+import { FaPrint, FaTrashAlt, FaCheckSquare, FaCloudDownloadAlt } from 'react-icons/fa';
 import Modal from 'react-modal';  // استيراد مكتبة react-modal
 import './ImageGrid.css';
 
@@ -54,20 +54,35 @@ const ImageGrid = ({ album, handlePrintStatusToggle, watermark_setting }) => {
     }
   };
 
-  const clearSelection = () => {
-    setSelectedImages([]);
+
+
+  const selectAllImages = () => {
+    if (selectedImages.length === album.length) {
+      setSelectedImages([]);
+    } else {
+      setSelectedImages(album);
+    }
   };
 
   const handleContextMenu = (e) => {
     e.preventDefault();
   };
 
+  const printedImagesCount = album.filter(image => image.printStatus).length;
+
+
   return (
     <div className="album-section">
-      <h2>Album</h2>
+      <h2>ألبوم الصور</h2>
+            {/* شريط الإحصائيات */}
+            <div className="stats-bar">
+        <span>عدد الصور: {album.length}</span>
+        <span>عدد الصور المحددة: {selectedImages.length}</span>
+        <span>عدد الصور المطبوعة: {printedImagesCount}</span>
+      </div>
 
       {album.length === 0 ? (
-        <p className="no-images">No images in the album.</p>
+        <p className="no-images">الألبوم فارغ.</p>
       ) : (
         <div className="images-grid">
           {album.map((image) => (
@@ -92,13 +107,14 @@ const ImageGrid = ({ album, handlePrintStatusToggle, watermark_setting }) => {
         </div>
       )}
 
-      {selectedImages.length > 0 && (
-        <div className="download-section">
-          <button onClick={downloadImagesWithWatermark} className="btn download-button">
-            Download Selected with Watermark
+      {/* الشريط العائم */}
+      {album.length > 0 && (
+        <div className="floating-bar">
+          <button onClick={selectAllImages} className="btn floating-btn">
+            <FaCheckSquare /> {selectedImages.length === album.length ? 'إلغاء تحديد الكل' : 'تحديد الكل'}
           </button>
-          <button onClick={clearSelection} className="btn clear-selection-button">
-            <FaTrashAlt /> Clear Selection
+          <button onClick={downloadImagesWithWatermark} className="btn floating-btn">
+            <FaCloudDownloadAlt /> تحميل الصور المحددة 
           </button>
         </div>
       )}

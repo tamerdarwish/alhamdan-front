@@ -1,20 +1,20 @@
 //POST Image To Album Of Spicific Event
 
 export const uploadImageToAlbum = async (eventId, formData) => {
-    try {
-        const response = await fetch(`http://localhost:5005/api/upload/${eventId}/add-images`, {
-            method: 'POST',
-            body: formData,
-          });
-  
-          if (!response.ok) {
-            throw new Error('Failed to upload image');
-          }
-          const data = await response.json();
+  try {
+      const response = await fetch(`http://localhost:5005/api/upload/${eventId}/add-images`, {
+          method: 'POST',
+          body: formData,
+        });
+
+        if (!response.ok) {
+          throw new Error('Failed to upload image');
+        }
+        const data = await response.json();
 return data
-    } catch (error) {
-      console.error('Failed to fetch events:', error);
-    }
+  } catch (error) {
+    console.error('Failed to fetch events:', error);
+  }
 }
 
 

@@ -1,7 +1,7 @@
-// src/pages/PhotoUploadPage.js
 import React, { useState } from 'react';
 import PhotoUpload from '../components/PhotoUpload';
 import PhotoList from '../components/PhotoList';
+import ClipLoader from 'react-spinners/ClipLoader'; // استيراد مؤشر التحميل
 import './PhotoUploadPage.css';
 
 const PhotoUploadPage = () => {
@@ -11,12 +11,11 @@ const PhotoUploadPage = () => {
   const [customerEmail, setCustomerEmail] = useState('');
   const [customerAddress, setCustomerAddress] = useState('');
   const [customerPhoneNumber, setCustomerPhoneNumber] = useState('');
-
-
+  const [isLoading, setIsLoading] = useState(false); // حالة التحميل
 
   const handleUpload = (uploadedPhotos) => {
     setPhotos(uploadedPhotos);
-    setPhotoDetails(uploadedPhotos.map(() => ({ size: '10x15', copies: 1 }))); // تعيين حجم افتراضي
+    setPhotoDetails(uploadedPhotos.map(() => ({ size: '10x15', copies: 1 })));
   };
 
   const handleSizeChange = (index, newSize) => {
@@ -37,14 +36,14 @@ const PhotoUploadPage = () => {
       return;
     }
 
+    setIsLoading(true); // تعيين حالة التحميل إلى true عند بدء العملية
+
     try {
       const formData = new FormData();
       formData.append('customer_name', customerName);
       formData.append('customer_email', customerEmail);
       formData.append('customer_address', customerAddress);
       formData.append('customer_phone_number', customerPhoneNumber);
-
-
 
       photos.forEach((file, index) => {
         const filePath = `customer_photos/${customerEmail}/${file.name}`;
@@ -71,6 +70,8 @@ const PhotoUploadPage = () => {
     } catch (error) {
       console.error('Error:', error);
       alert('خطأ في رفع الصور');
+    } finally {
+      setIsLoading(false); // تعيين حالة التحميل إلى false بعد انتهاء العملية
     }
   };
 
@@ -82,16 +83,15 @@ const PhotoUploadPage = () => {
         placeholder="اسم العميل"
         value={customerName}
         onChange={(e) => setCustomerName(e.target.value)}
-        required // جعل الحقل مطلوب
+        required
         className='form-input'
-
       />
-        <input
+      <input
         type="text"
-        placeholder=" العنوان الكامل"
+        placeholder="العنوان الكامل"
         value={customerAddress}
         onChange={(e) => setCustomerAddress(e.target.value)}
-        required // جعل الحقل مطلوب
+        required
         className='form-input'
       />
       <input
@@ -99,7 +99,7 @@ const PhotoUploadPage = () => {
         placeholder="رقم الهاتف"
         value={customerPhoneNumber}
         onChange={(e) => setCustomerPhoneNumber(e.target.value)}
-        required // جعل الحقل مطلوب
+        required
         className='form-input'
       />
       <input
@@ -107,7 +107,7 @@ const PhotoUploadPage = () => {
         placeholder="البريد الإلكتروني"
         value={customerEmail}
         onChange={(e) => setCustomerEmail(e.target.value)}
-        required // جعل الحقل مطلوب
+        required
         className='form-input'
       />
       <PhotoUpload onUpload={handleUpload} />
@@ -117,7 +117,18 @@ const PhotoUploadPage = () => {
         onSizeChange={handleSizeChange}
         onCopiesChange={handleCopiesChange}
       />
-      <button onClick={handleSubmit} className='submit-button'>رفع الصور</button>
+
+      {/* مؤشر التحميل مع زر الرفع */}
+      <button onClick={handleSubmit} className='submit-button' disabled={isLoading}>
+        {isLoading ? (
+          <div className="loading-indicator">
+            <ClipLoader color={"#ffffff"} loading={isLoading} size={20} /> {/* مؤشر التحميل */}
+            <span>جاري رفع الصور...</span>
+          </div>
+        ) : (
+          'رفع الصور'
+        )}
+      </button>
     </div>
   );
 };

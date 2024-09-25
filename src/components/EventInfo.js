@@ -24,10 +24,10 @@ const EventInfo = ({
         <p className="event-date">{date}</p>
         {drive_link && (
           <a href={drive_link} className="event-link-button" target="_blank" rel="noopener noreferrer">
-            View Event Videos
+            الانتقال الى رابط الفيديوهات
           </a>
         )}
-        {access_code && <p className="event-access-code">Access Code: {access_code}</p>}
+        {access_code && <p className="event-access-code">كود الوصول: {access_code}</p>}
       </div>
     </div>
   );

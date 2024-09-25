@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
 import { FaTrash, FaCheck, FaPrint, FaDownload } from 'react-icons/fa';
-import Modal from 'react-modal'; // استيراد مكتبة react-modal
+import Modal from 'react-modal';
 import './AdminImageGrid.css';
 import ImageUploader from './AdminImageUploader';
-import PropTypes from 'prop-types'; // تأكد من إضافة PropTypes هنا
+import PropTypes from 'prop-types';
 
-Modal.setAppElement('#root'); // لتجنب التحذيرات المتعلقة بإمكانية الوصول
+Modal.setAppElement('#root');
 
 const ImageGrid = ({
   album,
@@ -13,7 +13,7 @@ const ImageGrid = ({
   setSelectedImages,
   handleDeleteImage,
   handleDeleteSelectedImages,
-   handleDownloadSelected,
+  handleDownloadSelected,
   handleSelectAllImages,
   handleAddImages
 }) => {
@@ -36,15 +36,24 @@ const ImageGrid = ({
     setSelectedImage(null);
   };
 
-  // وظيفة جديدة لتحديد الصور التي تحتوي على printStatus بقيمة true
   const handleSelectPrintedImages = () => {
     const printedImages = album.filter(image => image.printStatus === true);
     setSelectedImages(printedImages);
   };
 
+  // حساب عدد الصور المطبوعة
+  const printedImagesCount = album.filter(image => image.printStatus).length;
+
   return (
     <div className="album-section">
       <h2>ألبوم المناسبة</h2>
+
+      {/* شريط الإحصائيات */}
+      <div className="stats-bar">
+        <span>عدد الصور: {album.length}</span>
+        <span>عدد الصور المحددة: {selectedImages.length}</span>
+        <span>عدد الصور المطبوعة: {printedImagesCount}</span>
+      </div>
 
       <div className="fixed-button-container">
         <button className="upload-button">
@@ -80,7 +89,7 @@ const ImageGrid = ({
               key={index} 
               className={`image-container ${selectedImages.includes(image) ? 'selected' : ''}`}
               onClick={() => handleImageClick(image)}
-              onDoubleClick={() => handleImageDoubleClick(image)} // فتح المودال عند النقر المزدوج
+              onDoubleClick={() => handleImageDoubleClick(image)}
             >
               <img 
                 src={image.url} 
@@ -126,14 +135,13 @@ const ImageGrid = ({
   );
 };
 
-// PropTypes للتحقق من أنواع البيانات
 ImageGrid.propTypes = {
   album: PropTypes.array.isRequired,
   selectedImages: PropTypes.array.isRequired,
   setSelectedImages: PropTypes.func.isRequired,
   handleDeleteImage: PropTypes.func.isRequired,
   handleDeleteSelectedImages: PropTypes.func.isRequired,
-  handlePrintSelected: PropTypes.func.isRequired,
+  handleDownloadSelected: PropTypes.func.isRequired,
   handleSelectAllImages: PropTypes.func.isRequired,
   handleAddImages: PropTypes.func.isRequired,
 };
