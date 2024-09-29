@@ -3,6 +3,9 @@ import PhotoUpload from '../components/PhotoUpload';
 import PhotoList from '../components/PhotoList';
 import ClipLoader from 'react-spinners/ClipLoader'; // استيراد مؤشر التحميل
 import './PhotoUploadPage.css';
+import {uploadPhotos} from '../services/printsHandler'
+import Swal from 'sweetalert2'; // استيراد SweetAlert2
+import 'sweetalert2/dist/sweetalert2.min.css'; // استيراد CSS الخاص بـ SweetAlert2
 
 const PhotoUploadPage = () => {
   const [photos, setPhotos] = useState([]);
@@ -32,8 +35,17 @@ const PhotoUploadPage = () => {
 
   const handleSubmit = async () => {
     if (!customerName || !customerEmail) {
-      alert('يرجى ملء جميع المعلومات المطلوبة');
-      return;
+      Swal.fire({
+        icon: 'warning',  // تحديد نوع الأيقونة (خطأ)
+        title: 'تنبيه!',
+        text: 'يرجى ملء جميع الحقول المطلوبة.',
+        confirmButtonText: 'حسنًا',
+        customClass: {
+          title: 'swal2-title',   // فئات مخصصة للعنوان
+          content: 'swal2-content',  // فئات مخصصة للنص
+          confirmButton: 'swal2-confirm-button'  // فئات مخصصة للزر
+        }
+      });        return;
     }
 
     setIsLoading(true); // تعيين حالة التحميل إلى true عند بدء العملية
@@ -53,24 +65,35 @@ const PhotoUploadPage = () => {
         formData.append('copies[]', photoDetails[index].copies);
       });
 
-      const response = await fetch('http://localhost:5005/api/print/upload', {
-        method: 'POST',
-        body: formData
-      });
+      await uploadPhotos(formData)
 
-      if (!response.ok) {
-        throw new Error('فشل رفع الصور');
-      }
-
-      alert('تم رفع الصور بنجاح');
-      setPhotos([]);
+      Swal.fire({
+        icon: 'success',  // تحديد نوع الأيقونة (خطأ)
+        title: 'ممتاز!',
+        text: 'تم إرسال الصور بنجاح.',
+        confirmButtonText: 'حسنًا',
+        customClass: {
+          title: 'swal2-title',   // فئات مخصصة للعنوان
+          content: 'swal2-content',  // فئات مخصصة للنص
+          confirmButton: 'swal2-confirm-button'  // فئات مخصصة للزر
+        }
+      });        setPhotos([]);
       setPhotoDetails([]);
       setCustomerName('');
       setCustomerEmail('');
     } catch (error) {
       console.error('Error:', error);
-      alert('خطأ في رفع الصور');
-    } finally {
+      Swal.fire({
+        icon: 'error',  // تحديد نوع الأيقونة (خطأ)
+        title: 'حدث خطأ!',
+        text: 'حدث خطأ أثناء محاولة رفع الصور. يرجى المحاولة مرة أخرى.',
+        confirmButtonText: 'حسنًا',
+        customClass: {
+          title: 'swal2-title',   // فئات مخصصة للعنوان
+          content: 'swal2-content',  // فئات مخصصة للنص
+          confirmButton: 'swal2-confirm-button'  // فئات مخصصة للزر
+        }
+      });      } finally {
       setIsLoading(false); // تعيين حالة التحميل إلى false بعد انتهاء العملية
     }
   };

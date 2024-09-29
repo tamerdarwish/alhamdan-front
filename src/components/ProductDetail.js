@@ -4,6 +4,7 @@ import PropTypes from 'prop-types'; // استيراد PropTypes
 import CartIcon from '../components/CartIcon';
 import CartModal from '../components/CartModal';
 import './ProductDetail.css';
+import { fetchProductById } from '../services/products-api'; // استيراد دالة جلب البيانات
 
 const ProductDetail = ({ addToCart }) => {
   const { id } = useParams();
@@ -11,10 +12,16 @@ const ProductDetail = ({ addToCart }) => {
   const [isCartOpen, setIsCartOpen] = useState(false);
 
   useEffect(() => {
-    fetch(`http://localhost:5005/api/products/${id}`)
-      .then(response => response.json())
-      .then(data => setProduct(data))
-      .catch(error => console.error('Error fetching product:', error));
+    const fetchProduct = async () => {
+      try {
+        const data = await fetchProductById(id);
+        setProduct(data);
+      } catch (error) {
+        console.error('Error fetching product:', error);
+      }
+    };
+
+    fetchProduct();
   }, [id]);
 
   const toggleCart = () => setIsCartOpen(!isCartOpen);
@@ -31,7 +38,7 @@ const ProductDetail = ({ addToCart }) => {
           <p className="product-detail-description">{product.description}</p>
           <p className="product-detail-price">${product.price.toFixed(2)}</p>
           <button onClick={() => addToCart(product)} className="add-to-cart-button">
-            Add to Cart
+            إضافة إلى السلة
           </button>
         </div>
       </div>

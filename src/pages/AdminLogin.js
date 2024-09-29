@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { adminLogin } from '../services/admin-api'; // استيراد الدالة الجديدة
 
 const AdminLogin = () => {
   const [email, setEmail] = useState('');
@@ -11,29 +12,19 @@ const AdminLogin = () => {
     setLoading(true);
     setError('');
 
-    try {
-      const response = await fetch('http://localhost:5005/admin/login', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email, password }),
-      });
+    const { token, error } = await adminLogin(email, password); // استخدام الدالة الجديدة
 
-      const data = await response.json();
+    if (token) {
+      // تخزين الـ token في localStorage
+      localStorage.setItem('adminToken', token);
 
-      if (response.ok && data) {
-        // تخزين الـ token في localStorage
-        localStorage.setItem('adminToken', data.token);
-
-        // توجيه الأدمن إلى لوحة التحكم
-        window.location.href = '/admin/dashboard';
-      } else {
-        setError(data.message || 'Invalid credentials');
-      }
-    } catch (err) {
-      setError('An error occurred. Please try again.');
-    } finally {
-      setLoading(false);
+      // توجيه الأدمن إلى لوحة التحكم
+      window.location.href = '/admin/dashboard';
+    } else {
+      setError(error);
     }
+
+    setLoading(false);
   };
 
   return (

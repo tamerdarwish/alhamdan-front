@@ -24,7 +24,6 @@ import EditProduct from './pages/EditProduct';
 import AdminProductListPage from './pages/AdminProductListPage';
 import AdminOrders from './pages/AdminOrders';
 import OrderDetails from './components/OrderDetails';
-import CustomerInfoPage from './pages/CustomerInfoPage';
 import PrintConfirmationPage from './pages/PrintConfirmationPage'; // صفحة تأكيد
 import PhotoUploadPage from './pages/PhotoUploadPage';
 import AdminPrintPage from './pages/AdminPrintPage';
@@ -75,7 +74,6 @@ const App = () => {
         <Route path="/admin/products" element={<AdminProductListPage />} />
         <Route path="/admin/orders" element={<AdminOrders />} />.
         <Route path="/orders/:id" element={<OrderDetails />} />
-        <Route path="/customer-info" element={<CustomerInfoPage />} />
         <Route path="/confirmation" element={<PrintConfirmationPage />} />
         <Route path="/print" element={<PhotoUploadPage />} />
         <Route path="/admin-printalbums" element={<AdminPrintPage />} />

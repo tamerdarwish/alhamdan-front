@@ -2,10 +2,11 @@ import React, { useState } from 'react';
 import { FaPrint, FaTrashAlt, FaCheckSquare, FaCloudDownloadAlt } from 'react-icons/fa';
 import Modal from 'react-modal';  // استيراد مكتبة react-modal
 import './ImageGrid.css';
+import {downloadImagesWithWatermark} from '../services/images-api'
 
 Modal.setAppElement('#root'); // لتجنب التحذيرات المتعلقة بإمكانية الوصول
 
-const ImageGrid = ({ album, handlePrintStatusToggle, watermark_setting }) => {
+const ImageGrid = ({ album, handlePrintStatusToggle, watermark_setting, eventId }) => {
   const [selectedImages, setSelectedImages] = useState([]);
   const [selectedImage, setSelectedImage] = useState(null);
 
@@ -25,36 +26,7 @@ const ImageGrid = ({ album, handlePrintStatusToggle, watermark_setting }) => {
     setSelectedImage(null);
   };
 
-  const downloadImagesWithWatermark = async () => {
-    try {
-      for (let image of selectedImages) {
-        const fileName = image.url.split('/').pop();
-        const response = await fetch(`http://localhost:5005/api/upload/watermark/${fileName}`, {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({ watermark: watermark_setting }),
-        });
-
-        if (!response.ok) {
-          throw new Error('Failed to download image');
-        }
-
-        const blob = await response.blob();
-        const url = window.URL.createObjectURL(blob);
-        const a = document.createElement('a');
-        a.href = url;
-        a.download = fileName;
-        a.click();
-        window.URL.revokeObjectURL(url);
-      }
-    } catch (error) {
-      console.error('Error:', error);
-    }
-  };
-
-
+ 
 
   const selectAllImages = () => {
     if (selectedImages.length === album.length) {
@@ -113,7 +85,7 @@ const ImageGrid = ({ album, handlePrintStatusToggle, watermark_setting }) => {
           <button onClick={selectAllImages} className="btn floating-btn">
             <FaCheckSquare /> {selectedImages.length === album.length ? 'إلغاء تحديد الكل' : 'تحديد الكل'}
           </button>
-          <button onClick={downloadImagesWithWatermark} className="btn floating-btn">
+          <button onClick={() => downloadImagesWithWatermark(selectedImages,watermark_setting,eventId)} className="btn floating-btn">
             <FaCloudDownloadAlt /> تحميل الصور المحددة 
           </button>
         </div>

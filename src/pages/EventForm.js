@@ -1,5 +1,8 @@
 import React, { useState } from 'react';
 import './EventForm.css'; // استيراد ملف الـ CSS
+import { uploadImage, saveEvent } from '../services/images-api'; // استيراد الدوال الخارجية
+import Swal from 'sweetalert2'; // استيراد SweetAlert2
+import 'sweetalert2/dist/sweetalert2.min.css'; // استيراد CSS الخاص بـ SweetAlert2
 
 const EventForm = () => {
   const [eventDetails, setEventDetails] = useState({
@@ -26,40 +29,25 @@ const EventForm = () => {
       let imageUrl = '';
 
       if (imageFile) {
-        const formData = new FormData();
-        formData.append('file', imageFile);
-
-        const uploadResponse = await fetch('http://localhost:5005/api/upload', {
-          method: 'POST',
-          body: formData,
-        });
-
-        const uploadData = await uploadResponse.json();
-        if (uploadData.success) {
-          imageUrl = uploadData.url;
-        } else {
-          alert('Failed to upload image: ' + uploadData.message);
-          return;
-        }
+        imageUrl = await uploadImage(imageFile); // استدعاء دالة رفع الصورة
       }
 
-      const response = await fetch('http://localhost:5005/api/events', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ ...eventDetails, main_image: imageUrl }),
-      });
-
-      const data = await response.json();
-
-      if (data.success) {
-        window.location.href = '/admin/events';
-      } else {
-        alert('Failed to save event: ' + data.message);
-      }
+      const eventData = { ...eventDetails, main_image: imageUrl };
+      await saveEvent(eventData); // استدعاء دالة حفظ المناسبة
+      window.location.href = '/admin/events';
     } catch (error) {
-      console.error('Error saving event:', error);
-      alert('An error occurred while saving the event.');
-    }
+      console.error(error);
+      Swal.fire({
+        icon: 'error',  // تحديد نوع الأيقونة (خطأ)
+        title: 'حدث خطأ!',
+        text: 'حدث خطأ أثناء حفظ المناسبة. يرجى المحاولة مرة أخرى.',
+        confirmButtonText: 'حسنًا',
+        customClass: {
+          title: 'swal2-title',   // فئات مخصصة للعنوان
+          content: 'swal2-content',  // فئات مخصصة للنص
+          confirmButton: 'swal2-confirm-button'  // فئات مخصصة للزر
+        }
+      });    }
   };
 
   return (

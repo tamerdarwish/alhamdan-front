@@ -47,49 +47,6 @@ const EventPage = () => {
     fetchEvent(eventId, setEvent, setUpdatedEvent, setLoading);
   }, [eventId]);
 
- /* const handleDownloadZip = () => {
-    if (selectedImages.length === 0) {
-      alert('يرجى تحديد صور للتحميل.');
-      return;
-    }
-    
-  
-    const zip = new JSZip();
-    const mainFolder = zip.folder(event.name);
-  
-    const fetchPromises = selectedImages.map(photo => {
-      const { url } = photo;
-      const imageName = url.split('/').pop();
-      const fileExtension = 'JPEG';
-      const fileName = `${imageName.replace(`.${fileExtension}`, '')}_copy_.${fileExtension}`;
-      console.log(url);
-
-  
-      return fetch(url)
-
-        .then(res => {
-          if (!res.ok) {
-            throw new Error(`Error fetching image: ${url}`);
-          }
-          return res.blob();
-        })
-        .then(blob => {
-          // تأكد من استخدام الامتداد الصحيح للملف
-          mainFolder.file(fileName, blob, { binary: true });
-        });
-    });
-  
-    Promise.all(fetchPromises).then(() => {
-      zip.generateAsync({ type: 'blob' }).then(content => {
-        saveAs(content, `${event.name}_photos.zip`);
-      }).catch(error => {
-        console.error('Error generating ZIP:', error);
-      });
-    }).catch(error => {
-      console.error('Error fetching images:', error);
-    });
-  };*/
-  
 
   const handleAddImagesWithProgress = async (e) => {
     const progressUpdateInterval = 100; // تحديث التقدم كل 100 مللي ثانية

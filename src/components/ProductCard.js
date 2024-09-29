@@ -18,7 +18,7 @@ const ProductCard = ({ product, onAddToCart }) => {
         <p className="product-description">{product.description}</p>
         <p className="product-price">${product.price.toFixed(2)}</p>
         <button onClick={() => onAddToCart(product)} className="add-to-cart-button">
-          <i className="fas fa-cart-plus"></i> Add to Cart
+          <i className="fas fa-cart-plus"></i> إضافة إلى السلة
         </button>
       </div>
     </motion.div>

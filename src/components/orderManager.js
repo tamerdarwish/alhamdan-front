@@ -1,4 +1,6 @@
 import { useNavigate } from 'react-router-dom';
+import Swal from 'sweetalert2';  // استيراد مكتبة SweetAlert2
+import 'sweetalert2/dist/sweetalert2.min.css';  // استيراد CSS الخاص بـ SweetAlert2
 
 export const useOrderManager = (cartItems, setCartItems) => {
   const navigate = useNavigate();
@@ -11,8 +13,19 @@ export const useOrderManager = (cartItems, setCartItems) => {
 
   const handleOrderSubmit = () => {
     // منطق إرسال الطلبية إلى الخادم
-    alert('Your order has been submitted successfully!');
-    // يمكنك هنا إضافة منطق لإعادة توجيه المستخدم إلى صفحة أخرى بعد إرسال الطلبية
+    Swal.fire({
+      icon: 'success',  // تحديد نوع الأيقونة (نجاح)
+      title: 'تم إرسال الطلب بنجاح!',
+      text: 'شكراً لك، تم إرسال طلبك بنجاح.',
+      confirmButtonText: 'حسنًا',
+      customClass: {
+        title: 'swal2-title',   // فئات مخصصة للعنوان
+        content: 'swal2-content',  // فئات مخصصة للنص
+        confirmButton: 'swal2-confirm-button'  // فئات مخصصة للزر
+      }
+    });
+
+    // منطق إضافي بعد إرسال الطلبية
   };
 
   const removeFromCart = (index) => {
@@ -23,13 +36,8 @@ export const useOrderManager = (cartItems, setCartItems) => {
   // الدالة الجديدة لتفريغ السلة
   const clearCart = async() => {
     setCartItems([]); // تعيين السلة كقائمة فارغة
-
-     localStorage.removeItem('cartdata'); // إزالة السلة من localStorage
-
-
+    localStorage.removeItem('cartdata'); // إزالة السلة من localStorage
     console.log('Cart cleared and removed from localStorage');
-    
-
   };
 
   return {

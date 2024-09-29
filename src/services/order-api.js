@@ -1,6 +1,7 @@
 // order-api.js
-
-const API_URL = 'http://localhost:5005/api/orders';
+import Swal from 'sweetalert2'; // استيراد SweetAlert2
+import 'sweetalert2/dist/sweetalert2.min.css'; // استيراد CSS الخاص بـ SweetAlert2
+const API_URL = `http://localhost:5005/api/orders`;
 
 // جلب جميع الطلبات
 export const fetchOrders = async () => {
@@ -50,4 +51,58 @@ export const updateOrderStatus = async (id, status) => {
   } catch (error) {
     throw new Error(`Error updating order status: ${error.message}`);
   }
+};
+
+
+export const sendOrder = async (cartItems, totalPrice, fullName, address, phoneNumber, clearCart, navigate) => {
+  try {
+    const response = await fetch(`http://localhost:5005/api/orders`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        cartItems,
+        totalPrice,
+        fullName,
+        address,
+        phoneNumber,
+      }),
+    });
+
+    if (!response.ok) {
+      throw new Error('Failed to send order');
+    }
+
+    const result = await response.json();
+    console.log('Order sent successfully:', result);
+    Swal.fire({
+      icon: 'success',  // تحديد نوع الأيقونة (خطأ)
+      title: 'ممتاز!',
+      text: 'تم إرسال طلبك بنجاح.',
+      confirmButtonText: 'حسنًا',
+      customClass: {
+        title: 'swal2-title',   // فئات مخصصة للعنوان
+        content: 'swal2-content',  // فئات مخصصة للنص
+        confirmButton: 'swal2-confirm-button'  // فئات مخصصة للزر
+      }
+    }); 
+    // تصفير السلة بعد نجاح الطلب
+    clearCart();
+
+    // إعادة التوجيه إلى الصفحة الرئيسية أو صفحة أخرى بعد تصفير السلة
+    navigate('/');
+  } catch (error) {
+    console.error('Error sending order:', error);
+    Swal.fire({
+      icon: 'error',  // تحديد نوع الأيقونة (خطأ)
+      title: 'حدث خطأ!',
+      text: 'حدث خطأ أثناء محاولة إرسال الطلب. يرجى المحاولة مرة أخرى.',
+      confirmButtonText: 'حسنًا',
+      customClass: {
+        title: 'swal2-title',   // فئات مخصصة للعنوان
+        content: 'swal2-content',  // فئات مخصصة للنص
+        confirmButton: 'swal2-confirm-button'  // فئات مخصصة للزر
+      }
+    });   }
 };

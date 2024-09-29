@@ -1,6 +1,6 @@
 export const fetchPrintAlbums = async () => {
     try {
-      const response = await fetch('http://localhost:5005/api/print/');
+      const response = await fetch(`http://localhost:5005/api/print/`);
       const data = await response.json();
       return data
     } catch (error) {
@@ -34,4 +34,21 @@ export const updateAlbumStatus = async (albumID, newStatus) => {
   } catch (error) {
     console.error('Failed to update album status:', error);
   }
+};
+
+
+// ملف api.js
+
+// photoService.js
+export const uploadPhotos = async (formData) => {
+  const response = await fetch(`http://localhost:5005/api/print/upload`, {
+    method: 'POST',
+    body: formData,
+  });
+
+  if (!response.ok) {
+    throw new Error('فشل رفع الصور');
+  }
+
+  return response; // يمكنك إرجاع الاستجابة إذا كنت بحاجة إليها
 };

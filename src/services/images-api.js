@@ -17,6 +17,72 @@ return data
   }
 }
 
+// api.js
+
+export const uploadImage = async (file) => {
+  const formData = new FormData();
+  formData.append('file', file);
+
+  const uploadResponse = await fetch(`http://localhost:5005/api/upload`, {
+    method: 'POST',
+    body: formData,
+  });
+
+  const uploadData = await uploadResponse.json();
+  if (uploadData.success) {
+    return uploadData.url;
+  } else {
+    throw new Error('Failed to upload image: ' + uploadData.message);
+  }
+};
+
+export const saveEvent = async (eventDetails) => {
+  const response = await fetch(`http://localhost:5005/api/events`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(eventDetails),
+  });
+
+  const data = await response.json();
+  if (data.success) {
+    return data;
+  } else {
+    throw new Error('Failed to save event: ' + data.message);
+  }
+};
+
+
+//Download images with watermark
+export const downloadImagesWithWatermark = async (selectedImages,watermark_setting,eventId) => {
+  
+  try {
+    for (let image of selectedImages) {
+      const fileName = image.url.split('/').pop();
+      const response = await fetch(`http://localhost:5005/api/upload/watermark/${fileName}`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ watermark: watermark_setting, eventId:eventId }),
+      });
+
+      if (!response.ok) {
+        throw new Error('Failed to download image');
+      }
+
+      const blob = await response.blob();
+      const url = window.URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = fileName;
+      a.click();
+      window.URL.revokeObjectURL(url);
+    }
+  } catch (error) {
+    console.error('Error:', error);
+  }
+};
+
 
 
 export const deleteImageFromAlbum = async (eventId,imageId) => {

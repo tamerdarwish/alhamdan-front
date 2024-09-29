@@ -4,7 +4,8 @@ import { fetchEventById, editEvent } from '../services/events-api';
 import { uploadImageToAlbum, deleteImageFromAlbum, deleteSelectedImagesFromAlbum,togglePrintStatus } from '../services/images-api';
 import JSZip from 'jszip';
 import { saveAs } from 'file-saver';
-
+import Swal from 'sweetalert2'; // استيراد SweetAlert2
+import 'sweetalert2/dist/sweetalert2.min.css'; // استيراد CSS الخاص بـ SweetAlert2
 
 
 
@@ -27,15 +28,34 @@ export const fetchEvent = async (eventId, setEvent,setUpdatedEvent, setLoading) 
     if (typeof setLoading === 'function') {
       setLoading(false);
     }
-    alert('Failed to fetch event');
-  }
+    Swal.fire({
+      icon: 'error',  // تحديد نوع الأيقونة (خطأ)
+      title: 'حدث خطأ!',
+      text: 'حدث خطأ أثناء محاولة تحميل صفحة المناسبة . يرجى المحاولة مرة أخرى.',
+      confirmButtonText: 'حسنًا',
+      customClass: {
+        title: 'swal2-title',   // فئات مخصصة للعنوان
+        content: 'swal2-content',  // فئات مخصصة للنص
+        confirmButton: 'swal2-confirm-button'  // فئات مخصصة للزر
+      }
+    });   }
 };
 
 //Download ZIP of selected images 
 export const handleDownloadZip = (event, selectedImages) => {
   if (selectedImages.length === 0) {
-    alert('يرجى تحديد صور للتحميل.');
-    return;
+    Swal.fire({
+      icon: 'warning',  // تحديد نوع الأيقونة (خطأ)
+      title: 'تنبيه!',
+      text: 'ليس هنالك صور محددة للتحميل.',
+      confirmButtonText: 'حسنًا',
+      customClass: {
+        title: 'swal2-title',   // فئات مخصصة للعنوان
+        content: 'swal2-content',  // فئات مخصصة للنص
+        confirmButton: 'swal2-confirm-button'  // فئات مخصصة للزر
+      }
+    });
+        return;
   }
   
 
@@ -106,8 +126,17 @@ export const refetchEvent = async (updatedEvent, setEvent, setSelectedImages) =>
       setSelectedImages([]);
     } catch (error) {
       console.error('Failed to fetch updated event:', error);
-      alert('Failed to fetch updated event');
-    }
+ Swal.fire({
+        icon: 'error',  // تحديد نوع الأيقونة (خطأ)
+        title: 'حدث خطأ!',
+        text: 'حدث خطأ أثناء محاولة تحميل المناسبة بعد التحديث  . يرجى المحاولة مرة أخرى.',
+        confirmButtonText: 'حسنًا',
+        customClass: {
+          title: 'swal2-title',   // فئات مخصصة للعنوان
+          content: 'swal2-content',  // فئات مخصصة للنص
+          confirmButton: 'swal2-confirm-button'  // فئات مخصصة للزر
+        }
+      });     }
   }
 };
 
@@ -115,8 +144,17 @@ export const refetchEvent = async (updatedEvent, setEvent, setSelectedImages) =>
 export const handleAddImages = async (e, eventId, eventData, setEvent, setUpdatedEvent, updateProgress) => {
   const files = e.target.files;
   if (!files || files.length === 0) {
-    alert('Please select image files');
-    return;
+    Swal.fire({
+      icon: 'warning',  // تحديد نوع الأيقونة (خطأ)
+      title: 'تنبيه!',
+      text: 'يرجى اختيار صور.',
+      confirmButtonText: 'حسنًا',
+      customClass: {
+        title: 'swal2-title',   // فئات مخصصة للعنوان
+        content: 'swal2-content',  // فئات مخصصة للنص
+        confirmButton: 'swal2-confirm-button'  // فئات مخصصة للزر
+      }
+    });    return;
   }
 
   const compressOptions = {
@@ -136,8 +174,17 @@ export const handleAddImages = async (e, eventId, eventData, setEvent, setUpdate
       formData.append('images', compressedFile); // نضيف الصورة المضغوطة إلى formData
     } catch (error) {
       console.error('Error compressing image:', error);
-      alert('Failed to compress image');
-    }
+      Swal.fire({
+        icon: 'error',  // تحديد نوع الأيقونة (خطأ)
+        title: 'حدث خطأ!',
+        text: 'حدث خطأ أثناء محاولة ضغط الصور. يرجى المحاولة مرة أخرى.',
+        confirmButtonText: 'حسنًا',
+        customClass: {
+          title: 'swal2-title',   // فئات مخصصة للعنوان
+          content: 'swal2-content',  // فئات مخصصة للنص
+          confirmButton: 'swal2-confirm-button'  // فئات مخصصة للزر
+        }
+      });     }
   }
 
   try {
@@ -161,8 +208,17 @@ export const handleAddImages = async (e, eventId, eventData, setEvent, setUpdate
     }
   } catch (error) {
     console.error('Error uploading image:', error);
-    alert('Failed to upload image');
-  } finally {
+    Swal.fire({
+      icon: 'error',  // تحديد نوع الأيقونة (خطأ)
+      title: 'حدث خطأ!',
+      text: 'حدث خطأ أثناء محاولة رفع الصور. يرجى المحاولة مرة أخرى.',
+      confirmButtonText: 'حسنًا',
+      customClass: {
+        title: 'swal2-title',   // فئات مخصصة للعنوان
+        content: 'swal2-content',  // فئات مخصصة للنص
+        confirmButton: 'swal2-confirm-button'  // فئات مخصصة للزر
+      }
+    });   } finally {
     processedFiles++;
     if (updateProgress) {
       updateProgress((processedFiles / totalFiles) * 100);
@@ -216,8 +272,17 @@ export const handleDeleteImage = async (imageId, eventId, eventData, setEvent, s
     // لا حاجة لتحديث الحالة مرة أخرى، حيث أن fetchEvent يقوم بذلك بالفعل
   } catch (error) {
     console.error('Error deleting image:', error);
-    alert('Failed to delete image');
-    
+    Swal.fire({
+      icon: 'error',  // تحديد نوع الأيقونة (خطأ)
+      title: 'حدث خطأ!',
+      text: 'حدث خطأ أثناء محاولة حذف الصور. يرجى المحاولة مرة أخرى.',
+      confirmButtonText: 'حسنًا',
+      customClass: {
+        title: 'swal2-title',   // فئات مخصصة للعنوان
+        content: 'swal2-content',  // فئات مخصصة للنص
+        confirmButton: 'swal2-confirm-button'  // فئات مخصصة للزر
+      }
+    });     
     // استعادة الصورة في حالة حدوث خطأ
     const imageToRestore = eventData.album.find(img => img.id === imageId);
     if (imageToRestore) {
@@ -264,8 +329,17 @@ export const handleDeleteSelectedImages = async (eventId, selectedImages, eventD
     
   } catch (error) {
     console.error('Error deleting images:', error);
-    alert('Failed to delete images');
-
+    Swal.fire({
+      icon: 'error',  // تحديد نوع الأيقونة (خطأ)
+      title: 'حدث خطأ!',
+      text: 'حدث خطأ أثناء محاولة حذف الصور. يرجى المحاولة مرة أخرى.',
+      confirmButtonText: 'حسنًا',
+      customClass: {
+        title: 'swal2-title',   // فئات مخصصة للعنوان
+        content: 'swal2-content',  // فئات مخصصة للنص
+        confirmButton: 'swal2-confirm-button'  // فئات مخصصة للزر
+      }
+    }); 
     // في حالة حدوث خطأ، إعادة الصور المحذوفة
     setEvent(prevEvent => ({
       ...prevEvent,
@@ -311,8 +385,17 @@ export const handleSaveChanges = async (eventId, updatedEvent, setEvent, setUpda
     setIsEditing(false);
   } catch (error) {
     console.error('Error updating event:', error);
-    alert('Failed to update event');
-    setUpdatedEvent(prevEvent => prevEvent);
+    Swal.fire({
+      icon: 'error',  // تحديد نوع الأيقونة (خطأ)
+      title: 'حدث خطأ!',
+      text: 'حدث خطأ أثناء محاولة تعديل معلومات المناسبة. يرجى المحاولة مرة أخرى.',
+      confirmButtonText: 'حسنًا',
+      customClass: {
+        title: 'swal2-title',   // فئات مخصصة للعنوان
+        content: 'swal2-content',  // فئات مخصصة للنص
+        confirmButton: 'swal2-confirm-button'  // فئات مخصصة للزر
+      }
+    });     setUpdatedEvent(prevEvent => prevEvent);
   } finally {
     setLoading(false);
   }

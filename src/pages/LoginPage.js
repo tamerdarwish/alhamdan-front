@@ -1,21 +1,8 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-
-// دالة افتراضية للتحقق من صحة كود الوصول
-const verifyEventCode = async (eventCode) => {
-  try {
-    const response = await fetch(`http://localhost:5005/api/events/by-code/${eventCode}`);
-    if (!response.ok) {
-      throw new Error('Event not found or error fetching event');
-    }
-    const data = await response.json();
-    return data.id; // افترض أن الـ API يعيد معرّف المناسبة في الحقل `id`
-  } catch (error) {
-    console.error('Error verifying event code:', error);
-    return null;
-  }
-};
-
+import { verifyEventCode } from '../services/events-api'; // استيراد الدالة الخارجية
+import Swal from 'sweetalert2'; // استيراد SweetAlert2
+import 'sweetalert2/dist/sweetalert2.min.css'; // استيراد CSS الخاص بـ SweetAlert2
 const LoginPage = () => {
   const [eventCode, setEventCode] = useState('');
   const navigate = useNavigate();
@@ -31,12 +18,31 @@ const LoginPage = () => {
         // إذا كان الكود صحيحًا، توجه إلى صفحة المناسبة باستخدام معرف المناسبة
         navigate(`/event/${eventId}`);
       } else {
-        alert('Invalid event code');
-      }
+        Swal.fire({
+          icon: 'error',  // تحديد نوع الأيقونة (خطأ)
+          title: 'حدث خطأ!',
+          text: 'الكود الذي غير صالح!',
+          confirmButtonText: 'حسنًا',
+          customClass: {
+            title: 'swal2-title',   // فئات مخصصة للعنوان
+            content: 'swal2-content',  // فئات مخصصة للنص
+            confirmButton: 'swal2-confirm-button'  // فئات مخصصة للزر
+          }
+        });  
+            }
     } catch (error) {
       console.error('Error verifying event code:', error);
-      alert('Error verifying event code. Please try again.');
-    }
+      Swal.fire({
+        icon: 'error',  // تحديد نوع الأيقونة (خطأ)
+        title: 'حدث خطأ!',
+        text: 'حدث خطأ أثناء التحقق من الكود. يرجى المحاولة مرة أخرى.',
+        confirmButtonText: 'حسنًا',
+        customClass: {
+          title: 'swal2-title',   // فئات مخصصة للعنوان
+          content: 'swal2-content',  // فئات مخصصة للنص
+          confirmButton: 'swal2-confirm-button'  // فئات مخصصة للزر
+        }
+      });      }
   };
 
   return (

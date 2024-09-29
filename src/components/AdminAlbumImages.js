@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import './AdminAlbumImages.css';
 import JSZip from 'jszip';
 import { saveAs } from 'file-saver';
+import Swal from 'sweetalert2'; // استيراد SweetAlert2
 
 const sizes = [
   '9x13',
@@ -44,7 +45,17 @@ const AdminAlbumImages = ({ photos, customerName }) => {
 
   const handleDownloadZip = () => {
     if (selectedPhotos.length === 0) {
-      alert('يرجى تحديد صور للتحميل.');
+      Swal.fire({
+        icon: 'warning',
+        title: 'لم يتم تحديد صور',
+        text: 'يرجى تحديد صور للتحميل.',
+        confirmButtonText: 'حسنًا',
+        customClass: {
+          title: 'swal2-title',   // مخصص للعنوان
+          content: 'swal2-content',  // مخصص للنص
+          confirmButton: 'swal2-confirm-button'  // مخصص للزر
+        }
+      });
       return;
     }
 
@@ -84,17 +95,14 @@ const AdminAlbumImages = ({ photos, customerName }) => {
         </select>
       </div>
 
-    
-
       <div className="actions">
-  <button onClick={handleSelectAll}>
-    <i className="fa fa-check-square"></i> تحديد الكل
-  </button>
-  <button onClick={handleDownloadZip}>
-    <i className="fa fa-download"></i> تحميل الصور
-  </button>
-</div>
-
+        <button onClick={handleSelectAll}>
+          <i className="fa fa-check-square"></i> تحديد الكل
+        </button>
+        <button onClick={handleDownloadZip}>
+          <i className="fa fa-download"></i> تحميل الصور
+        </button>
+      </div>
 
       <div className="image-gallery">
         {filteredPhotos.map((photo, index) => (

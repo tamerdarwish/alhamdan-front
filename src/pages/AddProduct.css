@@ -1,20 +1,26 @@
 /* AddProduct.css */
 
+/* استيراد خط كايرو */
+body {
+    font-family: 'Cairo', sans-serif;
+}
+
 .add-product-container {
-    max-width: 500px;
+    max-width: 600px;
     margin: 50px auto;
-    padding: 20px;
-    background-color: #ffffff;
-    border-radius: 8px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    font-family: 'Heebo', sans-serif;
+    padding: 30px;
+    background-color: #f9f9f9;
+    border-radius: 12px;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
 }
 
 .add-product-container h2 {
     text-align: center;
-    color: #333333;
-    font-size: 24px;
+    color: #333;
+    font-size: 28px;
     margin-bottom: 20px;
+    font-family: 'Cairo', sans-serif;
+
 }
 
 .add-product-container form {
@@ -23,22 +29,24 @@
 }
 
 .add-product-container form div {
-    margin-bottom: 15px;
+    margin-bottom: 20px;
 }
 
 .add-product-container form label {
     display: block;
-    color: #666666;
+    color: #555;
     margin-bottom: 5px;
-    font-weight: bold;
+    font-weight: 600;
+    font-family: 'Cairo', sans-serif;
+
 }
 
 .add-product-container form input,
 .add-product-container form textarea {
     width: 100%;
-    padding: 10px;
-    border: 1px solid #cccccc;
-    border-radius: 4px;
+    padding: 12px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
     font-size: 16px;
     transition: border-color 0.3s;
 }
@@ -51,37 +59,103 @@
 
 .add-product-container form textarea {
     resize: vertical;
-    height: 100px;
+    height: 120px;
 }
 
 .add-product-container form button {
-    padding: 12px 20px;
-    background-color: #007bff;
-    color: #ffffff;
+    padding: 14px 20px;
+    background: linear-gradient(135deg, #007bff, #0056b3);
+    color: #fff;
     border: none;
-    border-radius: 4px;
-    font-size: 16px;
+    border-radius: 8px;
+    font-size: 18px;
     cursor: pointer;
-    transition: background-color 0.3s;
+    transition: background 0.3s, transform 0.2s, box-shadow 0.3s;
+    box-shadow: 0 4px 10px rgba(0, 123, 255, 0.3);
+    font-family: 'Cairo', sans-serif;
+
 }
 
 .add-product-container form button:hover {
-    background-color: #0056b3;
+    background: linear-gradient(135deg, #0056b3, #007bff);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 15px rgba(0, 123, 255, 0.4);
 }
+
+.add-product-container form button:active {
+    transform: translateY(0);
+    box-shadow: 0 2px 5px rgba(0, 123, 255, 0.2);
+}
+
 
 .add-product-container p {
     text-align: center;
     color: green;
-    font-weight: bold;
+    font-family: 'Cairo', sans-serif;
+    
 }
 
-  
-.success-message {
-    opacity: 1;
-    transition: opacity 1s ease-out;
-    /* Ensure message visibility before fade-out */
+/* تصميم خاص لزر تحميل الصورة */
+
+
+.add-product-container .image-upload:hover {
+    border-color: #0056b3;
+}
+
+.add-product-container .image-upload label {
+    background-color: #007bff;
+    color: #ffffff;
+    padding: 12px 24px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-family: 'Cairo', sans-serif;
+    transition: background-color 0.3s;
+    font-size: 16px;
+
+}
+
+.add-product-container .image-upload label:hover {
+    background-color: #0056b3;
+}
+
+.add-product-container .image-upload input {
+    display: none; /* إخفاء زر رفع الصورة التقليدي */
+}
+
+.add-product-container .image-upload span {
+    margin-top: 10px;
+    font-size: 14px;
+    color: #666;
+}
+
+.add-product-container .image-selected {
+    color: #007bff;
+    font-family: 'Cairo', sans-serif;
+    margin-top: 10px;
+}
+
+.add-product-container .image-preview {
+    margin-top: 10px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 10px;
+    background-color: #f9f9f9;
+}
+
+.selected-image {
+    margin-top: 10px;
+    text-align: center;
   }
   
-  .success-message.fade-out {
-    opacity: 0;
+  .selected-image p {
+    margin-bottom: 5px;
+    font-family: 'Cairo', sans-serif;
   }
+  
+  .thumbnail-image {
+    width: 100px; /* عرض الصورة المصغرة */
+    height: auto; /* الحفاظ على نسبة العرض إلى الارتفاع */
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  }
+  

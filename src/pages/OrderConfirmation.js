@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import './OrderConfirmation.css';
 import { useOrderManager } from '../components/orderManager';
+import { sendOrder } from '../services/order-api'; // تأكد من استخدام المسار الصحيح
 
 const OrderConfirmation = () => {
   const location = useLocation();
@@ -18,7 +19,7 @@ const OrderConfirmation = () => {
   // استخدام useOrderManager مع تمرير cartItems و setCartItems
   const { clearCart } = useOrderManager(cartItems, setCartItems);
 
-  const handleSendOrder = async () => {
+  const handleSendOrder = () => {
     let validationErrors = {};
     if (!fullName) validationErrors.fullName = 'الاسم الكامل مطلوب';
     if (!address) validationErrors.address = 'العنوان مطلوب';
@@ -29,38 +30,8 @@ const OrderConfirmation = () => {
       return;
     }
 
-    try {
-      const response = await fetch('http://localhost:5005/api/orders', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          cartItems,
-          totalPrice,
-          fullName,
-          address,
-          phoneNumber,
-        }),
-      });
-
-      if (!response.ok) {
-        throw new Error('Failed to send order');
-      }
-
-      const result = await response.json();
-      console.log('Order sent successfully:', result);
-      alert('تم إرسال طلبك بنجاح!');
-
-      // تصفير السلة بعد نجاح الطلب
-      clearCart();
-
-      // إعادة التوجيه إلى الصفحة الرئيسية أو صفحة أخرى بعد تصفير السلة
-      navigate('/');
-    } catch (error) {
-      console.error('Error sending order:', error);
-      alert('فشل في إرسال الطلب. يرجى المحاولة مرة أخرى.');
-    }
+    // استدعاء دالة sendOrder لإرسال الطلب
+    sendOrder(cartItems, totalPrice, fullName, address, phoneNumber, clearCart, navigate);
   };
 
   return (
@@ -99,20 +70,19 @@ const OrderConfirmation = () => {
             />
             {errors.address && <p className="error-message">{errors.address}</p>}
             <input
-  type="tel"
-  placeholder="رقم الهاتف"
-  value={phoneNumber}
-  onChange={(e) => {
-    const value = e.target.value;
-    // تحقق من أن المدخل يتكون من أرقام فقط
-    if (/^\d*$/.test(value)) {
-      setPhoneNumber(value);
-    }
-  }}
-  className={`user-input ${errors.phoneNumber ? 'input-error' : ''}`}
-  required
-/>
-
+              type="tel"
+              placeholder="رقم الهاتف"
+              value={phoneNumber}
+              onChange={(e) => {
+                const value = e.target.value;
+                // تحقق من أن المدخل يتكون من أرقام فقط
+                if (/^\d*$/.test(value)) {
+                  setPhoneNumber(value);
+                }
+              }}
+              className={`user-input ${errors.phoneNumber ? 'input-error' : ''}`}
+              required
+            />
             {errors.phoneNumber && <p className="error-message">{errors.phoneNumber}</p>}
           </div>
           <div className="order-summary">

@@ -15,8 +15,7 @@ const ProductModal = ({ product, onClose, addToCart }) => {
           <p>{product.description}</p>
           <p className="modal-product-price">₪{product.price.toFixed(2)}</p>
           <button onClick={() => { addToCart(product); onClose(); }} className="add-to-cart-button">
-            Add to Cart
-          </button>
+          إضافة إلى السلة   </button>
         </div>
       </div>
     </div>

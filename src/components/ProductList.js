@@ -4,6 +4,7 @@ import ProductModal from './ProductModal';
 import { Pagination } from 'react-bootstrap';
 import Cart from './Cart';
 import { useOrderManager } from './orderManager';
+import { fetchProducts } from '../services/products-api'; // استيراد دالة جلب البيانات
 
 const ProductList = () => {
   const [products, setProducts] = useState([]);
@@ -30,21 +31,19 @@ const ProductList = () => {
     localStorage.setItem('cartdata', JSON.stringify(cartItems));
   }, [cartItems]);
 
-  // Fetch products from API
+  // Fetch products using the separated service function
   useEffect(() => {
-    const fetchProducts = async () => {
+    const loadProducts = async () => {
       try {
-        const response = await fetch(`http://localhost:5005/api/products?page=${currentPage}&limit=${itemsPerPage}&search=${searchTerm}`);
-        const data = await response.json();
-        console.log('Fetched data:', data); // تحقق من البيانات المسترجعة
+        const data = await fetchProducts(currentPage, itemsPerPage, searchTerm);
         setProducts(data.products);
-        setTotalProducts(data.total); // تعيين العدد الإجمالي للمنتجات
+        setTotalProducts(data.total);
       } catch (error) {
         console.error('Error fetching products:', error);
       }
     };
 
-    fetchProducts();
+    loadProducts();
   }, [currentPage, searchTerm]);
 
   const handlePageChange = (page) => {

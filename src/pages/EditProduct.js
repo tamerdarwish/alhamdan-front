@@ -1,6 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
+import { fetchProductById, updateProduct } from '../services/products-api'; // استيراد الدوال الجديدة
 import './EditProduct.css'; // استيراد ملف CSS
+import Swal from 'sweetalert2'; // استيراد SweetAlert2
+import 'sweetalert2/dist/sweetalert2.min.css'; // استيراد CSS الخاص بـ SweetAlert2
 
 const EditProduct = () => {
   const { id } = useParams(); // الحصول على معرف المنتج من عنوان URL
@@ -17,9 +20,7 @@ const EditProduct = () => {
     // جلب بيانات المنتج عندما يتم تحميل المكون
     const fetchProduct = async () => {
       try {
-        const response = await fetch(`http://localhost:5005/api/products/${id}`);
-        const data = await response.json();
-
+        const data = await fetchProductById(id);
         // تعيين البيانات في الحقول
         setName(data.name);
         setDescription(data.description);
@@ -56,23 +57,26 @@ const EditProduct = () => {
     }
 
     try {
-      const response = await fetch(`http://localhost:5005/api/products/${id}`, {
-        method: 'PUT',
-        body: formData,
-      });
-
-      if (response.ok) {
-        setSuccessMessage('Product updated successfully!');
-        setTimeout(() => {
-          setSuccessMessage('');
-          navigate('/'); // إعادة توجيه إلى الصفحة الرئيسية أو صفحة المنتجات
-        }, 2000);
-      } else {
-        alert('Error updating the product!');
-      }
+      await updateProduct(id, formData); // استخدام الدالة الجديدة
+      setSuccessMessage('Product updated successfully!');
+      setTimeout(() => {
+        setSuccessMessage('');
+        navigate('/'); // إعادة توجيه إلى الصفحة الرئيسية أو صفحة المنتجات
+      }, 2000);
     } catch (error) {
       console.error('Error updating product:', error);
-      alert('There was an error updating the product!');
+
+      Swal.fire({
+        icon: 'error',  // تحديد نوع الأيقونة (خطأ)
+        title: 'حدث خطأ!',
+        text: 'حدث خطأ أثناء تعديل معلومات المنتج. يرجى المحاولة مرة أخرى.',
+        confirmButtonText: 'حسنًا',
+        customClass: {
+          title: 'swal2-title',   // فئات مخصصة للعنوان
+          content: 'swal2-content',  // فئات مخصصة للنص
+          confirmButton: 'swal2-confirm-button'  // فئات مخصصة للزر
+        }
+      });
     }
   };
 
