@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { FaPrint, FaTrashAlt, FaCheckSquare, FaCloudDownloadAlt } from 'react-icons/fa';
+import { FaPrint, FaCheckSquare, FaCloudDownloadAlt } from 'react-icons/fa';
 import Modal from 'react-modal';
 import './ImageGrid.css';
 import { downloadImagesWithWatermark } from '../services/images-api';
@@ -37,12 +37,12 @@ const ImageGrid = ({ album, handlePrintStatusToggle, watermark_setting, eventId 
   };
 
   const handleContextMenu = (e) => {
-    e.preventDefault();
+    e.preventDefault(); // منع القائمة السياقية
   };
 
   const printedImagesCount = album.filter(image => image.printStatus).length;
 
-  const handleMouseDown = (image) => {
+  const handleMouseDown = () => {
     setIsPressing(true);
     pressTimer = setTimeout(() => {
       setIsPressing(false);
@@ -52,7 +52,9 @@ const ImageGrid = ({ album, handlePrintStatusToggle, watermark_setting, eventId 
   const handleMouseUp = (image) => {
     clearTimeout(pressTimer);
     if (isPressing) {
-      handleImageClick(image);
+      // لا تفعل شيئًا هنا لتجنب الضغط المطول
+    } else {
+      handleImageClick(image); // السماح بالضغط العادي
     }
     setIsPressing(false);
   };
@@ -74,7 +76,7 @@ const ImageGrid = ({ album, handlePrintStatusToggle, watermark_setting, eventId 
             <div
               key={image.id}
               className={`image-container ${selectedImages.includes(image) ? 'selected' : ''}`}
-              onMouseDown={() => handleMouseDown(image)}
+              onMouseDown={handleMouseDown}
               onMouseUp={() => handleMouseUp(image)}
               onDoubleClick={() => handleImageDoubleClick(image)}
               onContextMenu={handleContextMenu} // منع القائمة السياقية
@@ -120,6 +122,7 @@ const ImageGrid = ({ album, handlePrintStatusToggle, watermark_setting, eventId 
               alt={`Selected image ${selectedImage.id}`}
               className="modal-image"
               onContextMenu={handleContextMenu}
+              draggable="false" // يمنع سلوك السحب
             />
           </>
         )}
