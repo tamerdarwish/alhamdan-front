@@ -1,14 +1,16 @@
 import React, { useState } from 'react';
 import { FaPrint, FaTrashAlt, FaCheckSquare, FaCloudDownloadAlt } from 'react-icons/fa';
-import Modal from 'react-modal';  // استيراد مكتبة react-modal
+import Modal from 'react-modal';
 import './ImageGrid.css';
-import {downloadImagesWithWatermark} from '../services/images-api'
+import { downloadImagesWithWatermark } from '../services/images-api';
 
-Modal.setAppElement('#root'); // لتجنب التحذيرات المتعلقة بإمكانية الوصول
+Modal.setAppElement('#root');
 
 const ImageGrid = ({ album, handlePrintStatusToggle, watermark_setting, eventId }) => {
   const [selectedImages, setSelectedImages] = useState([]);
   const [selectedImage, setSelectedImage] = useState(null);
+  const [isPressing, setIsPressing] = useState(false);
+  let pressTimer;
 
   const handleImageClick = (image) => {
     if (selectedImages.includes(image)) {
@@ -26,8 +28,6 @@ const ImageGrid = ({ album, handlePrintStatusToggle, watermark_setting, eventId 
     setSelectedImage(null);
   };
 
- 
-
   const selectAllImages = () => {
     if (selectedImages.length === album.length) {
       setSelectedImages([]);
@@ -42,12 +42,25 @@ const ImageGrid = ({ album, handlePrintStatusToggle, watermark_setting, eventId 
 
   const printedImagesCount = album.filter(image => image.printStatus).length;
 
+  const handleMouseDown = (image) => {
+    setIsPressing(true);
+    pressTimer = setTimeout(() => {
+      setIsPressing(false);
+    }, 300); // تحديد وقت الضغط المطول (300 مللي ثانية)
+  };
+
+  const handleMouseUp = (image) => {
+    clearTimeout(pressTimer);
+    if (isPressing) {
+      handleImageClick(image);
+    }
+    setIsPressing(false);
+  };
 
   return (
     <div className="album-section">
       <h2>ألبوم الصور</h2>
-            {/* شريط الإحصائيات */}
-            <div className="stats-bar">
+      <div className="stats-bar">
         <span>عدد الصور: {album.length}</span>
         <span>عدد الصور المحددة: {selectedImages.length}</span>
         <span>عدد الصور المطبوعة: {printedImagesCount}</span>
@@ -57,36 +70,36 @@ const ImageGrid = ({ album, handlePrintStatusToggle, watermark_setting, eventId 
         <p className="no-images">الألبوم فارغ.</p>
       ) : (
         <div className="images-grid">
-        {album.map((image) => (
+          {album.map((image) => (
             <div
-                key={image.id}
-                className={`image-container ${selectedImages.includes(image) ? 'selected' : ''}`}
+              key={image.id}
+              className={`image-container ${selectedImages.includes(image) ? 'selected' : ''}`}
+              onMouseDown={() => handleMouseDown(image)}
+              onMouseUp={() => handleMouseUp(image)}
+              onDoubleClick={() => handleImageDoubleClick(image)}
+              onContextMenu={handleContextMenu} // منع القائمة السياقية
+              draggable="false"
             >
-                <img
-                    src={image.url}
-                    alt={`Album image ${image.id}`}
-                    className="album-image"
-                    onClick={() => handleImageClick(image)}
-                    onDoubleClick={() => handleImageDoubleClick(image)}
-                    onContextMenu={handleContextMenu} // منع القائمة السياقية
-                    draggable="false" // منع سلوك السحب
-                />
-                <FaPrint
-                    className={`status-icon ${image.printStatus ? 'checked' : 'unchecked'}`}
-                    onClick={() => handlePrintStatusToggle(image.id, image.printStatus)}
-                />
+              <img
+                src={image.url}
+                alt={`Album image ${image.id}`}
+                className="album-image"
+              />
+              <FaPrint
+                className={`status-icon ${image.printStatus ? 'checked' : 'unchecked'}`}
+                onClick={() => handlePrintStatusToggle(image.id, image.printStatus)}
+              />
             </div>
-        ))}
-    </div>
+          ))}
+        </div>
       )}
 
-      {/* الشريط العائم */}
       {album.length > 0 && (
         <div className="floating-bar">
           <button onClick={selectAllImages} className="btn floating-btn">
             <FaCheckSquare /> {selectedImages.length === album.length ? 'إلغاء تحديد الكل' : 'تحديد الكل'}
           </button>
-          <button onClick={() => downloadImagesWithWatermark(selectedImages,watermark_setting,eventId)} className="btn floating-btn">
+          <button onClick={() => downloadImagesWithWatermark(selectedImages, watermark_setting, eventId)} className="btn floating-btn">
             <FaCloudDownloadAlt /> تحميل الصور المحددة 
           </button>
         </div>
