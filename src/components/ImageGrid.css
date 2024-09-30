@@ -109,30 +109,6 @@ h2 {
 }
 
 
-/* زر فتح الصورة */
-.open-button {
-  position: absolute;
-  bottom: 15px;
-  right: 15px;
-  background: rgba(7, 116, 167, 0.808); /* تأثير لون خفيف عند التمرير */
-  border: 4px solid #ffffff; /* حد أخضر */
-  border-radius: 50%; /* شكل دائري */
-  cursor: pointer;
-  color: #ffffff; /* لون النص */
-  font-size: 20px;
-  width: 50px; /* عرض الزر */
-  height: 50px; /* ارتفاع الزر */
-  display: flex; /* استخدام الفليكس لتوسيع الزر */
-  align-items: center; /* محاذاة عمودية للنص */
-  justify-content: center; /* محاذاة أفقية للنص */
-  transition: background 0.2s, color 0.2s; /* تأثير التغيير */
-}
-
-/* تأثير عند التمرير فوق زر فتح الصورة */
-.open-button:hover {
-  background: rgba(2, 70, 102, 0.808); /* تأثير لون خفيف عند التمرير */
-  color: #ffffff; /* تغيير لون النص عند التمرير */
-}
 
 .image-container.selected {
   border: 2px solid #218838;

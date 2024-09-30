@@ -18,9 +18,7 @@ const ImageGrid = ({ album, handlePrintStatusToggle, watermark_setting, eventId 
     }
   };
 
-  const handleImageDoubleClick = (image) => {
-    setSelectedImage(image);
-  };
+
 
   const closeModal = () => {
     setSelectedImage(null);
@@ -57,7 +55,6 @@ const ImageGrid = ({ album, handlePrintStatusToggle, watermark_setting, eventId 
             <div
               key={image.id}
               className={`image-container ${selectedImages.includes(image) ? 'selected' : ''}`}
-              onDoubleClick={() => handleImageDoubleClick(image)}
               onContextMenu={handleContextMenu} // منع القائمة السياقية
               draggable="false"
             >
@@ -78,14 +75,7 @@ const ImageGrid = ({ album, handlePrintStatusToggle, watermark_setting, eventId 
               >
                 {selectedImages.includes(image) ? <FaCheck /> : <FaCheckSquare />}
               </button>
-              {/* زر فتح الصورة في Modal مع أيقونة */}
-              <button 
-                onClick={() => handleImageDoubleClick(image)} 
-                className="open-button" 
-                title="فتح الصورة"
-              >
-                <FaEye /> {/* استبدال النص بأيقونة */}
-              </button>
+            
             </div>
           ))}
         </div>

@@ -5,25 +5,39 @@ import aboutImage from '../../assets/logo.png';
 
 const Header = () => {
   const [isMenuOpen, setMenuOpen] = useState(false);
-  const [isAdminLoggedIn, setIsAdminLoggedIn] = useState(false); // حالة دخول الأدمن
+  const [isAdminLoggedIn, setIsAdminLoggedIn] = useState(false);
   const navigate = useNavigate();
 
   useEffect(() => {
-    // التحقق من وجود رمز التوثيق في localStorage
     const adminToken = localStorage.getItem('adminToken');
     if (adminToken) {
       setIsAdminLoggedIn(true);
     }
-  }, []);
+
+    // إغلاق القائمة عند النقر خارجها
+    const handleClickOutside = (event) => {
+      const headerNav = document.querySelector('.header-nav');
+      if (isMenuOpen && !headerNav.contains(event.target)) {
+        setMenuOpen(false);
+      }
+    };
+
+    document.addEventListener('mousedown', handleClickOutside);
+
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, [isMenuOpen]);
 
   const handleNavigation = (hash) => {
-    navigate('/'); // الانتقال إلى الصفحة الرئيسية
+    navigate('/');
     setTimeout(() => {
       const element = document.getElementById(hash);
       if (element) {
         element.scrollIntoView({ behavior: 'smooth' });
       }
-    }, 100); // تأخير صغير للتأكد من تحميل الصفحة بالكامل
+    }, 100);
+    setMenuOpen(false); // غلق القائمة بعد التحديد
   };
 
   const toggleMenu = () => {
@@ -31,10 +45,10 @@ const Header = () => {
   };
 
   const handleLogout = () => {
-    // إزالة رمز التوثيق من localStorage وتوجيه الأدمن لصفحة تسجيل الدخول
     localStorage.removeItem('adminToken');
-    setIsAdminLoggedIn(false); // تحديث حالة الأدمن
+    setIsAdminLoggedIn(false);
     navigate('/admin/login');
+    setMenuOpen(false); // غلق القائمة عند تسجيل الخروج
   };
 
   return (
