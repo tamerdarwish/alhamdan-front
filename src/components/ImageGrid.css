@@ -11,12 +11,16 @@
   position: relative;
   margin: 10px;
   cursor: pointer; /* إضافة مؤشر عند التمرير */
+  pointer-events: none; /* يمنع جميع الأحداث على الصورة */
+
 }
 
 .album-image {
   width: 100px; /* عرض الصورة */
   height: auto; /* الحفاظ على نسبة العرض إلى الارتفاع */
   transition: transform 0.2s; /* تأثير انزلاق عند التفاعل */
+  pointer-events: none; /* يمنع جميع الأحداث على الصورة */
+
 }
 
 .image-container:hover .album-image {
@@ -58,4 +62,19 @@
   right: 10px;
   font-size: 24px; /* حجم الخط لزر الإغلاق */
   color: white; /* لون زر الإغلاق */
+}
+
+.select-button {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  position: absolute; /* اجعل الزر فوق الصورة */
+  top: 10px; /* قم بضبط الموقع حسب الحاجة */
+  right: 10px; /* قم بضبط الموقع حسب الحاجة */
+  color: #fff; /* لون الأيقونة */
+  font-size: 1.5em; /* حجم الأيقونة */
+}
+
+.image-container {
+  position: relative; /* اجعل الصورة هي الحاوية النسبية */
 }

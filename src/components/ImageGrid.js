@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { FaPrint, FaCheckSquare, FaCloudDownloadAlt } from 'react-icons/fa';
+import { FaPrint, FaCheckSquare, FaCloudDownloadAlt, FaCheck } from 'react-icons/fa';
 import Modal from 'react-modal';
 import './ImageGrid.css';
 import { downloadImagesWithWatermark } from '../services/images-api';
@@ -9,8 +9,6 @@ Modal.setAppElement('#root');
 const ImageGrid = ({ album, handlePrintStatusToggle, watermark_setting, eventId }) => {
   const [selectedImages, setSelectedImages] = useState([]);
   const [selectedImage, setSelectedImage] = useState(null);
-  const [isPressing, setIsPressing] = useState(false);
-  let pressTimer;
 
   const handleImageClick = (image) => {
     if (selectedImages.includes(image)) {
@@ -42,23 +40,6 @@ const ImageGrid = ({ album, handlePrintStatusToggle, watermark_setting, eventId 
 
   const printedImagesCount = album.filter(image => image.printStatus).length;
 
-  const handleMouseDown = () => {
-    setIsPressing(true);
-    pressTimer = setTimeout(() => {
-      setIsPressing(false);
-    }, 300); // تحديد وقت الضغط المطول (300 مللي ثانية)
-  };
-
-  const handleMouseUp = (image) => {
-    clearTimeout(pressTimer);
-    if (isPressing) {
-      // لا تفعل شيئًا هنا لتجنب الضغط المطول
-    } else {
-      handleImageClick(image); // السماح بالضغط العادي
-    }
-    setIsPressing(false);
-  };
-
   return (
     <div className="album-section">
       <h2>ألبوم الصور</h2>
@@ -76,8 +57,6 @@ const ImageGrid = ({ album, handlePrintStatusToggle, watermark_setting, eventId 
             <div
               key={image.id}
               className={`image-container ${selectedImages.includes(image) ? 'selected' : ''}`}
-              onMouseDown={handleMouseDown}
-              onMouseUp={() => handleMouseUp(image)}
               onDoubleClick={() => handleImageDoubleClick(image)}
               onContextMenu={handleContextMenu} // منع القائمة السياقية
               draggable="false"
@@ -91,6 +70,14 @@ const ImageGrid = ({ album, handlePrintStatusToggle, watermark_setting, eventId 
                 className={`status-icon ${image.printStatus ? 'checked' : 'unchecked'}`}
                 onClick={() => handlePrintStatusToggle(image.id, image.printStatus)}
               />
+              {/* زر تحديد الصورة */}
+              <button 
+                onClick={() => handleImageClick(image)} 
+                className={`select-button ${selectedImages.includes(image) ? 'selected' : ''}`}
+                title={selectedImages.includes(image) ? 'إلغاء تحديد' : 'تحديد'}
+              >
+                {selectedImages.includes(image) ? <FaCheck /> : <FaCheckSquare />}
+              </button>
             </div>
           ))}
         </div>
