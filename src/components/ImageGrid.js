@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { FaPrint, FaCheckSquare, FaCloudDownloadAlt, FaCheck } from 'react-icons/fa';
+import { FaPrint, FaCheckSquare, FaCloudDownloadAlt, FaCheck, FaEye } from 'react-icons/fa'; // إضافة FaEye
 import Modal from 'react-modal';
 import './ImageGrid.css';
 import { downloadImagesWithWatermark } from '../services/images-api';
@@ -77,6 +77,14 @@ const ImageGrid = ({ album, handlePrintStatusToggle, watermark_setting, eventId 
                 title={selectedImages.includes(image) ? 'إلغاء تحديد' : 'تحديد'}
               >
                 {selectedImages.includes(image) ? <FaCheck /> : <FaCheckSquare />}
+              </button>
+              {/* زر فتح الصورة في Modal مع أيقونة */}
+              <button 
+                onClick={() => handleImageDoubleClick(image)} 
+                className="open-button" 
+                title="فتح الصورة"
+              >
+                <FaEye /> {/* استبدال النص بأيقونة */}
               </button>
             </div>
           ))}

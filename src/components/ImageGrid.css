@@ -1,79 +1,215 @@
+/* ImageGrid.css */
+
+/* القسم الرئيسي للألبوم */
 .album-section {
-  padding: 20px;
+  padding: 30px;
+  background-color: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  max-width: 1200px; /* عرض أقصى للقسم */
+  margin: 20px auto; /* توسيط القسم */
 }
 
-.images-grid {
+/* عنوان الألبوم */
+h2 {
+  font-size: 28px;
+  font-weight: 700;
+  color: #222;
+  margin-bottom: 20px;
+  text-align: center; /* توسيط العنوان */
+}
+
+/* شريط الإحصائيات */
+.stats-bar {
   display: flex;
-  flex-wrap: wrap;
+  justify-content: space-around;
+  margin-bottom: 25px;
+  font-size: 18px;
+  color: #666;
 }
 
+/* شبكة الصور */
+.images-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  gap: 15px;
+}
+
+/* حاوية الصورة */
 .image-container {
   position: relative;
-  margin: 10px;
-  cursor: pointer; /* إضافة مؤشر عند التمرير */
-
+  overflow: hidden;
+  border: 1px solid #eaeaea;
+  border-radius: 12px;
+  transition: transform 0.3s, box-shadow 0.3s;
+  cursor: pointer; /* تغيير شكل المؤشر عند التمرير فوق الصورة */
 }
 
+/* تأثير عند التمرير فوق الصورة */
+.image-container:hover {
+  transform: scale(1.05);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+}
+
+/* صورة الألبوم */
 .album-image {
-  width: 100px; /* عرض الصورة */
-  height: auto; /* الحفاظ على نسبة العرض إلى الارتفاع */
-  transition: transform 0.2s; /* تأثير انزلاق عند التفاعل */
-  pointer-events: none; /* يمنع جميع الأحداث على الصورة */
-
+  width: 100%;
+  height: 100%;
+  border-radius: 12px;
+  object-fit: cover; /* الحفاظ على نسبة العرض إلى الارتفاع */
+  pointer-events: none;
 }
 
-.image-container:hover .album-image {
-  transform: scale(1.05); /* تكبير الصورة عند التمرير */
+/* أيقونة حالة الطباعة */
+.status-icon {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  font-size: 20px;
+  color: #fff;
+  background-color: rgba(0, 0, 0, 0.7);
+  border-radius: 50%;
+  padding: 6px;
+}
+
+/* حالة الطباعة المحددة */
+.status-icon.checked {
+  color: #ffffff; /* لون أخضر */
+  background-color: #20a100;
+}
+
+/* حالة الطباعة غير المحددة */
+.status-icon.unchecked {
+  color: #ffffff; /* لون أحمر */
+}
+
+
+/* زر تحديد الصورة */
+.select-button {
+  position: absolute;
+  bottom: 15px;
+  left: 15px;
+  background: transparent; /* خلفية شفافة */
+  cursor: pointer; /* تغيير شكل المؤشر عند التمرير فوق الزر */
+  color: #f8f8f8; /* لون الأيقونة */
+  font-size: 24px; /* حجم الأيقونة */
+  width: 50px; /* عرض الزر */
+  height: 50px; /* ارتفاع الزر */
+  border: none; /* إزالة الحدود */
+  border-radius: 50%; /* شكل دائري خفيف */
+  display: flex; /* استخدام الفليكس لتوسيع الزر */
+  align-items: center; /* محاذاة عمودية للنص */
+  justify-content: center; /* محاذاة أفقية للنص */
+  transition: color 0.2s; /* تأثير التغيير عند التمرير */
+}
+
+/* تأثير عند التمرير فوق زر التحديد */
+.select-button:hover {
+  color: #186d03; /* تغيير لون الأيقونة عند التمرير */
+}
+
+
+/* زر فتح الصورة */
+.open-button {
+  position: absolute;
+  bottom: 15px;
+  right: 15px;
+  background: rgba(7, 116, 167, 0.808); /* تأثير لون خفيف عند التمرير */
+  border: 4px solid #ffffff; /* حد أخضر */
+  border-radius: 50%; /* شكل دائري */
+  cursor: pointer;
+  color: #ffffff; /* لون النص */
+  font-size: 20px;
+  width: 50px; /* عرض الزر */
+  height: 50px; /* ارتفاع الزر */
+  display: flex; /* استخدام الفليكس لتوسيع الزر */
+  align-items: center; /* محاذاة عمودية للنص */
+  justify-content: center; /* محاذاة أفقية للنص */
+  transition: background 0.2s, color 0.2s; /* تأثير التغيير */
+}
+
+/* تأثير عند التمرير فوق زر فتح الصورة */
+.open-button:hover {
+  background: rgba(2, 70, 102, 0.808); /* تأثير لون خفيف عند التمرير */
+  color: #ffffff; /* تغيير لون النص عند التمرير */
 }
 
 .image-container.selected {
-  border: 2px solid #007bff; /* لون الحدود عند التحديد */
-  opacity: 0.7; /* تغيير الشفافية عند التحديد */
+  border: 2px solid #218838;
 }
 
-.status-icon {
-  position: absolute;
-  top: 5px;
-  right: 5px;
-  cursor: pointer;
-}
 
+/* شريط الأزرار العائمة */
 .floating-bar {
-  position: fixed;
-  bottom: 20px;
-  right: 20px;
-  display: flex;
-  gap: 10px;
+  position: fixed; /* لجعل الشريط ثابتًا */
+  bottom: 20px; /* يبعد الشريط عن أسفل الصفحة */
+  left: 50%;
+  transform: translateX(-50%); /* لتوسيط الشريط */
+  display: inline-flex; /* جعل الشريط يتكيف تلقائيًا مع حجم المحتوى */
+  justify-content: center;
+  padding: 10px 20px; /* مساحة داخلية حول الأزرار */
+  background-color: #ffffff; /* لون خلفية الشريط */
+  border-radius: 12px; /* زوايا مستديرة */
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1); /* ظل لتحسين الشكل */
+  font-family: 'Cairo', sans-serif;
+  z-index: 1000; /* لضمان ظهور الشريط فوق العناصر الأخرى */
 }
 
-.modal-content {
-  transition: all 0.3s ease; /* تأثير انزلاق للمودال */
-}
 
-.modal-overlay {
-  background: rgba(0, 0, 0, 0.7); /* خلفية مظلمة للمودال */
-}
-
-.close-button {
-  cursor: pointer;
-  position: absolute;
-  top: 10px;
-  right: 10px;
-  font-size: 24px; /* حجم الخط لزر الإغلاق */
-  color: white; /* لون زر الإغلاق */
-}
-
-.select-button {
-  background: transparent;
+/* أزرار الشريط العائم */
+.btn {
+  background-color: #007bff;
+  color: white;
   border: none;
+  border-radius: 6px;
+  padding: 12px 20px;
   cursor: pointer;
-  position: absolute; /* اجعل الزر فوق الصورة */
-  top: 10px; /* قم بضبط الموقع حسب الحاجة */
-  right: 10px; /* قم بضبط الموقع حسب الحاجة */
-  color: #fff; /* لون الأيقونة */
-  font-size: 1.5em; /* حجم الأيقونة */
+  font-size: 18px;
+  margin: 0 10px; /* إضافة هوامش بين الأزرار */
+  transition: background-color 0.3s, transform 0.2s; /* تأثير سلس */
+  
 }
 
-.image-container {
-  position: relative; /* اجعل الصورة هي الحاوية النسبية */
+/* تأثير عند التمرير فوق الأزرار */
+.btn:hover {
+  background-color: #0056b3;
+  transform: translateY(-2px); /* تأثير رفع */
 }
+
+/* رسالة عندما يكون الألبوم فارغًا */
+.no-images {
+  text-align: center;
+  font-size: 20px;
+  color: #777;
+}
+
+/* إعدادات Modal */
+.modal-content {
+  position: relative;
+  max-width: 90%;
+  margin: auto;
+  border-radius: 12px; /* توازن الحواف */
+}
+
+/* صورة داخل Modal */
+.modal-image {
+  width: 100%;
+  height: auto;
+  border-radius: 12px;
+}
+
+/* زر إغلاق Modal */
+.close-button {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  font-size: 26px;
+  cursor: pointer;
+  color: #fff;
+}
+
+/* خلفية Modal */
+.modal-overlay {
+  background: rgba(0, 0, 0, 0.8);
+}
+
