@@ -3,7 +3,7 @@
 //GET All Events 
     export const fetchEvents = async () => {
       try {
-        const response = await fetch(`https://alhamdan-back-8.onrender.com/api/events`);
+        const response = await fetch(`https://alhamdan-back.onrender.com/api/events`);
         const data = await response.json();
         return data.data
       } catch (error) {
@@ -15,7 +15,7 @@
 //GET Event By ID 
 export const fetchEventById = async (eventId) => {
   try {
-    const response = await fetch(`https://alhamdan-back-8.onrender.com/api/events/${eventId}`);
+    const response = await fetch(`https://alhamdan-back.onrender.com/api/events/${eventId}`);
     const data = await response.json();
     return data.data
   } catch (error) {
@@ -26,7 +26,7 @@ export const fetchEventById = async (eventId) => {
 export const handleDelete = async (id,onDelete) => {
   if (window.confirm('Are you sure you want to delete this event?')) {
     try {
-      const response = await fetch(`https://alhamdan-back-8.onrender.com/api/events/${id}`, {
+      const response = await fetch(`https://alhamdan-back.onrender.com/api/events/${id}`, {
         method: 'DELETE',
       });
 
@@ -46,7 +46,7 @@ export const handleDelete = async (id,onDelete) => {
 
 export const verifyEventCode = async (eventCode) => {
   try {
-    const response = await fetch(`https://alhamdan-back-8.onrender.com/api/events/by-code/${eventCode}`);
+    const response = await fetch(`https://alhamdan-back.onrender.com/api/events/by-code/${eventCode}`);
     if (!response.ok) {
       throw new Error('Event not found or error fetching event');
     }
@@ -61,7 +61,7 @@ export const verifyEventCode = async (eventCode) => {
 
 export const editEvent = async (eventId,updatedEvent) => {
   try {
-    const response = await fetch(`https://alhamdan-back-8.onrender.com/api/events/${eventId}`, {
+    const response = await fetch(`https://alhamdan-back.onrender.com/api/events/${eventId}`, {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json',

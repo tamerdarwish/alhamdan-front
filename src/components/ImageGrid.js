@@ -57,26 +57,27 @@ const ImageGrid = ({ album, handlePrintStatusToggle, watermark_setting, eventId 
         <p className="no-images">الألبوم فارغ.</p>
       ) : (
         <div className="images-grid">
-          {album.map((image) => (
+        {album.map((image) => (
             <div
-              key={image.id}
-              className={`image-container ${selectedImages.includes(image) ? 'selected' : ''}`}
+                key={image.id}
+                className={`image-container ${selectedImages.includes(image) ? 'selected' : ''}`}
             >
-              <img
-                src={image.url}
-                alt={`Album image ${image.id}`}
-                className="album-image"
-                onClick={() => handleImageClick(image)}
-                onDoubleClick={() => handleImageDoubleClick(image)} // فتح المودال عند النقر المزدوج
-                onContextMenu={handleContextMenu}
-              />
-              <FaPrint
-                className={`status-icon ${image.printStatus ? 'checked' : 'unchecked'}`}
-                onClick={() => handlePrintStatusToggle(image.id, image.printStatus)}
-              />
+                <img
+                    src={image.url}
+                    alt={`Album image ${image.id}`}
+                    className="album-image"
+                    onClick={() => handleImageClick(image)}
+                    onDoubleClick={() => handleImageDoubleClick(image)}
+                    onContextMenu={handleContextMenu} // منع القائمة السياقية
+                    draggable="false" // منع سلوك السحب
+                />
+                <FaPrint
+                    className={`status-icon ${image.printStatus ? 'checked' : 'unchecked'}`}
+                    onClick={() => handlePrintStatusToggle(image.id, image.printStatus)}
+                />
             </div>
-          ))}
-        </div>
+        ))}
+    </div>
       )}
 
       {/* الشريط العائم */}

@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const apiClient = axios.create({
-  baseURL: `https://alhamdan-back-8.onrender.com`, // أو URL الباك إند الخاص بك
+  baseURL: `https://alhamdan-back.onrender.com`, // أو URL الباك إند الخاص بك
 });
 
 const apiService = {

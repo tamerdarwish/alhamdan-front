@@ -1,7 +1,7 @@
 // order-api.js
 import Swal from 'sweetalert2'; // استيراد SweetAlert2
 import 'sweetalert2/dist/sweetalert2.min.css'; // استيراد CSS الخاص بـ SweetAlert2
-const API_URL = `https://alhamdan-back-8.onrender.com/api/orders`;
+const API_URL = `https://alhamdan-back.onrender.com/api/orders`;
 
 // جلب جميع الطلبات
 export const fetchOrders = async () => {
@@ -56,7 +56,7 @@ export const updateOrderStatus = async (id, status) => {
 
 export const sendOrder = async (cartItems, totalPrice, fullName, address, phoneNumber, clearCart, navigate) => {
   try {
-    const response = await fetch(`https://alhamdan-back-8.onrender.com/api/orders`, {
+    const response = await fetch(`https://alhamdan-back.onrender.com/api/orders`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
