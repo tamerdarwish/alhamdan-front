@@ -80,4 +80,12 @@ export const editEvent = async (eventId,updatedEvent) => {
   }
 }
 
+export const checkAccessCode = async (code) => {
+  // تحقق في قاعدة البيانات ما إذا كان الكود مستخدمًا مسبقًا
+  const response = await fetch(`https://alhamdan-back.onrender.com/api/events/check-code/${code}`);
+  const data = await response.json();
+  return data.exists; // ترجع true إذا كان الكود موجودًا مسبقًا
+};
+
+
 

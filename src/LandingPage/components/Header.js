@@ -5,39 +5,26 @@ import aboutImage from '../../assets/logo.png';
 
 const Header = () => {
   const [isMenuOpen, setMenuOpen] = useState(false);
-  const [isAdminLoggedIn, setIsAdminLoggedIn] = useState(false);
+  const [isAdminLoggedIn, setIsAdminLoggedIn] = useState(false); // حالة دخول الأدمن
   const navigate = useNavigate();
 
   useEffect(() => {
+    // التحقق من وجود رمز التوثيق في localStorage
     const adminToken = localStorage.getItem('adminToken');
     if (adminToken) {
       setIsAdminLoggedIn(true);
     }
-
-    // إغلاق القائمة عند النقر خارجها
-    const handleClickOutside = (event) => {
-      const headerNav = document.querySelector('.header-nav');
-      if (isMenuOpen && !headerNav.contains(event.target)) {
-        setMenuOpen(false);
-      }
-    };
-
-    document.addEventListener('mousedown', handleClickOutside);
-
-    return () => {
-      document.removeEventListener('mousedown', handleClickOutside);
-    };
-  }, [isMenuOpen]);
+  }, []);
 
   const handleNavigation = (hash) => {
-    navigate('/');
+    navigate('/'); // الانتقال إلى الصفحة الرئيسية
     setTimeout(() => {
       const element = document.getElementById(hash);
       if (element) {
         element.scrollIntoView({ behavior: 'smooth' });
       }
-    }, 100);
-    setMenuOpen(false); // غلق القائمة بعد التحديد
+      toggleMenu(); // إغلاق القائمة عند التنقل
+    }, 100); // تأخير صغير للتأكد من تحميل الصفحة بالكامل
   };
 
   const toggleMenu = () => {
@@ -45,17 +32,22 @@ const Header = () => {
   };
 
   const handleLogout = () => {
+    // إزالة رمز التوثيق من localStorage وتوجيه الأدمن لصفحة تسجيل الدخول
     localStorage.removeItem('adminToken');
-    setIsAdminLoggedIn(false);
+    setIsAdminLoggedIn(false); // تحديث حالة الأدمن
     navigate('/admin/login');
-    setMenuOpen(false); // غلق القائمة عند تسجيل الخروج
+    toggleMenu(); // إغلاق القائمة عند تسجيل الخروج
+  };
+
+  const closeMenu = () => {
+    setMenuOpen(false);
   };
 
   return (
     <header className="header">
       <div className="header-container">
         <div className="header-logo">
-          <Link to="/">
+          <Link to="/" onClick={closeMenu}>
             <img src={aboutImage} alt="Studio Overview" />
           </Link>
         </div>
@@ -64,9 +56,9 @@ const Header = () => {
           <ul>
             {isAdminLoggedIn ? (
               <>
-                <li><Link to="/">الرئيسية</Link></li>
-                <li><Link to="/shop">متجرنا</Link></li>
-                <li><Link to="/admin/dashboard">لوحة التحكم</Link></li>
+                <li><Link to="/" onClick={closeMenu}>الرئيسية</Link></li>
+                <li><Link to="/shop" onClick={closeMenu}>متجرنا</Link></li>
+                <li><Link to="/admin/dashboard" onClick={closeMenu}>لوحة التحكم</Link></li>
                 <li><button onClick={handleLogout}>تسجيل الخروج</button></li>
               </>
             ) : (
@@ -76,9 +68,9 @@ const Header = () => {
                 <li><a onClick={() => handleNavigation('features')}>ميزاتنا</a></li>
                 <li><a onClick={() => handleNavigation('gallery')}>من أعمالنا</a></li>
                 <li><a onClick={() => handleNavigation('contact-us')}>إتصل بنا</a></li>
-                <li><Link to="/shop">متجرنا</Link></li>
-                <li><Link to="/print">إرسال صور للطباعة</Link></li>
-                <li><Link to="/login">الدخول الى مناسبة</Link></li>
+                <li><Link to="/shop" onClick={closeMenu}>متجرنا</Link></li>
+                <li><Link to="/print" onClick={closeMenu}>إرسال صور للطباعة</Link></li>
+                <li><Link to="/login" onClick={closeMenu}>الدخول الى مناسبة</Link></li>
               </>
             )}
           </ul>

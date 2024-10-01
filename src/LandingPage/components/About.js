@@ -1,14 +1,18 @@
 // components/AboutUs.js
 import React from 'react';
 import './About.css';
-import aboutImage from '../../assets/about.jpg';
+import aboutVideo from '../../assets/about.mp4';
 
 const About = () => (
   <section id="about-us" className="about-us">
     <div className="about-us-container">
       <div className="about-us-image">
-        <img src={aboutImage} alt="Studio Overview" />
-      </div>
+      <video controls loop className="hero-video">
+  <source src={aboutVideo} type="video/mp4" />
+  Your browser does not support the video tag.
+</video>
+
+              </div>
       <div className="about-us-content">
         <h2 className="about-us-title">من نحن</h2>
         <p className="about-us-text">
