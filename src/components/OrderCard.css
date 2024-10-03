@@ -75,11 +75,11 @@ body {
 
 .order-card.processed {
     border-left: 5px solid #006317; /* لون أخضر للطلبات التي تمت معالجتها */
-    background-color: #eafaf1; /* خلفية فاتحة */
+    background-color: #89ffbc; /* خلفية فاتحة */
   }
   
   .order-card.pending {
-    border-left: 5px solid #dd7600; /* لون أصفر للطلبات التي لم تُعالج بعد */
-    background-color: #fff3e0; /* خلفية فاتحة */
+    border-left: 5px solid #dd0000; /* لون أصفر للطلبات التي لم تُعالج بعد */
+    background-color: #ff8686; /* خلفية فاتحة */
   }
   

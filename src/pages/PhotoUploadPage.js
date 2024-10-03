@@ -3,7 +3,7 @@ import PhotoUpload from '../components/PhotoUpload';
 import PhotoList from '../components/PhotoList';
 import ClipLoader from 'react-spinners/ClipLoader'; // استيراد مؤشر التحميل
 import './PhotoUploadPage.css';
-import {uploadPhotos} from '../services/printsHandler'
+import { uploadPhotos } from '../services/printsHandler';
 import Swal from 'sweetalert2'; // استيراد SweetAlert2
 import 'sweetalert2/dist/sweetalert2.min.css'; // استيراد CSS الخاص بـ SweetAlert2
 
@@ -14,6 +14,7 @@ const PhotoUploadPage = () => {
   const [customerEmail, setCustomerEmail] = useState('');
   const [customerAddress, setCustomerAddress] = useState('');
   const [customerPhoneNumber, setCustomerPhoneNumber] = useState('');
+  const [deliveryMethod, setDeliveryMethod] = useState('pickup'); // حالة للتوصيل
   const [isLoading, setIsLoading] = useState(false); // حالة التحميل
 
   const handleUpload = (uploadedPhotos) => {
@@ -34,18 +35,19 @@ const PhotoUploadPage = () => {
   };
 
   const handleSubmit = async () => {
-    if (!customerName || !customerEmail) {
+    if (!customerName || !customerEmail || !deliveryMethod) {
       Swal.fire({
-        icon: 'warning',  // تحديد نوع الأيقونة (خطأ)
+        icon: 'warning',
         title: 'تنبيه!',
         text: 'يرجى ملء جميع الحقول المطلوبة.',
         confirmButtonText: 'حسنًا',
         customClass: {
-          title: 'swal2-title',   // فئات مخصصة للعنوان
-          content: 'swal2-content',  // فئات مخصصة للنص
-          confirmButton: 'swal2-confirm-button'  // فئات مخصصة للزر
+          title: 'swal2-title',
+          content: 'swal2-content',
+          confirmButton: 'swal2-confirm-button'
         }
-      });        return;
+      });
+      return;
     }
 
     setIsLoading(true); // تعيين حالة التحميل إلى true عند بدء العملية
@@ -54,8 +56,9 @@ const PhotoUploadPage = () => {
       const formData = new FormData();
       formData.append('customer_name', customerName);
       formData.append('customer_email', customerEmail);
-      formData.append('customer_address', customerAddress);
-      formData.append('customer_phone_number', customerPhoneNumber);
+      formData.append('address', customerAddress);
+      formData.append('phone_number', customerPhoneNumber);
+      formData.append('delivery_method', deliveryMethod); // إضافة خيار التوصيل
 
       photos.forEach((file, index) => {
         const filePath = `customer_photos/${customerEmail}/${file.name}`;
@@ -65,35 +68,39 @@ const PhotoUploadPage = () => {
         formData.append('copies[]', photoDetails[index].copies);
       });
 
-      await uploadPhotos(formData)
+      await uploadPhotos(formData);
 
       Swal.fire({
-        icon: 'success',  // تحديد نوع الأيقونة (خطأ)
+        icon: 'success',
         title: 'ممتاز!',
         text: 'تم إرسال الصور بنجاح.',
         confirmButtonText: 'حسنًا',
         customClass: {
-          title: 'swal2-title',   // فئات مخصصة للعنوان
-          content: 'swal2-content',  // فئات مخصصة للنص
-          confirmButton: 'swal2-confirm-button'  // فئات مخصصة للزر
+          title: 'swal2-title',
+          content: 'swal2-content',
+          confirmButton: 'swal2-confirm-button'
         }
-      });        setPhotos([]);
+      });
+      setPhotos([]);
       setPhotoDetails([]);
       setCustomerName('');
       setCustomerEmail('');
+      setCustomerAddress('');
+      setCustomerPhoneNumber('');
     } catch (error) {
       console.error('Error:', error);
       Swal.fire({
-        icon: 'error',  // تحديد نوع الأيقونة (خطأ)
+        icon: 'error',
         title: 'حدث خطأ!',
         text: 'حدث خطأ أثناء محاولة رفع الصور. يرجى المحاولة مرة أخرى.',
         confirmButtonText: 'حسنًا',
         customClass: {
-          title: 'swal2-title',   // فئات مخصصة للعنوان
-          content: 'swal2-content',  // فئات مخصصة للنص
-          confirmButton: 'swal2-confirm-button'  // فئات مخصصة للزر
+          title: 'swal2-title',
+          content: 'swal2-content',
+          confirmButton: 'swal2-confirm-button'
         }
-      });      } finally {
+      });
+    } finally {
       setIsLoading(false); // تعيين حالة التحميل إلى false بعد انتهاء العملية
     }
   };
@@ -133,6 +140,20 @@ const PhotoUploadPage = () => {
         required
         className='form-input'
       />
+
+      {/* إضافة خيار التوصيل */}
+      <label htmlFor="delivery-method">طريقة الاستلام:</label>
+      <select
+        id="delivery-method"
+        value={deliveryMethod}
+        onChange={(e) => setDeliveryMethod(e.target.value)}
+        className='form-select'
+        required
+      >
+        <option value="pickup">الاستلام من المحل</option>
+        <option value="delivery">التوصيل إلى العنوان</option>
+      </select>
+
       <PhotoUpload onUpload={handleUpload} />
       <PhotoList
         photos={photos}

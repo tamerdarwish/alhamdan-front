@@ -1,9 +1,9 @@
 import React from 'react';
 import './AdminAlbumDetails.css';
 
-const AdminAlbumDetails = ({ name,address,phoneNumber,email, date, status, onStatusChange }) => {
+const AdminAlbumDetails = ({ name, address, phoneNumber, email, date, status, onStatusChange, deliveryMethod }) => {
   const formattedDate = new Date(date).toLocaleDateString();
-  const statusLabel = status ? 'تم' : 'لم تتم  ';
+  const statusLabel = status ? 'تم' : 'لم تتم';
   const statusClass = status ? 'active' : 'inactive';
 
   return (
@@ -14,7 +14,8 @@ const AdminAlbumDetails = ({ name,address,phoneNumber,email, date, status, onSta
         <p><strong>عنوان الزبون:</strong> {address}</p>
         <p><strong>رقم الهاتف: </strong> {phoneNumber}</p>
         <p><strong>البريد الإلكتروني:</strong> {email}</p>
-        <p><strong>حالة الطباعة :  </strong> 
+        <p><strong>طريقة الاستلام:</strong> {deliveryMethod === 'pickup' ? 'استلام من المحل' : 'توصيل للعنوان'}</p> {/* عرض طريقة الاستلام */}
+        <p><strong>حالة الطباعة:</strong> 
           <span className={statusClass}>
             {statusLabel}
           </span>
@@ -29,7 +30,7 @@ const AdminAlbumDetails = ({ name,address,phoneNumber,email, date, status, onSta
           />
           <span className="slider round"></span>
         </label>
-        <span className="status-text">  تغيير حالة الطباعة  </span>
+        <span className="status-text">تغيير حالة الطباعة</span>
       </div>
     </div>
   );

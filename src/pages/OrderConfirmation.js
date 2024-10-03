@@ -13,7 +13,9 @@ const OrderConfirmation = () => {
   const [fullName, setFullName] = useState('');
   const [address, setAddress] = useState('');
   const [phoneNumber, setPhoneNumber] = useState('');
-
+  
+  // إضافة حالة لخيار التوصيل
+  const [deliveryOption, setDeliveryOption] = useState('home'); // 'home' للتوصيل إلى المنزل و 'store' للاستلام من المحل
   const [errors, setErrors] = useState({});
 
   // استخدام useOrderManager مع تمرير cartItems و setCartItems
@@ -22,7 +24,10 @@ const OrderConfirmation = () => {
   const handleSendOrder = () => {
     let validationErrors = {};
     if (!fullName) validationErrors.fullName = 'الاسم الكامل مطلوب';
-    if (!address) validationErrors.address = 'العنوان مطلوب';
+    
+    // التحقق من العنوان فقط إذا كان خيار التوصيل إلى المنزل
+    if (deliveryOption === 'home' && !address) validationErrors.address = 'العنوان مطلوب';
+    
     if (!phoneNumber) validationErrors.phoneNumber = 'رقم الهاتف مطلوب';
 
     if (Object.keys(validationErrors).length > 0) {
@@ -31,7 +36,7 @@ const OrderConfirmation = () => {
     }
 
     // استدعاء دالة sendOrder لإرسال الطلب
-    sendOrder(cartItems, totalPrice, fullName, address, phoneNumber, clearCart, navigate);
+    sendOrder(cartItems, totalPrice, fullName, address, phoneNumber, deliveryOption, clearCart, navigate);
   };
 
   return (
@@ -39,7 +44,7 @@ const OrderConfirmation = () => {
       <h2 className="order-confirmation-title">تأكيد الطلب</h2>
       {cartItems.length > 0 ? (
         <div className="order-details">
-          <h3>المنتجات المضافة الى سلتك:</h3>
+          <h3>المنتجات المضافة إلى سلتك:</h3>
           <ul className="order-items-list">
             {cartItems.map((item, index) => (
               <li key={index} className="order-item">
@@ -60,15 +65,35 @@ const OrderConfirmation = () => {
               required
             />
             {errors.fullName && <p className="error-message">{errors.fullName}</p>}
-            <input
-              type="text"
-              placeholder="العنوان"
-              value={address}
-              onChange={(e) => setAddress(e.target.value)}
-              className={`user-input ${errors.address ? 'input-error' : ''}`}
-              required
-            />
-            {errors.address && <p className="error-message">{errors.address}</p>}
+            
+            {/* اختيار طريقة التوصيل */}
+            <div className="delivery-option">
+              <label>طريقة التوصيل:</label>
+              <select
+                value={deliveryOption}
+                onChange={(e) => setDeliveryOption(e.target.value)}
+                className="delivery-select"
+              >
+                <option value="home">توصيل إلى عنوان الزبون</option>
+                <option value="store">استلام من المحل</option>
+              </select>
+            </div>
+
+            {/* إدخال العنوان يظهر فقط إذا كان خيار التوصيل إلى المنزل */}
+            {deliveryOption === 'home' && (
+              <>
+                <input
+                  type="text"
+                  placeholder="العنوان"
+                  value={address}
+                  onChange={(e) => setAddress(e.target.value)}
+                  className={`user-input ${errors.address ? 'input-error' : ''}`}
+                  required
+                />
+                {errors.address && <p className="error-message">{errors.address}</p>}
+              </>
+            )}
+
             <input
               type="tel"
               placeholder="رقم الهاتف"

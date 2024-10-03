@@ -39,7 +39,9 @@ export default function AdminPrintPage() {
           date={album.created_at}
           img={album.photos[0].url}
           id={album.id}
-          status={album.status} // الحالة الجديدة
+          status={album.status}
+          delivery_method={album.delivery_method}
+
         />
       ))}
     </div>

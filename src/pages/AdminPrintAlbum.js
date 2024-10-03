@@ -59,6 +59,7 @@ export default function AdminPrintAlbum() {
           date={album.created_at}
           status={status}
           onStatusChange={handleStatusChange}
+          deliveryMethod={album.delivery_method}
         />
       </div>
       <AdminAlbumImages photos={album.photos} customerName={album.customer_name} />

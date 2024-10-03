@@ -48,6 +48,13 @@
   font-family: 'Cairo', sans-serif;
 
 }
+.album-delivery{
+  font-size: 16px;
+  font-weight: bold;
+  color: #333;
+  margin-bottom: 8px;
+  font-family: 'Cairo', sans-serif;
+}
 
 .album-date {
   font-size: 14px;

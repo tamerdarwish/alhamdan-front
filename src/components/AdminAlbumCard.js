@@ -4,7 +4,7 @@ import './AdminAlbumCard.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCheckCircle, faHourglassHalf } from '@fortawesome/free-solid-svg-icons';
 
-export default function AdminAlbumCard({ name, date, img, id, status }) {
+export default function AdminAlbumCard({ name, date, img, id, status, delivery_method }) { // إضافة deliveryMethod
   const navigate = useNavigate();
 
   const handleClick = () => {
@@ -25,6 +25,7 @@ export default function AdminAlbumCard({ name, date, img, id, status }) {
       <div className="album-details">
         <div className="album-name">{name}</div>
         <div className="album-date">{new Date(date).toLocaleDateString()}</div>
+        <div className="album-delivery">طريقة الاستلام: {delivery_method === 'pickup' ? 'استلام من المحل' : 'توصيل للعنوان'}</div> {/* عرض طريقة الاستلام */}
       </div>
     </div>
   );

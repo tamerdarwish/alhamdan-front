@@ -31,8 +31,17 @@ const OrderCard = ({ order }) => {
       <div className="order-details">
         <p><span>اسم العميل:</span> {order.customer_name}</p>
         <p><span>السعر الإجمالي:</span> {order.total_price} ₪</p>
-        <p><span>العنوان:</span> {order.address}</p>
+
+        {/* عرض العنوان فقط إذا كان له قيمة */}
+        {order.address && (
+          <p><span>العنوان:</span> {order.address}</p>
+        )}
+
         <p><span>رقم الهاتف:</span> {order.phone_number}</p>
+
+        {/* عرض طريقة التوصيل */}
+        <p><span>طريقة التوصيل:</span> {order.delivery === 'home' ? 'توصيل إلى العنوان' : 'استلام من المحل'}</p>
+
         <p><span>تاريخ الطلبية:</span> {formattedDateTime}</p> {/* عرض تاريخ الطلبية والوقت */}
       </div>
       <button onClick={handleViewDetails}>عرض التفاصيل</button>
