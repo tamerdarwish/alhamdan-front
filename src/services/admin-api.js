@@ -1,6 +1,6 @@
 export const adminLogin = async (email, password) => {
     try {
-      const response = await fetch(`http://26.206.131.69:5005/admin/login`, {
+      const response = await fetch(`https://alhamdan-back.onrender.com/admin/login`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ email, password }),
