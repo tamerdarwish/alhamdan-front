@@ -31,6 +31,10 @@ import AdminPrintAlbum from './pages/AdminPrintAlbum';
 import AudiosPage from './pages/AudiosPage';
 import AudioDetailsPage from './pages/AudioDetailsPage';
 import AdminAudiosPage from './pages/AdminAudiosPage';
+import BusinessesPage from './pages/BusinessesPage';
+import AdminBusinessesPage from './pages/AdminBusinessesPage';
+
+
 
 
 
@@ -86,6 +90,10 @@ const App = () => {
         <Route path="/audios" element={<AudiosPage />} />
         <Route path="/audio/:id" element={<AudioDetailsPage />} />
         <Route path="/admin/audios" element={<AdminAudiosPage />} />
+        <Route path="/businesses" element={<BusinessesPage />} />
+        <Route path="admin/businesses" element={<AdminBusinessesPage />} />
+
+
 
 
       </Routes>

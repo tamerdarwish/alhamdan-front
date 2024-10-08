@@ -3,8 +3,23 @@ import AudioCard from '../components/AdminAudioCard';
 import { fetchAudios, addAudio } from '../services/audios-api'; // تأكد من إضافة دالة addAudio في services
 import './AudiosPage.css'; // أنشئ هذا الملف لاحقًا
 import Modal from '../components/Modal'; // استورد مكون النافذة المنبثقة
+import { checkAdminAuth } from '../utils/adminAuth';
+import { Link, useNavigate } from 'react-router-dom';
+
+
 
 export default function AdminAudiosPage() {
+
+  const navigate = useNavigate();
+
+    useEffect(() => {
+        const isAdminAuthenticated = checkAdminAuth();
+        if (!isAdminAuthenticated) {
+            navigate('/admin/login');
+        }
+    }, [navigate]);
+
+    
   const [audios, setAudios] = useState([]);
   const [newAudio, setNewAudio] = useState({
     title: '',

@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { Card, Container, Row, Col } from 'react-bootstrap';
-import { FaCalendarAlt, FaBox, FaShoppingCart, FaPrint, FaHome } from 'react-icons/fa';
+import { FaCalendarAlt, FaBox, FaShoppingCart, FaPrint, FaHome, FaMicrophone, FaBuilding } from 'react-icons/fa'; // إضافة الأيقونات الجديدة
 import { checkAdminAuth } from '../utils/adminAuth';
 import './AdminDashboard.css'; // تأكد من استيراد ملف CSS المحسن
 
@@ -51,6 +51,25 @@ const AdminDashboard = () => {
                         </Card.Body>
                     </Card>
                 </Col>
+                {/* البطاقة لإدارة التسجيلات الصوتية */}
+                <Col md={4} className="mb-4">
+                    <Card as={Link} to="/admin/audios" className="text-center h-100 dashboard-card">
+                        <Card.Body>
+                            <FaMicrophone size={50} className="mb-3" />
+                            <Card.Title>إدارة التسجيلات الصوتية</Card.Title>
+                        </Card.Body>
+                    </Card>
+                </Col>
+                {/* البطاقة لإدارة المصالح التجارية */}
+                <Col md={4} className="mb-4">
+                    <Card as={Link} to="/admin/businesses" className="text-center h-100 dashboard-card">
+                        <Card.Body>
+                            <FaBuilding size={50} className="mb-3" />
+                            <Card.Title>إدارة المصالح التجارية</Card.Title>
+                        </Card.Body>
+                    </Card>
+                </Col>
+
                 <Col md={4} className="mb-4">
                     <Card as={Link} to="/" className="text-center h-100 dashboard-card">
                         <Card.Body>
