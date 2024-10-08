@@ -1,0 +1,26 @@
+.audio-details-page {
+    padding: 40px;
+    max-width: 800px;
+    margin: 0 auto;
+    text-align: center;
+  }
+  
+  .audio-title {
+    font-size: 2.5rem;
+    color: #333;
+    margin-bottom: 20px;
+  }
+  
+  .audio-description {
+    font-size: 1.2rem;
+    color: #666;
+    margin-bottom: 30px;
+  }
+  
+  .audio-video iframe {
+    width: 100%;
+    max-width: 800px;
+    height: 450px;
+    border: none;
+  }
+  

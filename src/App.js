@@ -28,6 +28,11 @@ import PrintConfirmationPage from './pages/PrintConfirmationPage'; // صفحة �
 import PhotoUploadPage from './pages/PhotoUploadPage';
 import AdminPrintPage from './pages/AdminPrintPage';
 import AdminPrintAlbum from './pages/AdminPrintAlbum';
+import AudiosPage from './pages/AudiosPage';
+import AudioDetailsPage from './pages/AudioDetailsPage';
+import AdminAudiosPage from './pages/AdminAudiosPage';
+
+
 
 import '@fortawesome/fontawesome-free/css/all.min.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -78,9 +83,9 @@ const App = () => {
         <Route path="/print" element={<PhotoUploadPage />} />
         <Route path="/admin-printalbums" element={<AdminPrintPage />} />
         <Route path="/album/:id" element={<AdminPrintAlbum />} />
-
-
-
+        <Route path="/audios" element={<AudiosPage />} />
+        <Route path="/audio/:id" element={<AudioDetailsPage />} />
+        <Route path="/admin/audios" element={<AdminAudiosPage />} />
 
 
       </Routes>

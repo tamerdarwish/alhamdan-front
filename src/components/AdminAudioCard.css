@@ -1,0 +1,111 @@
+/* AudioCard.css */
+.audio-card {
+    background-color: #fff;
+    border-radius: 15px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    max-width: 350px;
+    margin: 20px auto;
+    padding: 15px;
+    text-align: center;
+  }
+  
+  .audio-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15);
+  }
+  
+  .audio-card-image {
+    width: 100%;
+    height: auto;
+    border-bottom: 1px solid #f0f0f0;
+  }
+  
+  .audio-card-content {
+    padding: 20px;
+  }
+  
+  .audio-card-title {
+    font-size: 24px;
+    font-weight: bold;
+    color: #333;
+    margin: 10px 0;
+  }
+  
+  .audio-card-description {
+    font-size: 16px;
+    color: #666;
+    margin-bottom: 10px;
+  }
+  
+  .audio-card-url {
+    font-size: 14px;
+    color: #999;
+  }
+  
+  .audio-card button {
+    padding: 10px 15px;
+    margin: 5px;
+    border-radius: 25px;
+    border: none;
+    cursor: pointer;
+    font-size: 14px;
+    transition: background-color 0.3s ease, color 0.3s ease;
+  }
+  
+  .audio-card button:hover {
+    background-color: #333;
+    color: #fff;
+  }
+  
+  .audio-card button:nth-child(1) {
+    background-color: #007bff;
+    color: white;
+  }
+  
+  .audio-card-edit-form input,
+  .audio-card-edit-form textarea {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 16px;
+    transition: border-color 0.3s ease;
+  }
+  
+  .audio-card-edit-form input:focus,
+  .audio-card-edit-form textarea:focus {
+    border-color: #007bff;
+  }
+  
+  .audio-card-edit-form input[type="file"] {
+    border: none;
+  }
+  
+  .audio-card-edit-form button {
+    background-color: #28a745;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 25px;
+    cursor: pointer;
+  }
+  
+  .audio-card-edit-form button:hover {
+    background-color: #218838;
+  }
+  
+  .audio-card-edit-form button:last-child {
+    background-color: #dc3545;
+  }
+  
+  .audio-card-edit-form button:last-child:hover {
+    background-color: #c82333;
+  }
+
+  .delete-button{
+    background-color: #dc3545;
+    color: white;
+  }

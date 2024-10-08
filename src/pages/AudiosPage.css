@@ -1,0 +1,33 @@
+.audios-page {
+  padding: 20px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.audios-page-title {
+  font-size: 2rem;
+  color: #333;
+  margin-bottom: 30px;
+  text-align: center;
+}
+
+.audios-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 20px; /* المسافة بين بطاقات الصوت */
+}
+
+.search-input {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 20px; /* المسافة أسفل شريط البحث */
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.pagination {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 20px; /* المسافة أعلى الصفحات */
+}

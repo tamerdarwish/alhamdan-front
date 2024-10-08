@@ -1,6 +1,6 @@
 export const fetchPrintAlbums = async () => {
     try {
-      const response = await fetch(`https://alhamdan-back.onrender.com/api/print/`);
+      const response = await fetch(`http://26.206.131.69:5005/api/print/`);
       const data = await response.json();
       return data
     } catch (error) {
@@ -11,7 +11,7 @@ export const fetchPrintAlbums = async () => {
 
 export const fetchAlbumDetails = async (albumID) => {
   try {
-    const response = await fetch(`https://alhamdan-back.onrender.com/api/print/${albumID}`);
+    const response = await fetch(`http://26.206.131.69:5005/api/print/${albumID}`);
     const data = await response.json();
     return data
   } catch (error) {
@@ -21,7 +21,7 @@ export const fetchAlbumDetails = async (albumID) => {
 
 export const updateAlbumStatus = async (albumID, newStatus) => {
   try {
-    const response = await fetch(`https://alhamdan-back.onrender.com/api/print/${albumID}/status`, {
+    const response = await fetch(`http://26.206.131.69:5005/api/print/${albumID}/status`, {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json',
@@ -41,7 +41,7 @@ export const updateAlbumStatus = async (albumID, newStatus) => {
 
 // photoService.js
 export const uploadPhotos = async (formData) => {
-  const response = await fetch(`https://alhamdan-back.onrender.com/api/print/upload`, {
+  const response = await fetch(`http://26.206.131.69:5005/api/print/upload`, {
     method: 'POST',
     body: formData,
   });

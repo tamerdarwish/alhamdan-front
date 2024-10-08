@@ -2,7 +2,7 @@
 
 export const uploadImageToAlbum = async (eventId, formData) => {
   try {
-      const response = await fetch(`https://alhamdan-back.onrender.com/api/upload/${eventId}/add-images`, {
+      const response = await fetch(`http://26.206.131.69:5005/api/upload/${eventId}/add-images`, {
           method: 'POST',
           body: formData,
         });
@@ -23,7 +23,7 @@ export const uploadImage = async (file) => {
   const formData = new FormData();
   formData.append('file', file);
 
-  const uploadResponse = await fetch(`https://alhamdan-back.onrender.com/api/upload`, {
+  const uploadResponse = await fetch(`http://26.206.131.69:5005/api/upload`, {
     method: 'POST',
     body: formData,
   });
@@ -37,7 +37,7 @@ export const uploadImage = async (file) => {
 };
 
 export const saveEvent = async (eventDetails) => {
-  const response = await fetch(`https://alhamdan-back.onrender.com/api/events`, {
+  const response = await fetch(`http://26.206.131.69:5005/api/events`, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify(eventDetails),
@@ -58,7 +58,7 @@ export const downloadImagesWithWatermark = async (selectedImages,watermark_setti
   try {
     for (let image of selectedImages) {
       const fileName = image.url.split('/').pop();
-      const response = await fetch(`https://alhamdan-back.onrender.com/api/upload/watermark/${fileName}`, {
+      const response = await fetch(`http://26.206.131.69:5005/api/upload/watermark/${fileName}`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -87,7 +87,7 @@ export const downloadImagesWithWatermark = async (selectedImages,watermark_setti
 
 export const deleteImageFromAlbum = async (eventId,imageId) => {
     try {
-        const response = await fetch(`https://alhamdan-back.onrender.com/api/upload/${eventId}/delete-image`, {
+        const response = await fetch(`http://26.206.131.69:5005/api/upload/${eventId}/delete-image`, {
             method: 'DELETE',
             headers: {
               'Content-Type': 'application/json'
@@ -105,7 +105,7 @@ export const deleteImageFromAlbum = async (eventId,imageId) => {
 
 export const deleteSelectedImagesFromAlbum = async (eventId,selectedImages) => {
     try {
-        const response = await fetch(`https://alhamdan-back.onrender.com/api/upload/${eventId}/delete-images`, {
+        const response = await fetch(`http://26.206.131.69:5005/api/upload/${eventId}/delete-images`, {
             method: 'DELETE',
             headers: {
               'Content-Type': 'application/json'
@@ -123,7 +123,7 @@ export const deleteSelectedImagesFromAlbum = async (eventId,selectedImages) => {
 // Change printStatus of a specific image in the album
 export const togglePrintStatus = async (eventId, imageId, currentStatus) => {
   try {
-    const response = await fetch(`https://alhamdan-back.onrender.com/api/events/${eventId}/album/${imageId}`, {
+    const response = await fetch(`http://26.206.131.69:5005/api/events/${eventId}/album/${imageId}`, {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json',
@@ -153,7 +153,7 @@ export const uploadMainImage = async (eventId, file) => {
   formData.append('file', file);
 
   try {
-    const response = await fetch(`https://alhamdan-back.onrender.com/api/upload/update-main-image/${eventId}`, {
+    const response = await fetch(`http://26.206.131.69:5005/api/upload/update-main-image/${eventId}`, {
       method: 'POST',
       body: formData, // إرسال FormData التي تحتوي على الصورة
     });

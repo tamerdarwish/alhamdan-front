@@ -1,0 +1,35 @@
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.5); /* اللون الأسود مع شفافية 50% */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000; /* تأكد من أن المودال فوق كل العناصر الأخرى */
+  }
+  
+  .modal-content {
+    background-color: white; /* خلفية بيضاء للمحتوى */
+    padding: 20px;
+    border-radius: 8px;
+    width: 400px; /* يمكنك تعديل العرض حسب الحاجة */
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); /* تأثير ظل خفيف */
+  }
+  
+  .close-button {
+    background: repeating-radial-gradient();
+    border: none;
+    font-size: 16px;
+    cursor: pointer;
+    color: #333; /* لون النص */
+    color: #ffffff; /* تغيير اللون عند التمرير فوق الزر */
+
+  }
+  
+  .close-button:hover {
+    color: #ffffff; /* تغيير اللون عند التمرير فوق الزر */
+  }
+  
