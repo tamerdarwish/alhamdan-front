@@ -1,4 +1,7 @@
 //POST Image To Album Of Spicific Event
+import JSZip from 'jszip';
+import { saveAs } from 'file-saver';
+
 
 export const uploadImageToAlbum = async (eventId, formData) => {
   try {
@@ -52,37 +55,52 @@ export const saveEvent = async (eventDetails) => {
 };
 
 
-//Download images with watermark
-export const downloadImagesWithWatermark = async (selectedImages,watermark_setting,eventId) => {
-  
+//Download images with watermarkimport JSZip from 'jszip';
+
+export const downloadImagesWithWatermark = async (selectedImages, watermark_setting, eventId) => {
+  const zip = new JSZip();
+
   try {
+    // حلقة للحصول على كل صورة وتطبيق العلامة المائية
     for (let image of selectedImages) {
       const fileName = image.url.split('/').pop();
+
+      // استدعاء API للحصول على الصورة مع العلامة المائية
       const response = await fetch(`https://alhamdan-back.onrender.com/api/upload/watermark/${fileName}`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ watermark: watermark_setting, eventId:eventId }),
+        body: JSON.stringify({ watermark: watermark_setting, eventId: eventId }),
       });
 
       if (!response.ok) {
         throw new Error('Failed to download image');
       }
 
+      // الحصول على البيانات كـ blob
       const blob = await response.blob();
-      const url = window.URL.createObjectURL(blob);
-      const a = document.createElement('a');
-      a.href = url;
-      a.download = fileName;
-      a.click();
-      window.URL.revokeObjectURL(url);
+
+      // التأكد من نوع الـ Blob (مثل image/jpeg أو image/png)
+      const fileExtension = blob.type.split('/')[1]; // مثل 'jpeg' أو 'png'
+
+      // إعادة تسمية الملف مع الامتداد الصحيح
+      const newFileName = fileName.includes('.') ? fileName : `${fileName}.${fileExtension}`;
+
+      // إضافة الصورة إلى المجلد المضغوط
+      zip.file(newFileName, blob, { binary: true });
     }
+
+    // إنشاء الملف المضغوط
+    const zipContent = await zip.generateAsync({ type: 'blob' });
+
+    // تنزيل الملف المضغوط
+    saveAs(zipContent, 'images_with_watermark.zip');
+    
   } catch (error) {
     console.error('Error:', error);
   }
 };
-
 
 
 export const deleteImageFromAlbum = async (eventId,imageId) => {

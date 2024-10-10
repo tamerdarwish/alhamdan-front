@@ -6,6 +6,7 @@ import { downloadImagesWithWatermark } from '../services/images-api';
 
 Modal.setAppElement('#root');
 
+
 const ImageGrid = ({ album, handlePrintStatusToggle, watermark_setting, eventId }) => {
   const [selectedImages, setSelectedImages] = useState([]);
   const [selectedImage, setSelectedImage] = useState(null);
