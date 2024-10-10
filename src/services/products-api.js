@@ -1,7 +1,7 @@
 
 export const fetchProductById = async (id) => {
     try {
-      const response = await fetch(`http://26.206.131.69:5005/api/products/${id}`);
+      const response = await fetch(`https://alhamdan-back.onrender.com/api/products/${id}`);
       if (!response.ok) {
         throw new Error('Failed to fetch product');
       }
@@ -16,7 +16,7 @@ export const fetchProductById = async (id) => {
 
 export const fetchProducts = async (currentPage, itemsPerPage, searchTerm) => {
   try {
-    const response = await fetch(`http://26.206.131.69:5005/api/products?page=${currentPage}&limit=${itemsPerPage}&search=${searchTerm}`);
+    const response = await fetch(`https://alhamdan-back.onrender.com/api/products?page=${currentPage}&limit=${itemsPerPage}&search=${searchTerm}`);
     if (!response.ok) {
       throw new Error('Failed to fetch products');
     }
@@ -31,7 +31,7 @@ export const fetchProducts = async (currentPage, itemsPerPage, searchTerm) => {
 
 export const addProduct = async (formData) => {
   try {
-    const response = await fetch(`http://26.206.131.69:5005/api/products`, {
+    const response = await fetch(`https://alhamdan-back.onrender.com/api/products`, {
       method: 'POST',
       body: formData,
       headers: {
@@ -57,7 +57,7 @@ export const addProduct = async (formData) => {
 
 export const adminFetchProducts = async (searchTerm) => {
   try {
-    const response = await fetch(`http://26.206.131.69:5005/api/products?search=${searchTerm}`);
+    const response = await fetch(`https://alhamdan-back.onrender.com/api/products?search=${searchTerm}`);
     const data = await response.json();
     return data.products; // إرجاع المنتجات
   } catch (error) {
@@ -72,7 +72,7 @@ export const adminFetchProducts = async (searchTerm) => {
 
 
 export const updateProduct = async (id, formData) => {
-  const response = await fetch(`http://26.206.131.69:5005/api/products/${id}`, {
+  const response = await fetch(`https://alhamdan-back.onrender.com/api/products/${id}`, {
     method: 'PUT',
     body: formData,
   });
