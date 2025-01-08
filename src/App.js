@@ -40,6 +40,7 @@ import AdminBusinessesPage from './pages/AdminBusinessesPage';
 
 import '@fortawesome/fontawesome-free/css/all.min.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import RegisterPage from './pages/RegisterPage';
 
 const App = () => {
   const scrollToSection = (section) => {
@@ -66,6 +67,9 @@ const App = () => {
 
         <Route path="/login" element={<LoginPage />} />
         <Route path="/admin/login" element={<AdminLogin />} />
+        <Route path="/admin/signup" element={<RegisterPage />} />
+
+
         <Route path="/admin/dashboard" element={<AdminDashboard />} />
         <Route path="/admin/events" element={<AdminEvents />} />
         <Route path="/admin/newProduct" element={<AddProduct />} />

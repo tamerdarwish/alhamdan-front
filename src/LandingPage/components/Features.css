@@ -12,13 +12,13 @@
   }
   
   .features-title {
-    font-size: 2.5rem;
+    font-size: 3.5rem;
     margin-bottom: 40px;
     color: #333;
     position: relative;
     display: inline-block;
-    font-family: 'Cairo', sans-serif;
-  }
+    font-family: "Aref Ruqaa", serif;
+    font-weight: bold;  }
   
   .features-title::after {
     content: '';
@@ -64,12 +64,23 @@
     margin-bottom: 10px;
     font-weight: bold;
     color: #333;
-    font-family: 'Cairo', sans-serif;
-  }
+    font-family: "Aref Ruqaa", serif;
+      }
   
   .feature-description {
     font-size: 0.875rem;
     color: #666;
-    font-family: 'Cairo', sans-serif;
+    font-family: "Tajawal", serif;
   }
   
+
+  @media (max-width: 768px) {
+    
+    .features-title {
+      font-size: 2rem;
+  }
+
+  .feature-card {
+    padding: 5px;
+  }
+  }

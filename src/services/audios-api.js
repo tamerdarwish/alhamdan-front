@@ -1,11 +1,13 @@
 //GET All Audios 
 export const fetchAudios = async () => {
     try {
-      const response = await fetch(`https://alhamdan-back.onrender.com/api/audios`);
+      const response = await fetch(`${process.env.REACT_APP_SERVER}/api/audios`);
       const data = await response.json();
       return data
     } catch (error) {
       console.error('Failed to audios:', error);
+      return [];
+
     }
 
 }
@@ -13,7 +15,7 @@ export const fetchAudios = async () => {
 //GET Audio By ID 
 export const fetchAudioById = async (id) => {
     try {
-      const response = await fetch(`https://alhamdan-back.onrender.com/api/audios/${id}`);
+      const response = await fetch(`${process.env.REACT_APP_SERVER}/api/audios/${id}`);
       const data = await response.json();
       return data
     } catch (error) {
@@ -25,7 +27,7 @@ export const fetchAudioById = async (id) => {
 export const deleteAudioById = async (id) => {
     if (window.confirm('Are you sure you want to delete this audio?')) {
       try {
-        const response = await fetch(`https://alhamdan-back.onrender.com/api/audios/${id}`, {
+        const response = await fetch(`${process.env.REACT_APP_SERVER}/api/audios/${id}`, {
           method: 'DELETE',
         });
   
@@ -54,7 +56,7 @@ export const deleteAudioById = async (id) => {
             data.append('mainImage', formData.imageFile);
         }
 
-        const response = await fetch(`https://alhamdan-back.onrender.com/api/audios`, {
+        const response = await fetch(`${process.env.REACT_APP_SERVER}/api/audios`, {
             method: 'POST',
             body: data,  // استخدم الكائن الجديد من FormData
         });
@@ -78,7 +80,7 @@ export const deleteAudioById = async (id) => {
   // تحديث الصوت
 export const updateAudio = async (id, formData) => {
     try {
-      const response = await fetch(`https://alhamdan-back.onrender.com/api/audios/${id}`, {
+      const response = await fetch(`${process.env.REACT_APP_SERVER}/api/audios/${id}`, {
         method: 'PUT', // استخدم PUT لتحديث البيانات
         body: formData,
       });

@@ -36,7 +36,7 @@ const AddProduct = () => {
     const formData = new FormData();
     formData.append('name', name);
     formData.append('description', description);
-    formData.append('price', price);
+   // formData.append('price', price);
     if (image) {
       formData.append('image', image);
     }
@@ -97,7 +97,6 @@ const AddProduct = () => {
             type="number"
             value={price}
             onChange={(e) => setPrice(e.target.value)}
-            required
           />
         </div>
         <div>

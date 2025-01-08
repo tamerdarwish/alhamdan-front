@@ -16,9 +16,9 @@ const Cart = ({ cartItems, removeFromCart }) => {
   };
 
   const handlePlaceOrder = () => {
-    const totalPrice = calculateTotal();
+    //const totalPrice = calculateTotal();
     // تمرير cartItems و totalPrice عبر state عند التنقل
-    navigate('/order-confirmation', { state: { cartItems, totalPrice } });
+    navigate('/order-confirmation', { state: { cartItems} });
   };
 
   return (
@@ -44,7 +44,7 @@ const Cart = ({ cartItems, removeFromCart }) => {
                   <img src={item.image_url} alt={item.name} className="cart-item-image" />
                   <div className="cart-item-info">
                     <h3>{item.name}</h3>
-                    <p>₪{item.price.toFixed(2)}</p>
+                    {/*<p>₪{item.price.toFixed(2)}</p>*/}
                     <button onClick={() => removeFromCart(index)}>إزالة</button>
                   </div>
                 </div>
@@ -52,7 +52,7 @@ const Cart = ({ cartItems, removeFromCart }) => {
             )}
           </div>
           <div className="cart-summary">
-            <p>مجموع الحساب: ₪{calculateTotal()}</p>
+            {/*<p>مجموع الحساب: ₪{calculateTotal()}</p>*/}
             <button onClick={handlePlaceOrder}>إكمال الطلبية</button>
           </div>
         </div>

@@ -49,10 +49,10 @@ const EditProduct = () => {
     const formData = new FormData();
     formData.append('name', name);
     formData.append('description', description);
-    formData.append('price', price);
     formData.append('image_url', existingImageUrl); // الصورة الحالية
 
     if (image) {
+      
       formData.append('image', image); // إضافة الصورة الجديدة إذا تم اختيارها
     }
 
@@ -107,7 +107,6 @@ const EditProduct = () => {
             type="number"
             value={price}
             onChange={(e) => setPrice(e.target.value)}
-            required
           />
         </div>
         <div>

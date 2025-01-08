@@ -12,11 +12,13 @@
 }
 
 .contact-title {
-  font-size: 2rem;
+  font-size: 3.5rem;
   color: #333;
   margin-bottom: 40px;
   position: relative;
   display: inline-block;
+  font-family: "Aref Ruqaa", serif;
+  font-weight: bold;
 }
 
 .contact-title::after {
@@ -41,15 +43,17 @@
   color: #555;
   margin-bottom: 30px;
   text-align: right; /* محاذاة النص إلى اليمين */
-  font-family: 'Cairo', sans-serif;
+  font-family: "Tajawal", serif;
 }
 
 .contact-info p {
   margin: 5px 0;
 }
+
 .contact-info p strong + span {
   direction: ltr; /* تحديد اتجاه النص من اليسار لليمين */
-  text-align: left; /* محاذاة النص إلى اليسار */}
+  text-align: left; /* محاذاة النص إلى اليسار */
+}
 
 .contact-form {
   width: 100%;
@@ -67,7 +71,7 @@
   border: 1px solid #ccc;
   border-radius: 4px;
   font-size: 1rem;
-  font-family: 'Cairo', sans-serif;
+  font-family: "Tajawal", serif;
   text-align: right; /* محاذاة النص داخل الحقول إلى اليمين */
 }
 
@@ -84,10 +88,49 @@
   font-size: 1rem;
   cursor: pointer;
   transition: background-color 0.3s ease;
-  font-family: 'Cairo', sans-serif;
+  font-family: "Tajawal", serif;
 }
 
 .submit-button:hover {
   background-color: #da8600;
 }
 
+/* تنسيق زر الواتساب */
+.whatsapp-container {
+  margin-top: 30px;
+}
+
+.whatsapp-container p {
+  font-size: 1.2rem;
+  color: #333;
+  font-family: "Tajawal", serif;
+
+}
+
+.whatsapp-button {
+  display: inline-block;
+  background-color: #25d366; /* اللون الأخضر الخاص بالواتساب */
+  color: white;
+  padding: 12px 20px;
+  border-radius: 50px;
+  font-size: 1.2rem;
+  text-decoration: none;
+  font-family: "Tajawal", serif;
+  transition: background-color 0.3s ease;
+}
+
+.whatsapp-button:hover {
+  background-color: #128c7e;
+}
+
+/* تعديل الحجم في الشاشات الصغيرة */
+@media (max-width: 768px) {
+  .contact-title {
+    font-size: 2rem;
+  }
+  
+  .whatsapp-button {
+    font-size: 1rem;
+    padding: 10px 18px;
+  }
+}

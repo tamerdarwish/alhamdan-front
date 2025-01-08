@@ -6,6 +6,8 @@ import './PhotoUploadPage.css';
 import { uploadPhotos } from '../services/printsHandler';
 import Swal from 'sweetalert2'; // استيراد SweetAlert2
 import 'sweetalert2/dist/sweetalert2.min.css'; // استيراد CSS الخاص بـ SweetAlert2
+import emailjs from 'emailjs-com'; // استيراد مكتبة EmailJS
+
 
 const PhotoUploadPage = () => {
   const [photos, setPhotos] = useState([]);
@@ -32,6 +34,32 @@ const PhotoUploadPage = () => {
     const updatedDetails = [...photoDetails];
     updatedDetails[index].copies = newCopies;
     setPhotoDetails(updatedDetails);
+  };
+
+  const sendOrderEmail = () => {
+    const templateParams = {
+      fullName: customerName || "N/A",
+      phoneNumber: customerPhoneNumber || "N/A",
+      type: "طباعة",
+      deliveryOption: deliveryMethod=='pickup'? 'توصيل الى العنوان' : 'الاستلام من المحل',
+      address: customerAddress ,
+    };
+    
+    
+
+    // إرسال البريد الإلكتروني باستخدام EmailJS
+    emailjs.send(
+      'service_ihvyzoc',  // استبدل هذا بمعرف الخدمة الخاص بك
+      'template_7s7e1e5',  // استبدل هذا بمعرف القالب الخاص بك
+      templateParams,      // البيانات التي سيتم إرسالها في البريد الإلكتروني
+      'IaJb0xFReGyDav1HH'       // استبدل هذا بمفتاح المستخدم الخاص بك
+    )
+    .then((response) => {
+      console.log('تم إرسال البريد الإلكتروني بنجاح:', response);
+    })
+    .catch((error) => {
+      console.error('حدث خطأ أثناء إرسال البريد الإلكتروني:', error);
+    });
   };
 
   const handleSubmit = async () => {
@@ -81,6 +109,7 @@ const PhotoUploadPage = () => {
           confirmButton: 'swal2-confirm-button'
         }
       });
+      sendOrderEmail()
       setPhotos([]);
       setPhotoDetails([]);
       setCustomerName('');
@@ -106,15 +135,15 @@ const PhotoUploadPage = () => {
   };
 
   return (
-    <div className="photo-upload-page">
-      <h2>رفع الصور للطباعة</h2>
+    <div className="photo-upload-page-container">
+      <h2 className='photo-upload-page-title'>رفع الصور للطباعة</h2>
       <input
         type="text"
         placeholder="اسم العميل"
         value={customerName}
         onChange={(e) => setCustomerName(e.target.value)}
         required
-        className='form-input'
+        className='photo-upload-input'
       />
       <input
         type="text"
@@ -122,7 +151,7 @@ const PhotoUploadPage = () => {
         value={customerAddress}
         onChange={(e) => setCustomerAddress(e.target.value)}
         required
-        className='form-input'
+        className='photo-upload-input'
       />
       <input
         type="tel"
@@ -130,7 +159,7 @@ const PhotoUploadPage = () => {
         value={customerPhoneNumber}
         onChange={(e) => setCustomerPhoneNumber(e.target.value)}
         required
-        className='form-input'
+        className='photo-upload-input'
       />
       <input
         type="email"
@@ -138,7 +167,7 @@ const PhotoUploadPage = () => {
         value={customerEmail}
         onChange={(e) => setCustomerEmail(e.target.value)}
         required
-        className='form-input'
+        className='photo-upload-input'
       />
 
       {/* إضافة خيار التوصيل */}
@@ -147,7 +176,7 @@ const PhotoUploadPage = () => {
         id="delivery-method"
         value={deliveryMethod}
         onChange={(e) => setDeliveryMethod(e.target.value)}
-        className='form-select'
+        className='photo-upload-select'
         required
       >
         <option value="pickup">الاستلام من المحل</option>
@@ -163,9 +192,9 @@ const PhotoUploadPage = () => {
       />
 
       {/* مؤشر التحميل مع زر الرفع */}
-      <button onClick={handleSubmit} className='submit-button' disabled={isLoading}>
+      <button onClick={handleSubmit} className='photo-upload-submit-button' disabled={isLoading}>
         {isLoading ? (
-          <div className="loading-indicator">
+          <div className="loading-indicator-container">
             <ClipLoader color={"#ffffff"} loading={isLoading} size={20} /> {/* مؤشر التحميل */}
             <span>جاري رفع الصور...</span>
           </div>

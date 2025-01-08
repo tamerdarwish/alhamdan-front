@@ -30,6 +30,8 @@
 
 .menu-toggle {
   display: none; /* إخفاء زر القائمة على الشاشات الكبيرة */
+  font-size: 1.8rem;
+  color: #fff;
 }
 
 .header-nav {
@@ -45,14 +47,15 @@
 }
 
 .header-nav ul li {
-  margin: 0 10px;
+  margin: 0 15px;
+  position: relative; /* نحتاج لهذا لتعريف موضع القائمة المنسدلة */
 }
 
 .header-nav ul li a {
   color: #fe9e06;
   text-decoration: none;
   padding: 10px;
-  font-size: 0.9rem;
+  font-size: 1rem;
   transition: color 0.3s ease, background-color 0.3s ease;
   border-radius: 5px;
   cursor: pointer;
@@ -61,11 +64,6 @@
 .header-nav ul li a:hover {
   background-color: #444;
   color: #fe9e06;
-}
-
-/* عند فتح القائمة، تغيير اللون إلى الأبيض */
-.header-nav.active ul li a {
-  color: #ffffff;
 }
 
 /* الزر لتسجيل الخروج */
@@ -86,12 +84,70 @@
   transform: scale(1.05);
 }
 
+/* قائمة خدماتنا المنسدلة */
+.header-nav ul li.dropdown {
+  position: relative;
+}
+
+.dropdown-trigger {
+  color: #fe9e06;
+  padding: 10px;
+  font-size: 1rem;
+  cursor: pointer;
+  display: block;
+}
+
+/* تنسيق القائمة المنسدلة */
+.dropdown-menu {
+  display: none;
+  position: absolute;
+  background-color: #333;
+  min-width: 300px;
+  padding: 10;
+  width: 300px;
+  top: 100%;
+  left: 0;
+  z-index: 10;
+  list-style: none;
+  box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2);
+  border-radius: 5px;
+}
+
+/* تحديث تنسيق القائمة المنسدلة لتتطابق مع الروابط الرئيسية */
+.dropdown-menu li a {
+  color: #fe9e06; /* نفس لون الروابط الرئيسية */
+  text-decoration: none;
+  padding: 10px;
+  font-size: 1rem;
+  transition: color 0.3s ease, background-color 0.3s ease;
+  border-radius: 5px;
+  display: block; /* لضمان أن العنصر يغطي المساحة بالكامل */
+}
+
+/* عند تمرير الماوس فوق العناصر */
+.dropdown-menu li a:hover {
+  background-color: #444; /* نفس التأثير الموجود على الروابط الأخرى */
+  color: #fe9e06; /* نفس اللون المستخدم في التأثير عند التمرير */
+}
+
+
+/* عند فتح القائمة */
+.dropdown.open .dropdown-menu {
+  display: block;
+}
+
+
+/* تأثيرات عند المرور بالماوس على خدماتنا */
+.header-nav ul li.dropdown:hover .dropdown-menu {
+  display: block;
+  opacity: 1;
+  transform: translateY(0);
+}
+
 /* استعلامات الوسائط للتصميم المتجاوب */
 @media (max-width: 768px) {
   .menu-toggle {
     display: block;
-    font-size: 1.8rem;
-    color: #fff;
   }
 
   .header-nav {
@@ -127,4 +183,14 @@
   .header-nav ul li a:hover {
     background-color: #444;
   }
+}
+
+.dropdown-icon {
+  margin-left: 8px; /* مسافة بين النص والأيقونة */
+  transition: transform 0.3s ease;
+  display: inline-block;
+}
+
+.dropdown-icon.open {
+  transform: rotate(180deg); /* قلب الأيقونة عند فتح القائمة */
 }

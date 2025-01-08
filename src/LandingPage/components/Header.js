@@ -1,45 +1,50 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import './Header.css';
 import aboutImage from '../../assets/logo.png';
 
 const Header = () => {
   const [isMenuOpen, setMenuOpen] = useState(false);
-  const [isAdminLoggedIn, setIsAdminLoggedIn] = useState(false); // حالة دخول الأدمن
+  const [isAdminLoggedIn, setIsAdminLoggedIn] = useState(false);
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false); // لحالة فتح القائمة المنسدلة
   const navigate = useNavigate();
+  const dropdownRef = useRef(null); // نحتاج لهذا المرجع لمراقبة النقرات خارج القائمة
 
   useEffect(() => {
-    // التحقق من وجود رمز التوثيق في localStorage
     const adminToken = localStorage.getItem('adminToken');
     if (adminToken) {
       setIsAdminLoggedIn(true);
     }
+
+    // إغلاق القائمة المنسدلة عند النقر خارجها
+    const handleClickOutside = (event) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+        setMenuOpen(false);
+        setIsDropdownOpen(false); // إغلاق القائمة المنسدلة إذا كان النقر خارجها
+      }
+    };
+
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
   }, []);
 
   const handleNavigation = (hash) => {
-    navigate('/'); // الانتقال إلى الصفحة الرئيسية
+    navigate('/');
     setTimeout(() => {
       const element = document.getElementById(hash);
       if (element) {
         element.scrollIntoView({ behavior: 'smooth' });
       }
-      toggleMenu(); // إغلاق القائمة عند التنقل
-    }, 100); // تأخير صغير للتأكد من تحميل الصفحة بالكامل
-  };
-
-  const toggleMenu = () => {
-    setMenuOpen(!isMenuOpen);
+      setMenuOpen(false); // إغلاق القائمة بعد التفاعل
+    }, 100);
   };
 
   const handleLogout = () => {
-    // إزالة رمز التوثيق من localStorage وتوجيه الأدمن لصفحة تسجيل الدخول
     localStorage.removeItem('adminToken');
-    setIsAdminLoggedIn(false); // تحديث حالة الأدمن
+    setIsAdminLoggedIn(false);
     navigate('/admin/login');
-    toggleMenu(); // إغلاق القائمة عند تسجيل الخروج
-  };
-
-  const closeMenu = () => {
     setMenuOpen(false);
   };
 
@@ -47,18 +52,20 @@ const Header = () => {
     <header className="header">
       <div className="header-container">
         <div className="header-logo">
-          <Link to="/" onClick={closeMenu}>
+          <Link to="/" onClick={() => setMenuOpen(false)}>
             <img src={aboutImage} alt="Studio Overview" />
           </Link>
         </div>
-        <span className="menu-toggle" onClick={toggleMenu}>☰</span>
+        <span className="menu-toggle" onClick={() => setMenuOpen(!isMenuOpen)}>
+          ☰
+        </span>
         <nav className={`header-nav ${isMenuOpen ? 'active' : ''}`}>
           <ul>
             {isAdminLoggedIn ? (
               <>
-                <li><Link to="/" onClick={closeMenu}>الرئيسية</Link></li>
-                <li><Link to="/shop" onClick={closeMenu}>متجرنا</Link></li>
-                <li><Link to="/admin/dashboard" onClick={closeMenu}>لوحة التحكم</Link></li>
+                <li><Link to="/" onClick={() => setMenuOpen(false)}>الرئيسية</Link></li>
+                <li><Link to="/shop" onClick={() => setMenuOpen(false)}>متجرنا</Link></li>
+                <li><Link to="/admin/dashboard" onClick={() => setMenuOpen(false)}>لوحة التحكم</Link></li>
                 <li><button onClick={handleLogout}>تسجيل الخروج</button></li>
               </>
             ) : (
@@ -68,9 +75,30 @@ const Header = () => {
                 <li><a onClick={() => handleNavigation('features')}>ميزاتنا</a></li>
                 <li><a onClick={() => handleNavigation('gallery')}>من أعمالنا</a></li>
                 <li><a onClick={() => handleNavigation('contact-us')}>إتصل بنا</a></li>
-                <li><Link to="/shop" onClick={closeMenu}>متجرنا</Link></li>
-                <li><Link to="/print" onClick={closeMenu}>إرسال صور للطباعة</Link></li>
-                <li><Link to="/login" onClick={closeMenu}>الدخول الى مناسبة</Link></li>
+                
+                {/* قائمة خدماتنا مع التفاعل الجديد */}
+                <li 
+  className="dropdown" 
+  ref={dropdownRef} 
+  onClick={() => setIsDropdownOpen(!isDropdownOpen)} // تفعيل الفتح والإغلاق عند النقر
+  onMouseEnter={() => setIsDropdownOpen(true)}  // فتح القائمة عند التمرير
+  onMouseLeave={() => setIsDropdownOpen(false)} // إغلاق القائمة عند التمرير خارجها
+>
+  <span className="dropdown-trigger">
+    خدماتنا 
+    <span className={`dropdown-icon ${isDropdownOpen ? 'open' : ''}`}>▼</span>
+  </span>
+  {isDropdownOpen && (
+    <ul className="dropdown-menu">
+      <li><Link to="/shop" onClick={() => setMenuOpen(false)}>متجرنا</Link></li>
+      <li><Link to="/businesses" onClick={() => setMenuOpen(false)}>ارقام هواتف ومواقع</Link></li>
+      <li><Link to="/audios" onClick={() => setMenuOpen(false)}>تسجيلات حفلات</Link></li>
+      <li><Link to="/print" onClick={() => setMenuOpen(false)}>إرسال صور للطباعة</Link></li>
+      <li><Link to="/login" onClick={() => setMenuOpen(false)}>الدخول الى مناسبة</Link></li>
+    </ul>
+  )}
+</li>
+
               </>
             )}
           </ul>

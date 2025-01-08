@@ -31,3 +31,63 @@
   align-items: center;
   margin-top: 20px; /* المسافة أعلى الصفحات */
 }
+
+
+.new-audio-form {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  background-color: rgb(255, 255, 255);
+  padding: 20px;
+}
+
+.new-audio-form input,
+.new-audio-form textarea {
+  padding: 10px;
+  font-size: 1rem;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.new-audio-form textarea {
+  height: 120px;
+  resize: none;
+}
+
+.new-audio-form button {
+  padding: 12px;
+  background-color: #fe9e06;
+  color: #fff;
+  font-size: 1.2rem;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.new-audio-form button:hover {
+  background-color: #ff7300;
+}
+
+.new-audio-form input[type="file"] {
+  padding: 5px;
+  background-color: #f9f9f9;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+/* حالة التحميل */
+.modal-content p {
+  font-size: 1.2rem;
+  color: #333;
+  text-align: center;
+  margin-top: 20px;
+}
+
+@media (max-width: 768px) {
+  .modal-content {
+    width: 90%;
+  }
+}

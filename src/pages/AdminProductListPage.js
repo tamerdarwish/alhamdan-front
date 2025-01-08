@@ -50,7 +50,7 @@ const AdminProductListPage = () => {
           <div key={product.id} className="product-card">
             <img src={product.image_url} alt={product.name} className="product-image" />
             <h3 className="product-name">{product.name}</h3>
-            <p className="product-price">₪{product.price.toFixed(2)}</p>
+            {/*<p className="product-price">₪{product.price.toFixed(2)}</p>*/}
             <Link to={`/edit-product/${product.id}`} className="edit-button">
               تعديل المنتج
             </Link>

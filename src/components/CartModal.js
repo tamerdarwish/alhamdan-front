@@ -21,8 +21,8 @@ const CartModal = ({ isOpen, onClose, cartItems, removeFromCart, totalPrice }) =
                 <img src={item.image_url} alt={item.name} className="cart-item-image" />
                 <div className="cart-item-details">
                   <p className="cart-item-name">{item.name}</p>
-                  <p className="cart-item-price">${item.price.toFixed(2)}</p>
-                  <button className="remove-button" onClick={() => removeFromCart(item.id)}>
+                {/* <p className="cart-item-price">${item.price.toFixed(2)}</p>*/}                  
+                <button className="remove-button" onClick={() => removeFromCart(item.id)}>
                     <i className="fas fa-trash"></i> Remove
                   </button>
                 </div>

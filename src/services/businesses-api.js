@@ -1,5 +1,5 @@
 // قاعدة URL للنقاط النهائية للـ API
-const apiBaseURL = 'http://localhost:5005/api/businesses'; // عدل الـ URL حسب مكان الخادم الخاص بك
+const apiBaseURL = `${process.env.REACT_APP_SERVER}/api/businesses`; // عدل الـ URL حسب مكان الخادم الخاص بك
 
 // الحصول على جميع المصالح التجارية مع إمكانية التصفية وفق الفئة
 export const getBusinesses = async (category) => {

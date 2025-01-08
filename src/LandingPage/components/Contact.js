@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import emailjs from 'emailjs-com';
-import './Contact.css'
+import './Contact.css';
 
 const Contact = () => {
   const [formData, setFormData] = useState({
@@ -18,7 +18,7 @@ const Contact = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     
-    emailjs.send('service_4ebb9j4', 'template_jg7tpse', formData, 'eHUz8UN-G9gBYVHmE')
+    emailjs.send('service_ihvyzoc', 'template_yynjrtv', formData, 'IaJb0xFReGyDav1HH')
       .then((response) => {
         console.log('Success:', response);
         setStatus('Your message has been sent successfully!');
@@ -72,6 +72,14 @@ const Contact = () => {
             <button type="submit" className="submit-button">أرسل رسالتك</button>
             {status && <p className="status-message">{status}</p>}
           </form>
+
+          {/* رابط الواتساب */}
+          <div className="whatsapp-container">
+            <p>أو </p>
+            <a href="https://wa.me/+972545386410" target="_blank" rel="noopener noreferrer" className="whatsapp-button">
+              تواصل عبر الواتساب
+            </a>
+          </div>
         </div>
       </div>
     </section>

@@ -25,16 +25,20 @@
   
   .about-us-content {
     max-width: 600px;
-    text-align: left;
+    direction: rtl; /* لضمان محاذاة النصوص من اليمين لليسار */
+    text-align: right; /* محاذاة النص إلى اليمين */
+    margin: 20px;
   }
   
   .about-us-title {
-    font-size: 2rem;
+    font-size: 3.5rem;
     color: #333;
     margin-bottom: 20px;
     position: relative;
     display: inline-block;
-    font-family: 'Cairo', sans-serif;
+    font-family: "Aref Ruqaa", serif;
+    font-weight: bold;
+    text-align: left; /* تغيير المحاذاة إلى اليمين */
 
   }
   
@@ -53,7 +57,7 @@
     color: #666;
     line-height: 1.6;
     margin-bottom: 15px;
-    font-family: 'Cairo', sans-serif;
+    font-family: "Tajawal", serif;
 
   }
   
@@ -66,4 +70,15 @@
     max-width: 100%; /* يجعل الفيديو يتناسب مع عرض العنصر الأب */
     border-radius: 8px; /* إضافة حواف دائرية للفيديو */
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* تأثير الظل */
+}
+
+
+/* محاذاة العنوان للمنتصف في الشاشات الصغيرة */
+@media (max-width: 768px) {
+  .about-us-content {
+      text-align: center; /* محاذاة النص في المنتصف */
+  }
+  .about-us-title {
+    font-size: 2rem;
+}
 }
