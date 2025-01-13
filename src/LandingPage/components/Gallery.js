@@ -2,21 +2,14 @@
 import React from 'react';
 import './Gallery.css';
 
-import gallery1 from '../../assets/gallery1.JPG';
-import gallery2 from '../../assets/gallery2.JPG';
-import gallery3 from '../../assets/gallery3.JPG';
-import gallery4 from '../../assets/gallery4.JPG';
-import gallery5 from '../../assets/gallery5.JPG';
-import gallery6 from '../../assets/gallery6.JPG';
-
 const Gallery = () => {
   const images = [
-    { src: gallery1, title: 'Wedding Ceremony' },
-    { src: gallery2, title: 'Engagement Shoot' },
-    { src: gallery3, title: 'Couple Portraits' },
-    { src: gallery4, title: 'Wedding Venue' },
-    { src: gallery5, title: 'Bridal Party' },
-    { src: gallery6, title: 'Reception' },
+    { src: '/assets/gallery1.JPG', title: 'Wedding Ceremony' },
+    { src: '/assets/gallery2.JPG', title: 'Engagement Shoot' },
+    { src: '/assets/gallery3.JPG', title: 'Couple Portraits' },
+    { src: '/assets/gallery4.JPG', title: 'Wedding Venue' },
+    { src: '/assets/gallery5.JPG', title: 'Bridal Party' },
+    { src: '/assets/gallery6.JPG', title: 'Reception' },
   ];
 
   return (
