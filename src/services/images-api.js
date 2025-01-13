@@ -139,31 +139,54 @@ export const deleteSelectedImagesFromAlbum = async (eventId,selectedImages) => {
     }
 }
 // Change printStatus of a specific image in the album
-export const togglePrintStatus = async (eventId, imageId, currentStatus) => {
+export const togglePrintStatus = async (eventId, imageId, currentStatus, copies) => {
   try {
     const response = await fetch(`${process.env.REACT_APP_SERVER}/api/events/${eventId}/album/${imageId}`, {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify({ printStatus: !currentStatus }),
+      body: JSON.stringify({ printStatus: !currentStatus, copies }), // Include copies in the request body
     });
 
-    // التحقق من الاستجابة
     if (!response.ok) {
       const errorData = await response.json();
       throw new Error(errorData.error || 'Failed to update print status');
     }
 
     const data = await response.json();
-    console.log('Print status updated:', data);
+    console.log('Print status and copies updated:', data);
     return data;
   } catch (error) {
-    console.error('Failed to update print status:', error.message);
+    console.error('Failed to update print status or copies:', error.message);
   }
 };
 
+export const updateCopies = async (eventId, imageId, copies) => {
 
+  
+  try {
+    const response = await fetch(`${process.env.REACT_APP_SERVER}/api/events/${eventId}/album-copies/${imageId}`, {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      
+      body: JSON.stringify({copies }), // Only send the copies property
+    });
+
+    if (!response.ok) {
+      const errorData = await response.json();
+      throw new Error(errorData.error || 'Failed to update copies');
+    }
+
+    const data = await response.json();
+    console.log('Copies updated:', data);
+    return data
+  } catch (error) {
+    console.error('Failed to update copies:', error.message);
+  }
+};
 
 // services/images-api.js
 export const uploadMainImage = async (eventId, file) => {

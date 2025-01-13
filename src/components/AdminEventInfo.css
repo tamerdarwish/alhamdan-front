@@ -14,7 +14,7 @@
     align-items: center;
     justify-content: center;
     margin-bottom: 20px;
-    background-color: #007bff;
+    background-color: #f39c12;
     color: white;
     padding: 12px;
     border: none;
@@ -27,7 +27,8 @@
   }
   
   .event-info .back-button:hover {
-    background-color: #0056b3;
+    background-color: #ad6b00;
+    color: white;
   }
   
   .event-info img {

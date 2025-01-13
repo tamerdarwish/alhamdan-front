@@ -45,7 +45,7 @@ const ImageGrid = ({
   const printedImagesCount = album.filter((image) => image.printStatus).length;
 
   return (
-    <div className="album-section">
+    <div className="admin-album-section">
       <h2>ألبوم المناسبة</h2>
 
       {/* Stats Bar */}
@@ -92,6 +92,12 @@ const ImageGrid = ({
               onDoubleClick={() => handleImageDoubleClick(image)}
             >
               <img src={image.url} alt={`Album image ${index + 1}`} className="album-image" />
+              
+              {/* عرض عدد النسخ في حال كانت printStatus = true */}
+              {image.printStatus && image.copies && (
+                <div className="copies-count">عدد النسخ: {image.copies}</div>
+              )}
+
               <button
                 className="delete-button"
                 onClick={(e) => {

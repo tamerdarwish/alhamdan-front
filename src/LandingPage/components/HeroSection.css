@@ -57,6 +57,13 @@
   animation: fadeInUp 1.5s ease-out;
   font-family: "Aref Ruqaa", serif;
   line-height: 1.2;
+  justify-items: center;
+}
+
+.hero-title img{
+  width:50%;
+  animation: fadeInUp 2.5s ease-out, bounce 3s ease-in-out infinite; /* أضفنا الأنيميشين الجديدة */
+
 }
 
 .hero-description {

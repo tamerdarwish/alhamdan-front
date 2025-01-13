@@ -60,6 +60,7 @@ const ViewEventPage = () => {
           handlePrintStatusToggle={handlePrintStatusToggle}
           watermark_setting={watermark_setting}
           eventId= {eventId}
+          setAlbum={setAlbum}
         />
       </div>
     </div>

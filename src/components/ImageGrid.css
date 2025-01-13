@@ -1,191 +1,275 @@
-/* ImageGrid.css */
-
-/* القسم الرئيسي للألبوم */
+/* التصميم العام */
 .album-section {
-  padding: 30px;
-  background-color: #ffffff;
-  border-radius: 12px;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
-  max-width: 1200px; /* عرض أقصى للقسم */
-  margin: 20px auto; /* توسيط القسم */
+  font-family: 'Roboto', sans-serif;
+  padding: 20px;
+  max-width: 1200px;
+  margin: 0 auto;
 }
 
-/* عنوان الألبوم */
-h2 {
-  font-size: 28px;
-  font-weight: 700;
-  color: #222;
+.album-title {
+  text-align: center;
+  font-size: 2rem;
+  color: #333;
   margin-bottom: 20px;
-  text-align: center; /* توسيط العنوان */
 }
 
 /* شريط الإحصائيات */
 .stats-bar {
   display: flex;
   justify-content: space-around;
-  margin-bottom: 25px;
-  font-size: 18px;
-  color: #666;
+  margin-bottom: 20px;
+  background-color: #f7f7f7;
+  padding: 10px;
+  border-radius: 10px;
+}
+
+.stat-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.stat-label {
+  font-weight: bold;
+  color: #555;
+}
+
+.stat-value {
+  font-size: 1.2rem;
+  color: #333;
 }
 
 /* شبكة الصور */
 .images-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
   gap: 15px;
+  padding: 10px;
 }
 
-/* حاوية الصورة */
-.image-container {
+.album-section .image-container {
   position: relative;
+  background-color: #fff;
+  border-radius: 10px;
+
   overflow: hidden;
-  border: 1px solid #eaeaea;
-  border-radius: 12px;
-  transition: transform 0.3s, box-shadow 0.3s;
-  cursor: pointer; /* تغيير شكل المؤشر عند التمرير فوق الصورة */
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  cursor: pointer;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
-/* تأثير عند التمرير فوق الصورة */
+.album-section .image-container.selected {
+  border: 3px solid #fbb040; /* تأكد من أن هناك تنسيق واضح لتحديد الصور */
+
+}
+
 .image-container:hover {
   transform: scale(1.05);
-  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15);
 }
 
-/* صورة الألبوم */
+.image-overlay {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  z-index: 10;
+}
+
+.select-button {
+  background: transparent;
+  border: none;
+  font-size: 24px;
+  color: #fbb040;
+  cursor: pointer;
+  transition: color 0.3s ease;
+}
+
+.select-button:hover {
+  color: #da880d;
+}
+
 .album-image {
   width: 100%;
-  height: 100%;
-  border-radius: 12px;
-  object-fit: cover; /* الحفاظ على نسبة العرض إلى الارتفاع */
-  pointer-events: none;
+  height: auto;
+  object-fit: cover;
+  display: block;
 }
 
-/* أيقونة حالة الطباعة */
-.status-icon {
+.image-info {
+  /*padding: 10px;*/
+  background-color: rgba(0, 0, 0, 0.6);
   position: absolute;
-  top: 15px;
-  right: 15px;
-  font-size: 20px;
-  color: #fff;
-  background-color: rgba(0, 0, 0, 0.7);
-  border-radius: 50%;
-  padding: 6px;
-}
-
-/* حالة الطباعة المحددة */
-.status-icon.checked {
-  color: #ffffff; /* لون أخضر */
-  background-color: #20a100;
-}
-
-/* حالة الطباعة غير المحددة */
-.status-icon.unchecked {
-  color: #ffffff; /* لون أحمر */
-}
-
-
-/* زر تحديد الصورة */
-.select-button {
-  position: absolute;
-  bottom: 15px;
-  left: 15px;
-  background: transparent; /* خلفية شفافة */
-  cursor: pointer; /* تغيير شكل المؤشر عند التمرير فوق الزر */
-  color: #f8f8f8; /* لون الأيقونة */
-  font-size: 24px; /* حجم الأيقونة */
-  width: 50px; /* عرض الزر */
-  height: 50px; /* ارتفاع الزر */
-  border: none; /* إزالة الحدود */
-  border-radius: 50%; /* شكل دائري خفيف */
-  display: flex; /* استخدام الفليكس لتوسيع الزر */
-  align-items: center; /* محاذاة عمودية للنص */
-  justify-content: center; /* محاذاة أفقية للنص */
-  transition: color 0.2s; /* تأثير التغيير عند التمرير */
-}
-
-/* تأثير عند التمرير فوق زر التحديد */
-.select-button:hover {
-  color: #186d03; /* تغيير لون الأيقونة عند التمرير */
-}
-
-
-
-.image-container.selected {
-  border: 2px solid #218838;
-}
-
-
-/* شريط الأزرار العائمة */
-.floating-bar {
-  position: fixed; /* لجعل الشريط ثابتًا */
-  bottom: 20px; /* يبعد الشريط عن أسفل الصفحة */
-  left: 50%;
-  transform: translateX(-50%); /* لتوسيط الشريط */
-  display: inline-flex; /* جعل الشريط يتكيف تلقائيًا مع حجم المحتوى */
-  justify-content: center;
-  padding: 10px 20px; /* مساحة داخلية حول الأزرار */
-  background-color: #ffffff; /* لون خلفية الشريط */
-  border-radius: 12px; /* زوايا مستديرة */
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1); /* ظل لتحسين الشكل */
-  font-family: 'Cairo', sans-serif;
-  z-index: 1000; /* لضمان ظهور الشريط فوق العناصر الأخرى */
-}
-
-
-/* أزرار الشريط العائم */
-.btn {
-  background-color: #007bff;
+  bottom: 0;
+  width: 100%;
   color: white;
+  font-size: 14px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+/* التحكم في النسخ */
+.copies-container {
+  display: flex;
+  align-items: center;
+}
+
+.copies-inner-container {
+  display: flex;
+  align-items: center;
+}
+
+.copies-inner-container button {
+  background: none;
   border: none;
-  border-radius: 6px;
-  padding: 12px 20px;
+  color: #fff;
+  font-size: 20px;
   cursor: pointer;
-  font-size: 18px;
-  margin: 0 10px; /* إضافة هوامش بين الأزرار */
-  transition: background-color 0.3s, transform 0.2s; /* تأثير سلس */
+}
+
+.copies-inner-container span {
+  margin: 0 10px;
+  color: #fff;
+  font-size: 12px;
   
 }
 
-/* تأثير عند التمرير فوق الأزرار */
-.btn:hover {
-  background-color: #0056b3;
-  transform: translateY(-2px); /* تأثير رفع */
+.copies-title{
+  font-family: "Tajawal", serif;
+  font-size: 12px;
+
+
 }
 
-/* رسالة عندما يكون الألبوم فارغًا */
-.no-images {
-  text-align: center;
-  font-size: 20px;
-  color: #777;
+
+/* الأزرار العائمة لتحديد الكل وتحميل الصور المحددة */
+.album-section .floating-bar {
+  position: fixed;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 15px;
+  background-color: #ffffff7a;
+  z-index: 1000;
+  padding: 2%;
+  border-radius: 20px;
 }
 
-/* إعدادات Modal */
+.album-section .floating-btn {
+  background-color: #4CAF50; /* اللون الأخضر */
+  color: white;
+  border: none;
+  padding: 15px 30px;
+  border-radius: 30px; /* زاوية دائرية كبيرة */
+  cursor: pointer;
+  font-size: 18px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-family: "Tajawal", serif;
+
+  transition: background-color 0.3s ease, transform 0.2s ease;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* تأثيرات عند التفاعل مع الأزرار */
+.album-section .floating-btn:hover {
+  color: #fff;
+  background-color: #45a049; /* لون أغمق عند التمرير */
+  transform: scale(1.05); /* تأثير تكبير عند التمرير */
+}
+
+.album-section .floating-btn:active {
+  transform: scale(0.98); /* تأثير ضغط عند النقر */
+}
+
+.album-section .floating-btn.primary {
+  background-color: #007bff; /* لون أزرق لزر تحميل الصور المحددة */
+}
+
+.album-section .floating-btn.primary:hover {
+  background-color: #fbb040;
+}
+
+.album-section .floating-btn .icon {
+  font-size: 22px;
+}
+
+/* التصميم الخاص على الأجهزة المحمولة */
+@media (max-width: 768px) {
+  .floating-bar {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .floating-btn {
+    width: 100%;
+    font-size: 16px;
+  }
+}
+
+
+/* نافذة الصورة المنبثقة */
 .modal-content {
   position: relative;
-  max-width: 90%;
-  margin: auto;
-  border-radius: 12px; /* توازن الحواف */
+  max-width: 80%;
+  margin: 0 auto;
 }
 
-/* صورة داخل Modal */
+.modal-inner {
+  position: relative;
+}
+
+.close-button {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: none;
+  border: none;
+  font-size: 30px;
+  color: #fff;
+  cursor: pointer;
+}
+
 .modal-image {
   width: 100%;
   height: auto;
-  border-radius: 12px;
+  border-radius: 10px;
 }
 
-/* زر إغلاق Modal */
-.close-button {
-  position: absolute;
-  top: 15px;
-  right: 15px;
-  font-size: 26px;
+/* تحسين مظهر الأزرار */
+button {
   cursor: pointer;
+  border: none;
+  background: none;
   color: #fff;
+  font-size: 18px;
 }
 
-/* خلفية Modal */
-.modal-overlay {
-  background: rgba(0, 0, 0, 0.8);
+button:focus {
+  outline: none;
+}
+
+/* تصميم استجابة للموبايل */
+@media (max-width: 768px) {
+  .stats-bar {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .images-grid {
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+  }
+
+  .floating-bar {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .floating-btn {
+    width: 100%;
+    font-size: 14px;
+  }
 }
 

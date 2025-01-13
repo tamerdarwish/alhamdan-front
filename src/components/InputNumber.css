@@ -1,0 +1,60 @@
+.input-number {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100px; /* تصغير عرض الحاوية */
+    padding: 6px; /* تقليص المسافة حول الحاوية */
+    background-color: #f3f3f3;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    text-align: center;
+  }
+  
+  .input-number span {
+    font-size: 10px; /* تصغير حجم النص */
+    color: #333;
+    margin-bottom: 4px; /* تقليص المسافة بين النص والأزرار */
+    font-family: "Tajawal", serif;
+
+  }
+  
+  .input-number .number-display {
+    font-size: 16px; /* تقليص حجم الرقم المعروض */
+    font-weight: bold;
+    color: #333;
+    margin: 0 8px;
+    font-family: "Tajawal", serif;
+    font-weight: bold;
+
+  }
+  
+  .control-container {
+    display: flex;
+    align-items: center;
+    justify-content: center; /* جعل الأزرار والرقم في وسط الحاوية */
+    gap: 8px; /* تقليص المسافة بين الأزرار والرقم */
+  }
+  
+  .input-number button {
+    background-color: #007BFF;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 4px; /* تقليص المسافة داخل الأزرار */
+    width: 28px; /* تصغير عرض الأزرار */
+    height: 28px; /* تصغير ارتفاع الأزرار */
+    cursor: pointer;
+    font-size: 14px; /* تصغير حجم الخط داخل الأزرار */
+    transition: background-color 0.3s ease;
+  }
+  
+  .input-number button:hover {
+    background-color: #0056b3;
+  }
+  
+  .input-number button:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+  }
+  

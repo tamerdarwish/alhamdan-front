@@ -52,13 +52,12 @@ const EditProduct = () => {
     formData.append('image_url', existingImageUrl); // الصورة الحالية
 
     if (image) {
-      
       formData.append('image', image); // إضافة الصورة الجديدة إذا تم اختيارها
     }
 
     try {
       await updateProduct(id, formData); // استخدام الدالة الجديدة
-      setSuccessMessage('Product updated successfully!');
+      setSuccessMessage('تم تعديل المنتج بنجاح!');
       setTimeout(() => {
         setSuccessMessage('');
         navigate('/'); // إعادة توجيه إلى الصفحة الرئيسية أو صفحة المنتجات
@@ -112,14 +111,22 @@ const EditProduct = () => {
         <div>
           <label>الصورة الحالية:</label>
           {imagePreview && (
-            <div>
+            <div className="preview-image">
               <img src={imagePreview} alt="Preview" width="100" />
             </div>
           )}
         </div>
         <div>
           <label>صورة جديدة (اختياري)</label>
-          <input type="file" accept="image/*" onChange={handleImageChange} />
+          <label htmlFor="image-upload" className="custom-file-upload">
+            تحميل صورة جديدة
+          </label>
+          <input
+            type="file"
+            id="image-upload"
+            accept="image/*"
+            onChange={handleImageChange}
+          />
         </div>
         <button type="submit">حفظ التغييرات</button>
       </form>

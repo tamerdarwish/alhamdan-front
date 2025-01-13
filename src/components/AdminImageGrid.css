@@ -1,25 +1,38 @@
 /* Reset default styling */
-* {
+.admin-album-section  {
     box-sizing: border-box;
     margin: 0;
     padding: 0;
 }
 
 /* Album section styling */
-.album-section {
+.admin-album-section {
     border-top: 2px solid #e0e0e0;
     padding-top: 20px;
     text-align: left;
 }
 
-.album-section h2 {
+.admin-album-section h2 {
     font-size: 2em;
     color: #333;
     margin-bottom: 20px;
     font-family: 'Cairo', sans-serif;
 
 }
+.copies-count {
+    position: absolute;
+    bottom: 10px;
+    right: 10px; /* تعديل هذه الخاصية لتكون على اليمين بدلاً من اليسار */
+    background-color: rgba(0, 0, 0, 0.5);
+    color: white;
+    padding: 5px;
+    border-radius: 3px;
+    font-size: 12px;
+    font-family: "Tajawal", serif;
 
+  }
+  
+  
 /* No images message */
 .no-images {
     text-align: center;
@@ -36,7 +49,7 @@
     gap: 15px;
 }
 
-.image-container {
+.admin-album-section .image-container {
     position: relative;
     display: inline-block;
     margin: 5px;
@@ -48,7 +61,7 @@
 }
 
 /* Highlight border color when selected */
-.image-container.selected {
+.admin-album-section .image-container.selected {
     border: 2px solid blue; /* تأكد من أن هناك تنسيق واضح لتحديد الصور */
   }
 .album-image {

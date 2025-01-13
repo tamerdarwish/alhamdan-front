@@ -1,7 +1,7 @@
 // eventHandlers.js
 import imageCompression from 'browser-image-compression';
 import { fetchEventById, editEvent } from '../services/events-api';
-import { uploadImageToAlbum, deleteImageFromAlbum, deleteSelectedImagesFromAlbum,togglePrintStatus } from '../services/images-api';
+import { uploadImageToAlbum, deleteImageFromAlbum,updateCopies, deleteSelectedImagesFromAlbum,togglePrintStatus } from '../services/images-api';
 import JSZip from 'jszip';
 import { saveAs } from 'file-saver';
 import Swal from 'sweetalert2'; // استيراد SweetAlert2
@@ -55,60 +55,116 @@ export const handleDownloadZip = (event, selectedImages) => {
         confirmButton: 'swal2-confirm-button'  // فئات مخصصة للزر
       }
     });
-        return;
+    return;
   }
-  
 
   const zip = new JSZip();
   const mainFolder = zip.folder(event.name);
 
   const fetchPromises = selectedImages.map(photo => {
-    const { url } = photo;
+    const { url, printStatus, copies } = photo;
     const imageName = url.split('/').pop();
     const fileExtension = 'JPEG';
-    const fileName = `${imageName.replace(`.${fileExtension}`, '')}_copy_.${fileExtension}`;
-    console.log(url);
+    const baseFileName = imageName.replace(`.${fileExtension}`, '');
 
+    if (printStatus && copies > 0) {
+      // تحميل الصور بعدد النسخ المخصص
+      const filePromises = [];
+      for (let i = 1; i <= copies; i++) {
+        const fileName = `${baseFileName}_copy_${i}.${fileExtension}`;
+        filePromises.push(
+          fetch(url)
+            .then(res => {
+              if (!res.ok) {
+                throw new Error(`Error fetching image: ${url}`);
+              }
+              return res.blob();
+            })
+            .then(blob => {
+              // إضافة النسخة إلى الملف المضغوط
+              mainFolder.file(fileName, blob, { binary: true });
+            })
+        );
+      }
 
-    return fetch(url)
+      return Promise.all(filePromises);
+    } else {
+      // إذا كانت الصورة غير مطبوعة أو لم تكن تحتوي على نسخ، فقط أضف النسخة الأصلية
+      const fileName = `${baseFileName}_copy_1.${fileExtension}`;
+      return fetch(url)
+        .then(res => {
+          if (!res.ok) {
+            throw new Error(`Error fetching image: ${url}`);
+          }
+          return res.blob();
+        })
+        .then(blob => {
+          // إضافة النسخة إلى الملف المضغوط
+          mainFolder.file(fileName, blob, { binary: true });
+        });
+    }
+  });
 
-      .then(res => {
-        if (!res.ok) {
-          throw new Error(`Error fetching image: ${url}`);
-        }
-        return res.blob();
-      })
-      .then(blob => {
-        // تأكد من استخدام الامتداد الصحيح للملف
-        mainFolder.file(fileName, blob, { binary: true });
+  Promise.all(fetchPromises)
+    .then(() => {
+      zip.generateAsync({ type: 'blob' }).then(content => {
+        saveAs(content, `${event.name}_photos.zip`);
+      }).catch(error => {
+        console.error('Error generating ZIP:', error);
       });
-  });
-
-  Promise.all(fetchPromises).then(() => {
-    zip.generateAsync({ type: 'blob' }).then(content => {
-      saveAs(content, `${event.name}_photos.zip`);
-    }).catch(error => {
-      console.error('Error generating ZIP:', error);
+    })
+    .catch(error => {
+      console.error('Error fetching images:', error);
     });
-  }).catch(error => {
-    console.error('Error fetching images:', error);
-  });
 };
-
 //Change PrintStatus Of Image
-export const handleTogglePrintStatus = async (eventId, imageId, currentStatus, setAlbum) => {
+export const handleTogglePrintStatus = async (eventId, imageId, currentStatus, setAlbum, copies) => {
   try {
-    const updatedImage = await togglePrintStatus(eventId, imageId, currentStatus);
+    const updatedImage = await togglePrintStatus(eventId, imageId, currentStatus, copies);
     if (updatedImage) {
-      // قم بتحديث حالة الصورة في الواجهة الأمامية بعد التحديث الناجح
-      setAlbum(prevAlbum =>
-        prevAlbum.map(image =>
-          image.id === imageId ? { ...image, printStatus: !currentStatus } : image
+      setAlbum((prevAlbum) =>
+        prevAlbum.map((image) =>
+          image.id === imageId
+            ? { ...image, printStatus: !currentStatus, copies: copies !== undefined ? copies : image.copies }
+            : image
         )
       );
     }
   } catch (error) {
-    console.error('Failed to update print status:', error);
+    console.error('Failed to update print status or copies:', error);
+  }
+};
+
+export const handleIncreaseCopies = async (eventId, imageId, currentCopies, setAlbum) => {
+  const newCopies = currentCopies + 1;
+  try {
+    const updatedImage = await updateCopies(eventId, imageId, newCopies);
+    if (updatedImage) {
+      setAlbum((prevAlbum) =>
+        prevAlbum.map((image) =>
+          image.id === imageId ? { ...image, copies: newCopies } : image
+        )
+      );
+    }
+  } catch (error) {
+    console.error('Failed to increase copies:', error);
+  }
+};
+
+
+export const handleDecreaseCopies = async (eventId, imageId, currentCopies, setAlbum) => {
+  const newCopies = Math.max(currentCopies - 1, 0); // Ensure copies do not go below 0
+  try {
+    const updatedImage = await updateCopies(eventId, imageId, newCopies);
+    if (updatedImage) {
+      setAlbum((prevAlbum) =>
+        prevAlbum.map((image) =>
+          image.id === imageId ? { ...image, copies: newCopies } : image
+        )
+      );
+    }
+  } catch (error) {
+    console.error('Failed to decrease copies:', error);
   }
 };
 
@@ -227,14 +283,14 @@ export const handleAddImages = async (e, eventId, eventData, setEvent, setUpdate
 };
 
 // دالة لتحويل الملف إلى Base64
-const convertFileToBase64 = (file) => {
+/*const convertFileToBase64 = (file) => {
   return new Promise((resolve, reject) => {
     const reader = new FileReader();
     reader.onload = () => resolve(reader.result);
     reader.onerror = (error) => reject(error);
     reader.readAsDataURL(file); // قراءة الملف كـ Base64
   });
-};
+};*/
 
 
 // Handle selecting an image

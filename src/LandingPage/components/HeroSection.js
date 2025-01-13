@@ -2,6 +2,8 @@
 import React from 'react';
 import './HeroSection.css';
 import heroVideo from '../../assets/hero-bg.mp4'; // الفيديو المحول إلى MP4
+import aboutImage from '../../assets/logo.png';
+
 
 const HeroSection = () => {
   return (
@@ -14,7 +16,12 @@ const HeroSection = () => {
         <div className="hero-overlay"></div>
       </div>
       <div className="hero-content">
-        <h1 className="hero-title">  ستوديو الحمدان <br/> نوثق لحظاتكم بكل إتقان</h1>
+        <h1 className="hero-title">
+          {/* يمكنك استبدال النص هنا بنص آخر حسب حاجتك */}
+          <img src={aboutImage} alt="Studio Overview" />
+          <br />
+          نوثق لحظاتكم بكل إتقان
+        </h1>
         <p className="hero-description">
           في ستوديو الحمدان، نلتقط تفاصيل مناسباتك الخاصة بجودة عالية واحترافية، لنحول كل لحظة إلى ذكرى خالدة تُحكى للأجيال القادمة.
         </p>

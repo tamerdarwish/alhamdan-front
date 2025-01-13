@@ -25,8 +25,8 @@
   }
   
   .back-button:hover {
-    background-color: #e67e22;
-  }
+    background-color: #ad6b00;
+    color: white;  }
   
   .event-image {
     width: 100%;

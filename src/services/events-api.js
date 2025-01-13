@@ -80,6 +80,11 @@ export const editEvent = async (eventId,updatedEvent) => {
   }
 }
 
+
+
+
+
+
 export const checkAccessCode = async (code) => {
   // تحقق في قاعدة البيانات ما إذا كان الكود مستخدمًا مسبقًا
   const response = await fetch(`${process.env.REACT_APP_SERVER}/api/events/check-code/${code}`);
