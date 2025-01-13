@@ -7,6 +7,7 @@ import Gallery from './components/Gallery';
 import Team from './components/Team';
 import Contact from './components/Contact';
 import './LandingPage.css';
+import PrintPhotosSection from './components/PrintPhotosSection';
 
 const LandingPage = () => {
  
@@ -19,6 +20,7 @@ const LandingPage = () => {
     
       {/*<Services />*/}
       <Gallery />
+      <PrintPhotosSection/>
       {/*<Testimonials />*/}
       {/*<Team />*/}
       <Contact />

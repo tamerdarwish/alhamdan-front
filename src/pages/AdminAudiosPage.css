@@ -1,0 +1,179 @@
+/* الحاوية الرئيسية لصفحة إدارة الأصوات */
+.admin-audios-page {
+    max-width: 1200px;
+    margin: 50px auto;
+    padding: 20px;
+    background-color: #f9f9f9;
+    border-radius: 10px;
+    box-shadow: 0px 10px 30px rgba(0, 0, 0, 0.1);
+    text-align: center;
+  }
+  
+  /* عنوان الصفحة */
+  .admin-audios-page .admin-audios-title {
+    font-size: 32px;
+    color: #ff8c00;
+    margin-bottom: 40px;
+    font-family: 'Cairo', sans-serif;
+  }
+  
+  /* زر إضافة صوت جديد */
+  .admin-audios-page .add-new-audio-btn {
+    background-color: #ff8c00;
+    font-family: 'Cairo', sans-serif;
+    color: white;
+    padding: 12px 30px;
+    font-size: 18px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    margin-bottom: 30px;
+  }
+  
+  .admin-audios-page .add-new-audio-btn:hover {
+    background-color: #dd7600;
+  }
+  
+  /* نافذة موديول (إضافة صوت جديد) */
+  .admin-audios-page .audio-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .admin-audios-page .audio-modal .audio-form {
+    background-color: white;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0px 5px 20px rgba(0, 0, 0, 0.1);
+    width: 500px;
+    text-align: left;
+  }
+  
+  .admin-audios-page .audio-modal .audio-form h2 {
+    font-size: 24px;
+    color: #333;
+    margin-bottom: 20px;
+  }
+  
+  .admin-audios-page .audio-modal .audio-form input,
+  .admin-audios-page .audio-modal .audio-form textarea {
+    width: 100%;
+    padding: 12px;
+    margin-bottom: 20px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 16px;
+    background-color: #f9f9f9;
+  }
+  
+  .admin-audios-page .audio-modal .audio-form input:focus,
+  .admin-audios-page .audio-modal .audio-form textarea:focus {
+    border-color: #ff8c00;
+    outline: none;
+  }
+  
+  .admin-audios-page .audio-modal .audio-form button {
+    width: 100%;
+    padding: 12px;
+    background-color: #ff8c00;
+    border: none;
+    border-radius: 5px;
+    color: white;
+    font-size: 18px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .admin-audios-page .audio-modal .audio-form button:hover {
+    background-color: #dd7600;
+  }
+  
+  .admin-audios-page .audio-modal .audio-form button:disabled {
+    background-color: #ddd;
+    cursor: not-allowed;
+  }
+  
+  /* شبكة الصوتيات الخاصة بالإدارة */
+  .admin-audios-page .admin-audios-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 20px;
+    justify-items: center;
+    margin-top: 30px;
+  }
+  
+  /* تصميم بطاقة الصوت */
+  .admin-audios-page .admin-audio-card {
+    background-color: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    text-align: center;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+  
+  .admin-audios-page .admin-audio-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0px 10px 30px rgba(0, 0, 0, 0.2);
+  }
+  
+  .admin-audios-page .admin-audio-card img {
+    width: 100%;
+    border-radius: 8px;
+    margin-bottom: 20px;
+  }
+  
+  .admin-audios-page .admin-audio-card h3 {
+    font-size: 20px;
+    color: #333;
+    margin-bottom: 10px;
+    font-family: 'Cairo', sans-serif;
+  }
+  
+  .admin-audios-page .admin-audio-card p {
+    font-size: 14px;
+    color: #777;
+  }
+  
+  /* رسالة التحميل عند إضافة صوت */
+  .admin-audios-page .loading-msg {
+    font-size: 16px;
+    color: #ff8c00;
+    margin-top: 20px;
+    font-weight: bold;
+  }
+  
+  /* استجابة الأجهزة المحمولة */
+  @media (max-width: 768px) {
+    .admin-audios-page {
+      padding: 15px;
+    }
+  
+    .admin-audios-page .admin-audios-grid {
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    }
+  
+    .admin-audios-page .audio-modal .audio-form {
+      width: 100%;
+      padding: 20px;
+    }
+  
+    .admin-audios-page .add-new-audio-btn {
+      padding: 10px 25px;
+      font-size: 16px;
+    }
+  
+    .admin-audios-page .audio-modal .audio-form button {
+      font-size: 16px;
+    }
+  }
+  

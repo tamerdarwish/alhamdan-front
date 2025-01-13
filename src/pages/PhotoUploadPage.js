@@ -139,7 +139,7 @@ const PhotoUploadPage = () => {
       <h2 className='photo-upload-page-title'>رفع الصور للطباعة</h2>
       <input
         type="text"
-        placeholder="اسم العميل"
+        placeholder="الإسم الكامل"
         value={customerName}
         onChange={(e) => setCustomerName(e.target.value)}
         required
@@ -196,10 +196,10 @@ const PhotoUploadPage = () => {
         {isLoading ? (
           <div className="loading-indicator-container">
             <ClipLoader color={"#ffffff"} loading={isLoading} size={20} /> {/* مؤشر التحميل */}
-            <span>جاري رفع الصور...</span>
+            <span>جاري إرسال الصور...</span>
           </div>
         ) : (
-          'رفع الصور'
+          'إرسال الصور للطباعة'
         )}
       </button>
     </div>

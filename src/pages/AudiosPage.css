@@ -1,93 +1,186 @@
+/* تصميم صفحة حفلات (Audios Page) */
 .audios-page {
-  padding: 20px;
   max-width: 1200px;
-  margin: 0 auto;
+  margin: 50px auto;
+  padding: 20px;
+  background-color: #f7f7f7; /* خلفية فاتحة للصفحة */
+  border-radius: 10px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); /* ظل خفيف للصفحة */
 }
 
+/* عنوان الصفحة */
 .audios-page-title {
-  font-size: 2rem;
+  font-size: 32px;
   color: #333;
-  margin-bottom: 30px;
   text-align: center;
+  font-family: 'Cairo', sans-serif;
+  margin-bottom: 30px;
+  letter-spacing: 1px;
 }
 
-.audios-grid {
+/* تصميم مربع البحث */
+.audios-page .search-input {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  font-size: 16px;
+  background-color: #fff;
+  margin-bottom: 30px;
+  transition: all 0.3s ease;
+}
+
+.audios-page .search-input:focus {
+  outline: none;
+  border-color: #ff6f00;
+  box-shadow: 0 0 5px rgba(255, 111, 0, 0.5);
+}
+
+/* تصميم شبكة عرض البطاقة (Audios Grid) */
+.audios-page .audios-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-  gap: 20px; /* المسافة بين بطاقات الصوت */
+  gap: 20px;
+  margin-bottom: 40px;
 }
 
-.search-input {
+/* تصميم البطاقة (Card) */
+.audios-page .audio-card {
+  background-color: #fff;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+}
+
+.audios-page .audio-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.15);
+}
+
+.audios-page .audio-card img {
   width: 100%;
-  padding: 10px;
-  margin-bottom: 20px; /* المسافة أسفل شريط البحث */
-  border: 1px solid #ccc;
-  border-radius: 4px;
+  height: 200px;
+  object-fit: cover;
 }
 
-.pagination {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-top: 20px; /* المسافة أعلى الصفحات */
+.audios-page .audio-card .audio-card-body {
+  padding: 15px;
 }
 
-
-.new-audio-form {
-  display: flex;
-  flex-direction: column;
-  gap: 15px;
-  background-color: rgb(255, 255, 255);
-  padding: 20px;
-}
-
-.new-audio-form input,
-.new-audio-form textarea {
-  padding: 10px;
-  font-size: 1rem;
-  border-radius: 5px;
-  border: 1px solid #ccc;
-  width: 100%;
-  box-sizing: border-box;
-}
-
-.new-audio-form textarea {
-  height: 120px;
-  resize: none;
-}
-
-.new-audio-form button {
-  padding: 12px;
-  background-color: #fe9e06;
-  color: #fff;
-  font-size: 1.2rem;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
-}
-
-.new-audio-form button:hover {
-  background-color: #ff7300;
-}
-
-.new-audio-form input[type="file"] {
-  padding: 5px;
-  background-color: #f9f9f9;
-  border-radius: 5px;
-  cursor: pointer;
-}
-
-/* حالة التحميل */
-.modal-content p {
-  font-size: 1.2rem;
+.audios-page .audio-card .audio-card-body h3 {
+  font-size: 18px;
   color: #333;
-  text-align: center;
-  margin-top: 20px;
+  margin: 0;
+  font-weight: bold;
 }
 
-@media (max-width: 768px) {
-  .modal-content {
-    width: 90%;
-  }
+.audios-page .audio-card .audio-card-body p {
+  font-size: 14px;
+  color: #777;
+  margin-top: 10px;
+  height: 70px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* تصميم التنقل بين الصفحات (Pagination) */
+.audios-page .pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 40px;
+}
+
+.audios-page .pagination button {
+  padding: 10px 20px;
+  background-color: #ff6f00;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  font-size: 16px;
+  cursor: pointer;
+  margin: 0 10px;
+  transition: all 0.3s ease;
+}
+
+.audios-page .pagination button:hover {
+  background-color: #e75d00;
+}
+
+.audios-page .pagination button:disabled {
+  background-color: #ddd;
+  cursor: not-allowed;
+}
+
+.audios-page .pagination span {
+  font-size: 16px;
+  color: #333;
+}
+
+/* إضافة تنسيق لـ Modal */
+.audios-page .modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.audios-page .modal .modal-content {
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 8px;
+  width: 500px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.audios-page .modal .modal-content h2 {
+  font-size: 24px;
+  margin-bottom: 20px;
+  color: #333;
+}
+
+
+
+.audios-page .modal .modal-content input:focus,
+.audios-page .modal .modal-content textarea:focus {
+  outline: none;
+  border-color: #ff6f00;
+  box-shadow: 0 0 5px rgba(255, 111, 0, 0.5);
+}
+
+.audios-page .modal .modal-content button {
+  padding: 12px 20px;
+  background-color: #ff6f00;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.audios-page .modal .modal-content button:hover {
+  background-color: #e75d00;
+}
+
+.audios-page .modal .modal-content button:disabled {
+  background-color: #ddd;
+  cursor: not-allowed;
+}
+
+/* تأثيرات تحميل عندما تكون الصفحة في وضع التحميل */
+.audios-page .loading {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 18px;
+  color: #ff6f00;
+  margin-top: 30px;
 }

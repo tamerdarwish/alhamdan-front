@@ -1,124 +1,140 @@
 /* ProductList.css */
-.page-title{
-  font-family: 'Cairo', sans-serif;
 
+/* رأس الصفحة */
+.product-list .page-title {
+  text-align: center;
+  font-size: 32px;
+  font-weight: 600;
+  color: #333;
+  margin-bottom: 30px;
 }
+
 /* تصميم شريط البحث */
-.modern-search-bar {
+.product-list .search-bar {
   width: 100%;
+  max-width: 600px;
   padding: 12px 20px;
-  margin-bottom: 20px;
-  font-size: 1rem;
-  border-radius: 25px;
-  border: 1px solid #ccc;
-  background-color: #f9f9f9;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-  transition: all 0.3s ease;
-  outline: none;
-  font-family: 'Cairo', sans-serif;
-
-}
-
-.modern-search-bar:focus {
-  border-color: #28a745;
+  font-size: 16px;
+  border-radius: 30px;
+  border: 2px solid #ddd;
+  margin: 0 auto 30px auto;
   background-color: #fff;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  transition: border 0.3s ease;
 }
 
-.modern-search-bar::placeholder {
-  color: #999;
+.product-list .search-bar:focus {
+  border-color: #ff9800;
+  outline: none;
 }
 
-.modern-search-bar:focus::placeholder {
-  color: #ccc;
+/* تصميم الشبكة لعرض المنتجات */
+.product-list .product-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 30px;
+  padding: 0 20px;
 }
 
-/* تصميم أزرار التصفح */
-.pagination {
+/* تصميم بطاقة المنتج */
+.product-list .product-card {
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 15px;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.product-list .product-card:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.2);
+}
+
+.product-list .product-image-wrapper {
+  width: 100%;
+  height: 200px;
+  overflow: hidden;
+  border-radius: 12px;
+  margin-bottom: 15px;
+}
+
+.product-list .product-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.4s ease;
+}
+
+.product-list .product-card:hover .product-image {
+  transform: scale(1.05);
+}
+
+.product-list .product-name {
+  font-size: 18px;
+  color: #333;
+  font-weight: 500;
+  margin: 10px 0;
+}
+
+/* تنسيق صفحات التنقل (Pagination) */
+.product-list .pagination {
   display: flex;
   justify-content: center;
-  margin-top: 20px;
+  margin-top: 30px;
 }
 
-.pagination a {
-  padding: 10px 20px;
-  border: 1px solid #ddd;
+.product-list .pagination .page-item {
   margin: 0 5px;
-  cursor: pointer;
 }
 
-.pagination a.active {
-  background-color: #007bff;
+.product-list .pagination .page-link {
+  border-radius: 20px;
+  background-color: #f1f1f1;
+  color: #333;
+  font-weight: 600;
+  padding: 8px 16px;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.product-list .pagination .page-link:hover {
+  background-color: #ff9800;
   color: #fff;
 }
 
-.pagination a:hover {
-  background-color: #ddd;
+.product-list .pagination .page-item.active .page-link {
+  background-color: #ff9800;
+  color: #fff;
+  border-color: #ff9800;
 }
 
-/* Product List Container */
-.product-list {
-  padding: 20px;
-  background-color: #f5f5f5; /* لون خلفية خفيف */
-  min-height: 100vh; /* تأكد من تغطية الشاشة بالكامل */
+.product-list .pagination .page-link:focus {
+  outline: none;
 }
 
-/* Grid Container for Products */
-.product-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-  gap: 20px;
-  justify-items: center;
+/* إخفاء أو إظهار نافذة المنتج */
+.product-list .product-modal {
+  transition: transform 0.3s ease;
+  transform-origin: top right;
+  transform: scale(1);
 }
 
-/* Product Card */
-.product-card {
-  border-radius: 8px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  overflow: hidden;
-  cursor: pointer;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-  width: 100%;
-  max-width: 250px;
-  text-align: center;
-  padding: 10px;
-}
-
-/* Hover Effect for Product Card */
-.product-card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
-}
-
-/* Product Image Wrapper */
-.product-image-wrapper {
-  width: 100%;
-  height: 200px; /* ارتفاع محدد للصورة */
-  overflow: hidden;
-  border-bottom: 1px solid #eaeaea;
-}
-
-/* Product Image */
-.product-image {
-  width: 100%;
-  height: 100%; /* اجعل الصورة تغطي كامل ارتفاع الحاوية */
-  object-fit: cover; /* تأكد من تناسب الصورة مع الحاوية */
-}
-
-/* Product Name */
-.product-name {
-  font-size: 1.2rem;
-  font-weight: bold;
-  margin: 10px 0 5px;
+.product-list .product-modal-close {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  font-size: 20px;
   color: #333;
-  font-family: 'Cairo', sans-serif;
-
+  background: none;
+  border: none;
+  cursor: pointer;
+  transition: color 0.3s ease;
 }
 
-/* Product Price */
-.product-price {
-  font-size: 1rem;
-  color: #666;
-  font-family: 'Cairo', sans-serif;
-
+.product-list .product-modal-close:hover {
+  color: #ff6347;
 }

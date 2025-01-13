@@ -1,25 +1,22 @@
 import React, { useEffect, useState } from 'react';
-import AudioCard from '../components/AdminAudioCard';
+import AdminAudioCard from '../components/AdminAudioCard';
 import { fetchAudios, addAudio } from '../services/audios-api'; // تأكد من إضافة دالة addAudio في services
-import './AudiosPage.css'; // أنشئ هذا الملف لاحقًا
+import './AdminAudiosPage.css'; // أنشئ هذا الملف لاحقًا
 import Modal from '../components/Modal'; // استورد مكون النافذة المنبثقة
 import { checkAdminAuth } from '../utils/adminAuth';
 import { Link, useNavigate } from 'react-router-dom';
-
-
 
 export default function AdminAudiosPage() {
 
   const navigate = useNavigate();
 
-    useEffect(() => {
-        const isAdminAuthenticated = checkAdminAuth();
-        if (!isAdminAuthenticated) {
-            navigate('/admin/login');
-        }
-    }, [navigate]);
+  useEffect(() => {
+    const isAdminAuthenticated = checkAdminAuth();
+    if (!isAdminAuthenticated) {
+      navigate('/admin/login');
+    }
+  }, [navigate]);
 
-    
   const [audios, setAudios] = useState([]);
   const [newAudio, setNewAudio] = useState({
     title: '',
@@ -91,15 +88,15 @@ export default function AdminAudiosPage() {
   };
 
   return (
-    <div className="audios-page">
-      <h1 className="audios-page-title">حفلات</h1>
+    <div className="admin-audios-page">
+      <h1 className="admin-audios-title">حفلات</h1>
 
-      <button onClick={toggleModal} className="add-audio-button">إضافة بطاقة جديدة</button>
+      <button onClick={toggleModal} className="add-new-audio-btn">إضافة بطاقة جديدة</button>
 
       {isModalOpen && (
         <Modal onClose={toggleModal}>
-          <form className="new-audio-form" onSubmit={handleSubmit}>
-          <h2>إضافة بطاقة جديدة</h2>
+          <form className="audio-form" onSubmit={handleSubmit}>
+            <h2>إضافة بطاقة جديدة</h2>
 
             <input
               type="text"
@@ -133,13 +130,13 @@ export default function AdminAudiosPage() {
             />
             <button type="submit" disabled={isLoading}>إضافة</button>
           </form>
-          {isLoading && <p>جاري إضافة الحدث...</p>} {/* رسالة التحميل */}
+          {isLoading && <p className="loading-msg">جاري إضافة الحدث...</p>} {/* رسالة التحميل */}
         </Modal>
       )}
 
-      <div className="audios-grid">
+      <div className="admin-audios-grid">
         {audios.map((audio, index) => (
-          <AudioCard
+          <AdminAudioCard
             key={index}
             title={audio.title}
             description={audio.description}

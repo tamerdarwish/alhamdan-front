@@ -1,101 +1,108 @@
-.cart-container {
-  position: fixed; /* استخدام fixed لتموضع الحاوية بشكل ثابت */
-  top: 10px; /* تعديل الموضع العمودي للسلة */
-  right: 10px; /* ضبط السلة على الجهة اليمنى من الشاشة */
-  z-index: 100; /* لجعل السلة فوق أي محتويات أخرى */
-  margin-top: 80px; /* تأكد من أن القيمة مطابقة لارتفاع الهيدر */
+/* Cart.css */
 
+/* تصميم الحاوية */
+.cart-container {
+  position: fixed; /* تموضع ثابت */
+  top: 20px; /* موضع أعلى بقليل */
+  right: 20px; /* تموضع على الجهة اليمنى */
+  z-index: 100; /* التأكد من أن السلة تظهر فوق العناصر الأخرى */
+  margin-top: 80px; /* تعديل الموضع وفقًا للheader */
+  cursor: pointer; /* التفاعل مع السلة */
+  font-family: 'Cairo', sans-serif;
 }
 
+/* تصميم الأيقونة */
 .cart-icon {
-  background-color: #ffb031;
+  background-color: #ff9800; /* استخدام لون أكثر دفئًا */
   color: #fff;
   border: none;
   border-radius: 50%;
-  padding: 12px 16px;
-  font-size: 18px;
-  cursor: pointer;
-  box-shadow: 0 4px 8px rgba(255, 255, 255, 0.2);
-  transition: background-color 0.3s ease;
-  position: relative;
-    font-family: 'Cairo', sans-serif;
-
-
-}
-.cart-title{
-  font-family: 'Cairo', sans-serif;
-
+  padding: 15px;
+  font-size: 24px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
+  transition: background-color 0.3s ease, transform 0.3s ease;
 }
 
+.cart-icon:hover {
+  background-color: #f57c00; /* تغيير اللون عند التفاعل */
+  transform: scale(1.1); /* تكبير الأيقونة عند التفاعل */
+}
+
+/* عداد السلة */
 .cart-count {
   background-color: #FF6347;
   color: #fff;
-  font-size: 12px;
-  padding: 2px 8px;
-  border-radius: 12px;
+  font-size: 14px;
+  padding: 5px 10px;
+  border-radius: 50%;
   position: absolute;
   top: -5px;
   right: -10px;
   z-index: 10;
   font-family: 'Cairo', sans-serif;
-
 }
 
+/* تصميم القائمة المنسدلة للسلة */
 .cart-dropdown {
   position: absolute;
-  right: 0; /* لضمان أن القائمة المنسدلة تبدأ من الجهة اليمنى تحت الأيقونة */
-  top: 50px; /* لتظهر القائمة أسفل الأيقونة */
+  top: 60px; /* عرض القائمة أسفل الأيقونة */
+  right: 0;
   background-color: #fff;
   border-radius: 12px;
-  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
-  width: 320px;
-  z-index: 1000;
-  overflow: hidden;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+  width: 350px;
+  max-height: 500px; /* تحديد أقصى ارتفاع للسلة */
+  overflow-y: auto;
   transition: transform 0.3s ease;
   transform-origin: top right;
   transform: scale(1);
+  font-family: 'Cairo', sans-serif;
 }
 
-
-
+/* تصميم رأس القائمة المنسدلة */
 .cart-dropdown .cart-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 16px;
-  background-color: #f1f1f1;
+  padding: 20px;
+  background-color: #f7f7f7;
   border-bottom: 1px solid #ddd;
 }
 
 .cart-dropdown .cart-header h2 {
-  font-size: 18px;
-  margin: 0;
+  font-size: 20px;
   color: #333;
+  margin: 0;
 }
 
 .cart-dropdown .close-cart {
   background: none;
   border: none;
-  font-size: 18px;
+  font-size: 24px;
   color: #333;
   cursor: pointer;
   transition: color 0.3s ease;
 }
 
 .cart-dropdown .close-cart:hover {
-  color: #FF6347;
+  color: #FF6347; /* تغيير اللون عند التفاعل */
 }
 
+/* تصميم العناصر داخل السلة */
 .cart-items {
-  max-height: 300px;
+  max-height: 350px;
   overflow-y: auto;
 }
 
+/* تصميم كل عنصر داخل السلة */
 .cart-item {
   display: flex;
   align-items: center;
-  padding: 12px 16px;
-  border-bottom: 1px solid #eee;
+  padding: 15px 20px;
+  border-bottom: 1px solid #f1f1f1;
   transition: background-color 0.3s ease;
 }
 
@@ -103,73 +110,70 @@
   background-color: #f9f9f9;
 }
 
+/* صورة المنتج */
 .cart-item-image {
-  width: 50px;
-  height: 50px;
+  width: 60px;
+  height: 60px;
   object-fit: cover;
   border-radius: 8px;
-  margin-right: 16px;
+  margin-right: 20px;
 }
 
+/* معلومات المنتج */
 .cart-item-info h3 {
-  font-size: 16px;
-  margin: 0 0 4px;
+  font-size: 18px;
+  margin: 0;
   color: #333;
-  font-family: 'Cairo', sans-serif;
-
 }
 
 .cart-item-info p {
-  margin: 0;
+  margin: 5px 0;
   color: #888;
   font-size: 14px;
-  font-family: 'Cairo', sans-serif;
-
 }
 
+/* زر إزالة من السلة */
 .cart-item-info button {
   background-color: #FF6347;
   color: #fff;
   border: none;
-  padding: 6px 12px;
+  padding: 8px 15px;
   border-radius: 4px;
   font-size: 14px;
   cursor: pointer;
   transition: background-color 0.3s ease;
-  font-family: 'Cairo', sans-serif;
-
 }
 
 .cart-item-info button:hover {
   background-color: #e55342;
 }
 
+/* تصميم ملخص السلة */
 .cart-summary {
-  padding: 16px;
-  background-color: #f9f9f9;
+  padding: 20px;
+  background-color: #f7f7f7;
   text-align: center;
   border-top: 1px solid #ddd;
-  font-family: 'Cairo', sans-serif;
-
 }
 
 .cart-summary p {
-  font-size: 16px;
-  margin-bottom: 16px;
+  font-size: 18px;
+  margin-bottom: 20px;
   color: #333;
 }
 
+/* زر إتمام الطلب */
 .cart-summary button {
-  background-color: #fe9e06;
+  background-color: #ff9800;
   color: #fff;
   border: none;
-  padding: 10px 20px;
-  font-size: 16px;
-  border-radius: 4px;
+  padding: 12px 25px;
+  font-size: 18px;
+  border-radius: 6px;
   cursor: pointer;
   transition: background-color 0.3s ease;
 }
 
 .cart-summary button:hover {
-  background-color: #da8600;
+  background-color: #f57c00;
 }

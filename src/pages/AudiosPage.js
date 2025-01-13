@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import AudioCard from '../components/AudioCard';
 import { fetchAudios } from '../services/audios-api';
-import './AudiosPage.css'; // أنشئ هذا الملف لاحقًا
+import './AudiosPage.css'; // استيراد ملف CSS الجديد
 
 export default function AudiosPage() {
   const [audios, setAudios] = useState([]);
@@ -37,7 +37,7 @@ export default function AudiosPage() {
 
   return (
     <div className="audios-page">
-      <h1 className="audios-page-title">حفلات</h1>
+      <h1 className="audios-page-title">تسجيلات الحمدان للحفلات</h1>
       <input
         type="text"
         placeholder="ابحث عن حفلة..."
