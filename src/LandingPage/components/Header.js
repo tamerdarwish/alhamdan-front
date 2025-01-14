@@ -65,6 +65,9 @@ const Header = () => {
               <>
                 <li><Link to="/" onClick={() => setMenuOpen(false)}>الرئيسية</Link></li>
                 <li><Link to="/shop" onClick={() => setMenuOpen(false)}>متجرنا</Link></li>
+                <li><Link to="/audios" onClick={() => setMenuOpen(false)}>تسجيلات حفلات</Link></li>
+                <li><Link to="/login" onClick={() => setMenuOpen(false)}>الدخول الى مناسبة</Link></li>
+
                 <li><Link to="/admin/dashboard" onClick={() => setMenuOpen(false)}>لوحة التحكم</Link></li>
                 <li><button onClick={handleLogout}>تسجيل الخروج</button></li>
               </>
@@ -85,7 +88,7 @@ const Header = () => {
   onMouseLeave={() => setIsDropdownOpen(false)} // إغلاق القائمة عند التمرير خارجها
 >
   <span className="dropdown-trigger">
-    خدماتنا 
+   المزيد
     <span className={`dropdown-icon ${isDropdownOpen ? 'open' : ''}`}>▼</span>
   </span>
   {isDropdownOpen && (

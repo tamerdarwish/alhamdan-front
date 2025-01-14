@@ -11,7 +11,7 @@
   height: 60px;
   box-sizing: border-box;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-  font-family: 'Cairo', sans-serif;
+  font-family: 'Tajawal', sans-serif;
   direction: rtl;
 }
 
@@ -22,22 +22,26 @@
   max-width: 1200px;
   margin: 0 auto;
   padding: 0 20px;
-  height: auto;
 }
 
+/* الشعار */
 .header-logo img {
   max-height: 40px;
 }
 
+/* زر القائمة (للهواتف والشاشات الصغيرة) */
 .menu-toggle {
   display: none; /* إخفاء زر القائمة على الشاشات الكبيرة */
   font-size: 1.8rem;
   color: #fff;
 }
 
+/* تنسيق الروابط في الشريط العلوي */
 .header-nav {
   display: flex;
-  justify-content: flex-start;
+  justify-content: flex-start; /* ضمان محاذاة العناصر من اليسار إلى اليمين */
+  align-items: center; /* محاذاة العناصر رأسياً */
+  width: 100%; /* تأكد من أن العناصر تأخذ العرض الكامل */
 }
 
 .header-nav ul {
@@ -45,13 +49,16 @@
   list-style: none;
   margin: 0;
   padding: 0;
+  align-items: center; /* محاذاة العناصر في المنتصف عموديًا */
 }
 
+/* التنسيق الخاص بكل عنصر داخل القائمة */
 .header-nav ul li {
-  margin: 0 15px;
-  position: relative; /* نحتاج لهذا لتعريف موضع القائمة المنسدلة */
+  margin: 0 20px; /* زيادة المسافة بين العناصر */
+  position: relative;
 }
 
+/* تنسيق الروابط */
 .header-nav ul li a {
   color: #fe9e06;
   text-decoration: none;
@@ -62,6 +69,7 @@
   cursor: pointer;
 }
 
+/* تأثير عند التمرير على الروابط */
 .header-nav ul li a:hover {
   background-color: #444;
   color: #fe9e06;
@@ -92,10 +100,12 @@
 
 .dropdown-trigger {
   color: #fe9e06;
-  padding: 10px;
+  padding: 10px 15px; /* زيادة المسافة داخل الزر */
   font-size: 1rem;
   cursor: pointer;
   display: block;
+  position: relative;
+  z-index: 1; /* ضمان أن الزر في الأعلى */
 }
 
 /* تنسيق القائمة المنسدلة */
@@ -104,7 +114,7 @@
   position: absolute;
   background-color: #333;
   min-width: 300px;
-  padding: 10;
+  padding: 10px;
   width: 300px;
   top: 100%;
   left: 0;
@@ -112,6 +122,7 @@
   list-style: none;
   box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2);
   border-radius: 5px;
+  margin-top: 5px; /* إضافة مسافة بين الزر والقائمة المنسدلة */
 }
 
 /* تحديث تنسيق القائمة المنسدلة لتتطابق مع الروابط الرئيسية */
@@ -131,12 +142,10 @@
   color: #fe9e06; /* نفس اللون المستخدم في التأثير عند التمرير */
 }
 
-
 /* عند فتح القائمة */
 .dropdown.open .dropdown-menu {
   display: block;
 }
-
 
 /* تأثيرات عند المرور بالماوس على خدماتنا */
 .header-nav ul li.dropdown:hover .dropdown-menu {
@@ -179,6 +188,7 @@
   .header-nav ul li a {
     padding: 10px;
     display: block;
+    color: #fe9e06 !important;
   }
 
   .header-nav ul li a:hover {

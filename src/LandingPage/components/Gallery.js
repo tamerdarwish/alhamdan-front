@@ -3,6 +3,7 @@ import React from 'react';
 import './Gallery.css';
 
 const Gallery = () => {
+  
   const images = [
     { src: '/assets/gallery1.JPG', title: 'Wedding Ceremony' },
     { src: '/assets/gallery2.JPG', title: 'Engagement Shoot' },

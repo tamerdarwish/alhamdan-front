@@ -73,12 +73,12 @@ const styles = {
     backgroundSize: 'cover', // لتغطية الخلفية بالكامل
     backgroundPosition: 'center', // لضبط الصورة في المنتصف
     backgroundRepeat: 'no-repeat', // عدم تكرار الصورة
-    fontFamily: 'Cairo, sans-serif', // تطبيق خط كايرو
   },
   heading: {
-    color: '#fff', // تأكد من أن النص يمكن رؤيته على خلفية الصورة
+    color: 'black', // تأكد من أن النص يمكن رؤيته على خلفية الصورة
     marginBottom: '20px',
-    fontFamily: 'Cairo, sans-serif', // تطبيق خط كايرو
+    fontFamily: 'Aref Ruqaa, serif', 
+    fontSize: '3rem'
   },
   form: {
     display: 'flex',

@@ -4,7 +4,6 @@ import './HeroSection.css';
 import heroVideo from '../../assets/hero-bg.mp4'; // الفيديو المحول إلى MP4
 import aboutImage from '../../assets/logo.png';
 
-
 const HeroSection = () => {
   return (
     <section className="hero-section">
@@ -17,8 +16,7 @@ const HeroSection = () => {
       </div>
       <div className="hero-content">
         <h1 className="hero-title">
-          {/* يمكنك استبدال النص هنا بنص آخر حسب حاجتك */}
-          <img src={aboutImage} alt="Studio Overview" />
+          <img src={aboutImage} alt="Studio Overview" className="hero-logo" />
           <br />
           نوثق لحظاتكم بكل إتقان
         </h1>

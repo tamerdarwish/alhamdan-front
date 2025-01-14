@@ -1,81 +1,142 @@
 /* استايل قسم إرسال الصور للطباعة */
 .print-photos-section {
-    background-color: #f0f8ff; /* لون خلفية مريح وخفيف */
-    padding: 60px 20px; /* المسافات حول القسم */
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-  }
-  
-  .print-photos-content {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-between;
-    align-items: center;
-    max-width: 1200px;
-    margin: 0 auto;
-  }
-  
-  .text-content {
-    flex: 1;
-    margin-right: 20px;
-    text-align: center;
-  }
-  
-  .section-title {
-    font-size: 3.5rem;
-    color: #333;
-    margin-bottom: 40px;
-    position: relative;
-    display: inline-block;
-    font-family: "Aref Ruqaa", serif;
-    font-weight: bold;
+  background-color: #f0f8ff; /* لون خلفية مريح وخفيف */
+  padding: 60px 20px; /* المسافات حول القسم */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
 }
+
+.print-photos-content {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  max-width: 1200px;
+  margin: 0 auto;
+  gap: 20px; /* إضافة تباعد بين العناصر */
+}
+
+.text-content {
+  flex: 1;
+  text-align: center;
+}
+
+.section-title {
+  font-size: 3.5rem;
+  color: #333;
+  margin-bottom: 40px;
+  position: relative;
+  display: inline-block;
+  font-family: "Aref Ruqaa", serif;
+  font-weight: bold;
+}
+
 .section-title::after {
-    content: '';
-    display: block;
-    width: 90%;
-    height: 4px;
-    background-color: #fe9e06;
-    margin: 10px auto;
-    border-radius: 2px;
+  content: '';
+  display: block;
+  width: 90%;
+  height: 4px;
+  background-color: #fe9e06;
+  margin: 10px auto;
+  border-radius: 2px;
 }
-  
+
+.section-description {
+  font-size: 18px;
+  color: #555;
+  margin-bottom: 30px;
+  line-height: 1.6;
+  font-family: 'Cairo', sans-serif;
+}
+
+.cta-button {
+  background-color: #ff6f00; /* لون الزر */
+  color: white;
+  padding: 15px 25px;
+  font-size: 18px;
+  border: none;
+  border-radius: 30px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  font-family: 'Cairo', sans-serif;
+}
+
+.cta-button:hover {
+  background-color: #e65c00;
+}
+
+.image-content {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  max-width: 100%;
+  /* التأكد من أن الصورة لا تتجاوز حجم الشاشة */
+}
+
+.print-image {
+  width: 100%;
+  height: auto;
+  max-width: 350px; /* تحديد الحد الأقصى لحجم الصورة */
+  border-radius: 15px;
+  object-fit: cover; /* لضمان تناسب الصورة بشكل جيد */
+}
+
+/* تحسين العرض على شاشات صغيرة (موبايل) */
+@media screen and (max-width: 768px) {
+  .print-photos-content {
+      flex-direction: column; /* تغيير اتجاه العناصر ليصبح عموديًا على الموبايل */
+      align-items: center; /* محاذاة العناصر في المنتصف */
+  }
+
+  .section-title {
+      font-size: 2.5rem; /* تقليل حجم العنوان على الموبايل */
+      margin-bottom: 20px; /* تقليل المسافة أسفل العنوان */
+  }
+
   .section-description {
-    font-size: 18px;
-    color: #555;
-    margin-bottom: 30px;
-    line-height: 1.6;
-    font-family: 'Cairo', sans-serif;
+      font-size: 16px; /* تقليل حجم النص في الوصف */
+      margin-bottom: 20px; /* تقليل المسافة أسفل الوصف */
   }
-  
+
   .cta-button {
-    background-color: #ff6f00; /* لون الزر */
-    color: white;
-    padding: 15px 25px;
-    font-size: 18px;
-    border: none;
-    border-radius: 30px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-    font-family: 'Cairo', sans-serif;
+      padding: 12px 20px;
+      font-size: 16px;
+      width: 80%; /* جعل الزر يملأ العرض في الموبايل */
+      margin-top: 20px; /* إضافة مسافة بين الزر والصورة */
   }
-  
-  .cta-button:hover {
-    background-color: #e65c00;
-  }
-  
+
   .image-content {
-    flex: 1;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+      flex: 1 1 100%; /* جعل الصورة تأخذ كامل العرض */
+      margin-bottom: 20px; /* إضافة مسافة بين الصورة والزر */
   }
-  
+
   .print-image {
-    max-width: 100%;
-    height: auto;
-    border-radius: 15px;
+      width: 100%;
+      max-width: 300px; /* التأكد من حجم الصورة لا يتجاوز 300px */
   }
-  
+}
+
+/* تحسين العرض على شاشات أصغر (هواتف صغيرة جدًا) */
+@media screen and (max-width: 480px) {
+  .section-title {
+      font-size: 2rem; /* تقليل حجم العنوان بشكل أكبر */
+  }
+
+  .section-description {
+      font-size: 14px; /* تقليل حجم الوصف أكثر */
+  }
+
+  .cta-button {
+      font-size: 14px;
+      padding: 10px 15px;
+      width: 90%; /* جعل الزر أكبر على الشاشات الصغيرة */
+  }
+
+  .print-image {
+      max-width: 100%; /* التأكد من تناسب الصورة مع العرض الكامل */
+      height: auto;
+  }
+}
