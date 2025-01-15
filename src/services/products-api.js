@@ -15,6 +15,8 @@ export const fetchProductById = async (id) => {
   
 
 export const fetchProducts = async (currentPage, itemsPerPage, searchTerm) => {
+  console.log(process.env.REACT_APP_SERVER);
+
   try {
     const response = await fetch(`${process.env.REACT_APP_SERVER}/api/products?page=${currentPage}&limit=${itemsPerPage}&search=${searchTerm}`);
     if (!response.ok) {
