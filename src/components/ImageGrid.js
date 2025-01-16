@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import { FaPrint, FaCheckSquare, FaCloudDownloadAlt, FaCheck, FaMinus, FaPlus, FaTimes, FaCheckCircle, FaRegCheckCircle, FaCopy  } from 'react-icons/fa';
 import Modal from 'react-modal';
 import { MdPrint } from "react-icons/md";
+import Swal from 'sweetalert2';  // استيراد Swal
+
 import { IoIosRadioButtonOff,IoIosRadioButtonOn  } from "react-icons/io";
 
 
@@ -148,20 +150,33 @@ const ImageGrid = ({ album, handlePrintStatusToggle, watermark_setting, eventId,
         </div>
       )}
   
-      {album.length > 0 && (
-        <div className="floating-bar">
-          <button onClick={selectAllImages} className="btn floating-btn">
-            <FaCheckSquare /> {selectedImages.length === album.length ? 'إلغاء تحديد الكل' : 'تحديد الكل'}
-          </button>
-          <button
-            onClick={() => downloadImagesWithWatermark(selectedImages, watermark_setting, eventId)}
-            className="btn floating-btn primary"
-          >
-            <FaCloudDownloadAlt /> تحميل الصور المحددة
-          </button>
-        </div>
-      )}
-  
+  {album.length > 0 && (
+  <div className="floating-bar">
+    <button onClick={selectAllImages} className="btn floating-btn">
+      <FaCheckSquare /> {selectedImages.length === album.length ? 'إلغاء تحديد الكل' : 'تحديد الكل'}
+    </button>
+    <button
+      onClick={() => {
+        if (selectedImages.length === 0) {
+          // عرض رسالة التحذير باستخدام Swal إذا لم يتم تحديد أي صور
+          Swal.fire({
+            icon: 'warning',
+            title: 'تنبيه',
+            text: 'يرجى تحديد صور لتحميلها.',
+            confirmButtonText: 'حسنًا'
+          });
+        } else {
+          // إذا كانت هناك صور محددة، قم بتحميلها
+          downloadImagesWithWatermark(selectedImages, watermark_setting, eventId);
+        }
+      }}
+      className="btn floating-btn primary"
+    >
+      <FaCloudDownloadAlt /> تحميل الصور المحددة
+    </button>
+  </div>
+)}
+
       <Modal
         isOpen={!!selectedImage}
         onRequestClose={closeModal}
