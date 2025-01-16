@@ -1,71 +1,78 @@
 import React, { useState, useEffect } from 'react';
 import './AddProduct.css';
-import Swal from 'sweetalert2'; // استيراد SweetAlert2
-import 'sweetalert2/dist/sweetalert2.min.css'; // استيراد CSS الخاص بـ SweetAlert2
+import Swal from 'sweetalert2';
+import 'sweetalert2/dist/sweetalert2.min.css';
 import { checkAdminAuth } from '../utils/adminAuth';
 import { useNavigate } from 'react-router-dom';
-import { addProduct } from '../services/products-api'; // استيراد الدالة
+import { addProduct } from '../services/products-api'; // استيراد دالة إضافة المنتج
 
 const AddProduct = () => {
   const [name, setName] = useState('');
   const [description, setDescription] = useState('');
   const [price, setPrice] = useState('');
-  const [image, setImage] = useState(null); // State to hold the selected image
-  const [successMessage, setSuccessMessage] = useState('');
+  const [image, setImage] = useState(null); // State لتحميل الصورة
+  const [errorMessage, setErrorMessage] = useState('');
 
   const navigate = useNavigate();
-  
+
   useEffect(() => {
-    // التحقق من إذا ما كان الأدمن مسجلاً للدخول
     const isAdminAuthenticated = checkAdminAuth();
 
-    // إذا لم يكن الأدمن مسجلاً للدخول، التوجيه لصفحة تسجيل الدخول
     if (!isAdminAuthenticated) {
       navigate('/admin/login');
     }
   }, [navigate]);
 
   const handleImageChange = (e) => {
-    setImage(e.target.files[0]); // حفظ الصورة المختارة في الـ state
+    setImage(e.target.files[0]); // حفظ الصورة المختارة
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    // إنشاء FormData للتعامل مع رفع الملفات
+    // التحقق من الحقول الفارغة
+    if (!name) {
+      setErrorMessage('إسم المنتج هذا الحقل مطلوب.');
+      return;
+    } else if (!description) {
+      setErrorMessage('وصف المنتج هذا الحقل مطلوب.');
+      return;
+    } else if (!price) {
+      setErrorMessage('سعر المنتج هذا الحقل مطلوب.');
+      return;
+    } 
+    else if (!image) {
+      setErrorMessage('الصورة المختارة: هذا الحقل مطلوب.');
+      return;
+    }
+    else {
+      setErrorMessage('');
+    }
+
+    // إعداد بيانات النموذج للرفع
     const formData = new FormData();
     formData.append('name', name);
     formData.append('description', description);
-   // formData.append('price', price);
+    formData.append('price', price);
     if (image) {
       formData.append('image', image);
     }
 
     try {
-      const response = await addProduct(formData); // استدعاء الدالة الخارجية
-      setSuccessMessage('تم إضافة المنتج بنجاح!');
+      const response = await addProduct(formData);
+      Swal.fire('تم إضافة المنتج بنجاح!', '', 'success');
 
-      // إعادة تعيين الحقول بعد النجاح
       setTimeout(() => {
         setName('');
         setDescription('');
         setPrice('');
-        setImage(null); // إعادة تعيين الصورة
-        setSuccessMessage(''); // مسح رسالة النجاح
-        window.location.reload(); // إعادة تحميل الصفحة
-      }, 1000); // 1 ثانية لمطابقة مدة العرض
+        setImage(null);
+      }, 1500);
     } catch (error) {
-      // استبدال alert التقليدية بـ SweetAlert2
       Swal.fire({
-        icon: 'error',  // تحديد نوع الأيقونة (خطأ)
+        icon: 'error',
         title: 'حدث خطأ!',
         text: 'حدث خطأ أثناء إضافة المنتج. يرجى المحاولة مرة أخرى.',
-        confirmButtonText: 'حسنًا',
-        customClass: {
-          title: 'swal2-title',   // فئات مخصصة للعنوان
-          content: 'swal2-content',  // فئات مخصصة للنص
-          confirmButton: 'swal2-confirm-button'  // فئات مخصصة للزر
-        }
       });
     }
   };
@@ -75,8 +82,9 @@ const AddProduct = () => {
       <h2>إضافة منتج جديد</h2>
       <form onSubmit={handleSubmit}>
         <div>
-          <label>إسم المنتج</label>
+          <label htmlFor="name">إسم المنتج</label>
           <input
+            id="name"
             type="text"
             value={name}
             onChange={(e) => setName(e.target.value)}
@@ -84,16 +92,18 @@ const AddProduct = () => {
           />
         </div>
         <div>
-          <label>وصف المنتج</label>
+          <label htmlFor="description">وصف المنتج</label>
           <textarea
+            id="description"
             value={description}
             onChange={(e) => setDescription(e.target.value)}
             required
           ></textarea>
         </div>
         <div>
-          <label>سعر المنتج</label>
+          <label htmlFor="price">سعر المنتج</label>
           <input
+            id="price"
             type="number"
             value={price}
             onChange={(e) => setPrice(e.target.value)}
@@ -102,33 +112,27 @@ const AddProduct = () => {
         <div>
           <div className="image-upload">
             <label htmlFor="image">إضغط لاختيار صورة</label>
-            <input 
-              id="image" 
-              type="file" 
-              accept="image/*" 
-              onChange={handleImageChange} 
-              required 
-              name="image" 
+            <input
+              id="image"
+              type="file"
+              accept="image/*"
+              onChange={handleImageChange}
             />
           </div>
           {image && (
             <div className="selected-image">
               <p>الصورة المختارة:</p>
-              <img 
-                src={URL.createObjectURL(image)} 
-                alt="Selected" 
-                className="thumbnail-image" 
+              <img
+                src={URL.createObjectURL(image)}
+                alt="Selected"
+                className="thumbnail-image"
               />
             </div>
           )}
         </div>
-        <button type="submit">إضافة المنتج </button>
+        <button type="submit">إضافة المنتج</button>
       </form>
-      {successMessage && (
-        <p className="success-message">
-          {successMessage}
-        </p>
-      )}
+      {errorMessage && <p className="error-message">{errorMessage}</p>}
     </div>
   );
 };

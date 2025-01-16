@@ -63,6 +63,7 @@ const PhotoUploadPage = () => {
   };
 
   const handleSubmit = async () => {
+    // التحقق من الحقول الأساسية المطلوبة
     if (!customerName || !customerEmail || !deliveryMethod) {
       Swal.fire({
         icon: 'warning',
@@ -77,9 +78,25 @@ const PhotoUploadPage = () => {
       });
       return;
     }
-
+  
+    // التحقق من وجود صور
+    if (photos.length === 0) {
+      Swal.fire({
+        icon: 'warning',
+        title: 'تنبيه!',
+        text: 'يرجى رفع الصور قبل الإرسال.',
+        confirmButtonText: 'حسنًا',
+        customClass: {
+          title: 'swal2-title',
+          content: 'swal2-content',
+          confirmButton: 'swal2-confirm-button'
+        }
+      });
+      return;
+    }
+  
     setIsLoading(true); // تعيين حالة التحميل إلى true عند بدء العملية
-
+  
     try {
       const formData = new FormData();
       formData.append('customer_name', customerName);
@@ -87,7 +104,7 @@ const PhotoUploadPage = () => {
       formData.append('address', customerAddress);
       formData.append('phone_number', customerPhoneNumber);
       formData.append('delivery_method', deliveryMethod); // إضافة خيار التوصيل
-
+  
       photos.forEach((file, index) => {
         const filePath = `customer_photos/${customerEmail}/${file.name}`;
         formData.append('photos', file);
@@ -95,9 +112,9 @@ const PhotoUploadPage = () => {
         formData.append('sizes[]', photoDetails[index].size);
         formData.append('copies[]', photoDetails[index].copies);
       });
-
+  
       await uploadPhotos(formData);
-
+  
       Swal.fire({
         icon: 'success',
         title: 'ممتاز!',
@@ -110,12 +127,12 @@ const PhotoUploadPage = () => {
         }
       });
       sendOrderEmail()
-      setPhotos([]);
-      setPhotoDetails([]);
-      setCustomerName('');
-      setCustomerEmail('');
-      setCustomerAddress('');
-      setCustomerPhoneNumber('');
+      setPhotos([]); // مسح الصور بعد الإرسال
+      setPhotoDetails([]); // مسح التفاصيل المتعلقة بالصور
+      setCustomerName(''); // مسح اسم العميل
+      setCustomerEmail(''); // مسح البريد الإلكتروني
+      setCustomerAddress(''); // مسح العنوان
+      setCustomerPhoneNumber(''); // مسح رقم الهاتف
     } catch (error) {
       console.error('Error:', error);
       Swal.fire({
@@ -133,6 +150,7 @@ const PhotoUploadPage = () => {
       setIsLoading(false); // تعيين حالة التحميل إلى false بعد انتهاء العملية
     }
   };
+  
 
   return (
     <div className="photo-upload-page-container">
@@ -199,7 +217,7 @@ const PhotoUploadPage = () => {
             <span>جاري إرسال الصور...</span>
           </div>
         ) : (
-          'إرسال الصور للطباعة'
+          'إرسال الصور'
         )}
       </button>
     </div>
