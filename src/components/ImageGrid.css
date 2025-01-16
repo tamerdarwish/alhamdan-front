@@ -95,6 +95,8 @@
   height: auto;
   object-fit: cover;
   display: block;
+  pointer-events: none;  /* منع التفاعل مع الصورة */
+
 }
 
 .image-info {

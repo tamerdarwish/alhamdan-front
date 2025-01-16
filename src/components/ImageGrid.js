@@ -57,6 +57,8 @@ const ImageGrid = ({ album, handlePrintStatusToggle, watermark_setting, eventId,
   const closeModal = () => {
     setSelectedImage(null);
   };
+// منع قائمة السياق على الصورة
+
 
   // Select or deselect all images
   const selectAllImages = () => {
@@ -119,6 +121,8 @@ const ImageGrid = ({ album, handlePrintStatusToggle, watermark_setting, eventId,
                 src={image.url}
                 alt={`Album image ${image.id}`}
                 className="album-image"
+                onContextMenu={handleContextMenu}
+
               />
   
               <div className="image-info">
