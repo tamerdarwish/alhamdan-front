@@ -119,7 +119,6 @@ const ImageGrid = ({ album, handlePrintStatusToggle, watermark_setting, eventId,
                 src={image.url}
                 alt={`Album image ${image.id}`}
                 className="album-image"
-                onClick={() => setSelectedImage(image)}
               />
   
               <div className="image-info">
@@ -150,7 +149,7 @@ const ImageGrid = ({ album, handlePrintStatusToggle, watermark_setting, eventId,
         </div>
       )}
   
-  {album.length > 0 && (
+{album.length > 0 && (
   <div className="floating-bar">
     <button onClick={selectAllImages} className="btn floating-btn">
       <FaCheckSquare /> {selectedImages.length === album.length ? 'إلغاء تحديد الكل' : 'تحديد الكل'}

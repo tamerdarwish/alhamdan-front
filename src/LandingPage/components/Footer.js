@@ -11,7 +11,10 @@ const Footer = () => {
       <div className="footer-container">
         <div className="footer-content">
           <p className="footer-text">{currentYear}&copy;  جميع الحقوق محفوظة لستوديو الحمدان </p>
-          <p className="footer-text"> <a href="https://tharwatdarwesh.com/" target="_blank" rel="noopener noreferrer">Darwesh Group </a>تم تصميم وتطوير الموقع بواسطة   </p>
+          <p className="footer-text">
+  <span>تم تصميم وتطوير الموقع بواسطة </span> 
+  <a href="https://tharwatdarwesh.com/" target="_blank" rel="noopener noreferrer">Darwesh Group</a>
+</p>
           <ul className="footer-links">
             <li><a href="#about-us">من نحن</a></li>
             <li><a href="#gallery">من أعمالنا </a></li>
