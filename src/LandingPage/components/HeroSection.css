@@ -27,6 +27,8 @@
   object-fit: cover;
   filter: brightness(0.5); /* Darken the video for better text readability */
   animation: videoZoom 12s infinite; /* تأثير تكبير الفيديو */
+  pointer-events: none; /* يمنع التفاعل مع الفيديو */
+
 }
 
 .hero-overlay {
