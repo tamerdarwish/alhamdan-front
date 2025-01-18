@@ -29,7 +29,7 @@
   },
  "scripts": {
   "start": "set NODE_OPTIONS=--max-old-space-size=4096 && craco start",
-  "build": "node --max-old-space-size=4096 node_modules/.bin/craco build",
+  "build": "set GENERATE_SOURCEMAP=false && react-scripts build",
   "test": "react-scripts test"
 }
 ,
