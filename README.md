@@ -24,16 +24,15 @@ Alhamdan Frontend is the client-side application built with React, designed to p
    git clone https://github.com/tamerdarwish/alhamdan-front.git
    cd alhamdan-front
 
-2.Install dependencies:
+2. Install dependencies:
 
-```bash
-npm install
+   ```bash
+   npm install
 
-3.Run the app locally:
+3. Run the app locally:
 
-```bash
-npm start
-
+   ```bash
+   npm start
 
 The app will be running on http://localhost:3000.
 
