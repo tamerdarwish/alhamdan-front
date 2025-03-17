@@ -7,7 +7,7 @@ const About = () => (
   <section id="about-us" className="about-us">
     <div className="about-us-container">
       <div className="about-us-image">
-      <video controls loop className="hero-video">
+      <video controls loop className="about-video">
   <source src={aboutVideo} type="video/mp4" />
   Your browser does not support the video tag.
 </video>

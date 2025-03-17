@@ -1,4 +1,3 @@
-/* components/HeroSection.css */
 @import url('https://fonts.googleapis.com/css2?family=Aref+Ruqaa:wght@400;700&family=Tajawal:wght@200;300;400;500;700;800;900&display=swap');
 
 .hero-section {
@@ -28,7 +27,6 @@
   filter: brightness(0.5); /* Darken the video for better text readability */
   animation: videoZoom 12s infinite; /* تأثير تكبير الفيديو */
   pointer-events: none; /* يمنع التفاعل مع الفيديو */
-
 }
 
 .hero-overlay {
@@ -54,7 +52,6 @@
   opacity: 0;
   animation: fadeInUp 2s ease-out forwards;
 }
-
 .hero-title {
   font-size: 4rem;
   margin-bottom: 20px;

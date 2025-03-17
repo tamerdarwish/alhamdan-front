@@ -66,7 +66,7 @@
     margin-right: 20px; /* إضافة مساحة بين الفيديو والنص */
 }
 
-.hero-video {
+.about-video {
     max-width: 100%; /* يجعل الفيديو يتناسب مع عرض العنصر الأب */
     border-radius: 8px; /* إضافة حواف دائرية للفيديو */
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* تأثير الظل */
