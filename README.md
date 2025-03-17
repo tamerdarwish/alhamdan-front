@@ -34,6 +34,7 @@ npm install
 ```bash
 npm start
 
+
 The app will be running on http://localhost:3000.
 
 
@@ -47,10 +48,3 @@ Push to the branch (git push origin feature-name).
 Open a pull request.
 License
 This project is licensed under the MIT License - see the LICENSE file for details.
-
-go
-Copy
-
-
-
-
